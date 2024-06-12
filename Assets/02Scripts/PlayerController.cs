@@ -5,12 +5,20 @@ using UnityEngine;
 using UnityEditor;
 
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoSingleton<PlayerController>
 {
+    protected override void SetInstanceToThis()
+    {
+        instance = this;
+    }
+
     [SerializeField, Range(0f, 90f), Tooltip("정수리 기준 최대 점프 각도")]
     private float angleLock = 60f;
     [SerializeField, Range(0f, 100f)]
     private float jumpPower = 20f;
+    public float JumpPower => jumpPower;
+    public float AngleLock => angleLock;
+
 
     [SerializeField]
     private Vector2 angleVec; // angleLock의 각도를 벡터값으로 변환해 저장할 변수
@@ -28,9 +36,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rigid2D;
 
     public Collider2D Col => col;
-    public Rigidbody2D Rigid2D => rigid2D;
-    private void Awake()
+    public  Rigidbody2D Rigid2D => rigid2D;
+    protected override void Awake()
     {
+        base.Awake();
+
         col = GetComponent<Collider2D>();
         rigid2D = GetComponent<Rigidbody2D>();
         DragManager.MouseUpEvent += Jump;
