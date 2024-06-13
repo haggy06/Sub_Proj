@@ -61,6 +61,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         line = GetComponentInChildren<AimingLine>();
         interact = GetComponentInChildren<PlayerInteract>();
         interact.HitEvent += Dead;
+        interact.ClearEvent += Clear;
 
         DragManager drag = GetComponentInChildren<DragManager>();
 
@@ -94,6 +95,10 @@ public class PlayerController : MonoSingleton<PlayerController>
                 rigid2D.simulated = false;
                 break;
         }
+    }
+    private void Clear()
+    {
+        Debug.Log("Å¬¸®¾î!");
     }
     private void Revive()
     {

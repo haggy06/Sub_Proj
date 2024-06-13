@@ -15,7 +15,7 @@ public class PlayerInteract : MonoBehaviour
         {
             HitEvent.Invoke(obstacle);
         }
-        else if (collision.gameObject.TryGetComponent<ClearZone>(out ClearZone clear)) // 클리어 감지
+        else if (collision.CompareTag("Clear")) // 클리어 감지
         {
             ClearEvent.Invoke();
         }
