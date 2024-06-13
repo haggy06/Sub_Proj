@@ -7,6 +7,6 @@ public enum LAYER
     Water,
     UI,
     Physical_Box,
-    Entity_Box,
+    Censor,
 
 }

@@ -19,6 +19,9 @@ public class PlayerController : MonoSingleton<PlayerController>
     private float jumpPower = 20f;
     [SerializeField, Range(0f, 1f), Tooltip("벽에 부딫혔을 때 X 속도의 보존률")]
     private float speedRetention = 0.75f;
+    [SerializeField]
+    private Vector2 hitKnockback;
+
     public float JumpPower => jumpPower;
     public float JumpAngle => jumpAngle;
 
@@ -32,11 +35,17 @@ public class PlayerController : MonoSingleton<PlayerController>
     [Space(5)]
     [SerializeField]
     private bool aiming = false;
+    [SerializeField]
+    private bool controllable = true;
+    [SerializeField]
+    private bool alive = true;
 
     private Collider2D col;
     private Rigidbody2D rigid2D;
     private SpriteRenderer sprite;
+    
     private AimingLine line;
+    private PlayerInteract interact;
 
     public Collider2D Col => col;
     public  Rigidbody2D Rigid2D => rigid2D;
@@ -48,7 +57,10 @@ public class PlayerController : MonoSingleton<PlayerController>
         col = GetComponent<Collider2D>();
         rigid2D = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+
         line = GetComponentInChildren<AimingLine>();
+        interact = GetComponentInChildren<PlayerInteract>();
+        interact.HitEvent += Dead;
 
         DragManager drag = GetComponentInChildren<DragManager>();
 
@@ -56,6 +68,40 @@ public class PlayerController : MonoSingleton<PlayerController>
         drag.MouseUpEvent += Jump;
 
         AngleRefresh();
+    }
+    private void Dead(Obstacle obstacle)
+    {
+        Debug.Log(obstacle.gameObject.name + "에 의해 사망");
+        controllable = false;
+        alive = false;
+
+        switch (obstacle.Obstacletype) // 장애물 타입 비교
+        {
+            case ObstacleType.Physical: // 물리 타입 공격일 경우
+                Vector2 knockback;
+                knockback.x = obstacle.transform.position.x < transform.position.x ? hitKnockback.x : -hitKnockback.x; // 내가 장애물보다 오른쪽에 있었으면 오른쪽으로, 반대면 왼쪽으로 튐
+                knockback.y = obstacle.transform.position.y < transform.position.y ? hitKnockback.y : -hitKnockback.y; // 내가 장애물보다 위쪽에 있었으면 위쪽으로, 반대면 아래쪽으로 튐
+
+                rigid2D.velocity = knockback; // 속도에 넉백 대입
+                break;
+
+            case ObstacleType.Chemical: // 화학 타입 공격일 경우
+                sprite.color = new Color(0f, 0f, 0f, 0f);
+                rigid2D.simulated = false;
+                break;
+
+            case ObstacleType.Fall: // 낙사일 경우
+                rigid2D.simulated = false;
+                break;
+        }
+    }
+    private void Revive()
+    {
+        controllable = true;
+        alive = true;
+
+        sprite.color = Color.white;
+        rigid2D.simulated = true;
     }
 
     [SerializeField]
@@ -66,28 +112,6 @@ public class PlayerController : MonoSingleton<PlayerController>
         // 콜라이더 밑부분에서 착지 체크
         isGround = Physics2D.OverlapArea(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f), 1 << (int)LAYER.Ground);
         Debug.DrawLine(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f));
-
-        /*
-        if (!isGround) // 공중에 있을 경우
-        {
-            Collider2D wallCollision;
-            if (rigid2D.velocity.x < 0) // 왼쪽으로 이동하고 있을 경우
-            {
-                // 콜라이더 왼쪽 부분에서 벽 충돌 체크
-                wallCollision = Physics2D.OverlapArea(new Vector2(col.bounds.min.x - 0.1f, col.bounds.min.y + 0.01f), new Vector2(col.bounds.min.x - 0.1f, col.bounds.max.y - 0.01f), 1 << (int)LAYER.Ground);
-            }
-            else // 오른쪽으로 이동하고 있을 경우
-            {
-                // 콜라이더 오른쪽 부분에서 벽 충돌이 감지되었을 경우
-                wallCollision = Physics2D.OverlapArea(new Vector2(col.bounds.max.x + 0.1f, col.bounds.min.y + 0.01f), new Vector2(col.bounds.max.x + 0.1f, col.bounds.max.y - 0.01f), 1 << (int)LAYER.Ground);
-            }
-            if (wallCollision) // 벽 충돌 감지에 성공했을 경우
-            {
-                rigid2D.velocity = new Vector2(-rigid2D.velocity.x, rigid2D.velocity.y); // x 속도 뒤집기
-                Debug.Log("벽 충돌 : " + rigid2D.velocity);
-            }
-        }
-        */
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -111,7 +135,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     public void Aiming(Vector2 aim, float powerPercent)
     {
-        if (isGround) // 착지해 있을 경우
+        if (controllable && isGround) // 조종 가능한 상태고 착지해 있을 경우
         {
             float g = Physics2D.gravity.y * rigid2D.gravityScale; // 중력 = 공통 중력 세기 * 대상의 중력 세기
             Vector2 startSpeed = (AngleLock(aim) * powerPercent * jumpPower) + rigid2D.velocity; // 초기 속도 = (조준 각도(AngleLock 처리) * 세기 퍼센트 * 최대 점프 파워) + 현재 오브젝트 속도
@@ -152,9 +176,9 @@ public class PlayerController : MonoSingleton<PlayerController>
     }
     public void Jump(Vector2 aim, float powerPercent)
     {
-        if (!isGround) // 착지해 있지 않을 시 점프를 무효화함
+        if (!isGround || !controllable) // 착지해 있지 않거나 컨트롤이 안 될 땐 점프를 무효화함
         {
-            Debug.Log("공중 점프는 허용되지 않음");
+            Debug.Log("점프할 수 없는 상태");
             return;
         }
 
