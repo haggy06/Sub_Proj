@@ -51,7 +51,7 @@ public class DragManager : MonoBehaviour
         dragPoint.position = clickPos;
 
         aim = -dragPoint.localPosition.normalized; // dragPoint가 clickPoint의 자식이므로 localPosition == 조준 방향이다. -를 붙인 이유는 새총처럼 조준하기 위해서임.
-        float dragDistance = Mathf.Log(Mathf.Pow(dragPoint.localPosition.x, 2) + Mathf.Pow(dragPoint.localPosition.y, 2), 2); // dragPoint부터 clickPoint까지의 거리 계산
+        float dragDistance = MyCalculator.Distance(clickPoint.localPosition, dragPoint.localPosition);//Mathf.Log(Mathf.Pow(dragPoint.localPosition.x, 2) + Mathf.Pow(dragPoint.localPosition.y, 2), 2); // dragPoint부터 clickPoint까지의 거리 계산
         powerPercent = Mathf.Clamp(dragDistance, 0f, maximumLength) / maximumLength; // 거리를 maximumLength를 넘지 않게 조절한 후 백분율로 저장
 
         MouseDragEvent.Invoke(aim, powerPercent);
@@ -62,5 +62,17 @@ public class DragManager : MonoBehaviour
 
         aiming = false;
         MouseUpEvent.Invoke(aim, powerPercent);
+    }
+}
+
+public static class MyCalculator
+{
+    public static float Distance(Vector2 pos1, Vector2 pos2)
+    {
+        /*
+        pos2 = pos2 - pos1; // 벡터 평행이동
+        return Mathf.Log((pos2.x * pos2.x) + (pos2.y * pos2.y), 2);
+        */
+        return Mathf.Sqrt(Mathf.Pow(pos1.x - pos2.x, 2) + Mathf.Pow(pos1.y - pos2.y, 2));
     }
 }
