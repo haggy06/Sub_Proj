@@ -31,6 +31,12 @@ public class PlayerController : MonoSingleton<PlayerController>
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, new Vector2(transform.position.x - angleVec.x, transform.position.y + angleVec.y));
         Gizmos.DrawLine(transform.position, new Vector2(transform.position.x + angleVec.x, transform.position.y + angleVec.y));
+
+        Gizmos.color = Color.cyan;
+        if (col)
+        {
+            Gizmos.DrawCube(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2(col.bounds.extents.x - 0.1f, 0.1f));
+        }
     }
     [Space(5)]
     [SerializeField]
@@ -115,14 +121,15 @@ public class PlayerController : MonoSingleton<PlayerController>
     private void FixedUpdate()
     {
         // 콜라이더 밑부분에서 착지 체크
-        isGround = Physics2D.OverlapArea(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f), 1 << (int)LAYER.Ground);
-        Debug.DrawLine(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f));
+        isGround = Physics2D.OverlapBox(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2(col.bounds.extents.x - 0.1f, 0.1f), 0f, 1 << (int)LAYER.Ground);
+        //isGround = Physics2D.OverlapArea(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f), 1 << (int)LAYER.Ground);
+        //Debug.DrawLine(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f));
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!isGround && collision.gameObject.layer == (int)LAYER.Ground) // 공중에서 벽에 충돌했을 경우
-        {
+        if (!isGround && collision.gameObject.layer == (int)LAYER.Ground) // 공중에서 지형에 충돌했을 경우
+        {            
             Vector2 relativeVelocity = collision.contacts[0].relativeVelocity;
 
             if (Mathf.Abs(collision.contacts[0].normal.x) > 0.72f) // 경사가 약 45도 초과, 135도 미만인 땅에 부딫혔을 경우
