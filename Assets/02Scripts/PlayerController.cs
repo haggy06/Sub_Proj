@@ -35,7 +35,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         Gizmos.color = Color.cyan;
         if (col)
         {
-            Gizmos.DrawCube(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2(col.bounds.extents.x - 0.1f, 0.1f));
+            Gizmos.DrawCube(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2((col.bounds.extents.x * 2) - 0.05f, 0.1f));
         }
     }
     [Space(5)]
@@ -121,7 +121,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     private void FixedUpdate()
     {
         // 콜라이더 밑부분에서 착지 체크
-        isGround = Physics2D.OverlapBox(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2(col.bounds.extents.x - 0.1f, 0.1f), 0f, 1 << (int)LAYER.Ground);
+        isGround = Physics2D.OverlapBox(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2((col.bounds.extents.x * 2) - 0.05f, 0.1f), 0f, 1 << (int)LAYER.Ground);
         //isGround = Physics2D.OverlapArea(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f), 1 << (int)LAYER.Ground);
         //Debug.DrawLine(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f));
     }
