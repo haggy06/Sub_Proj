@@ -1,7 +1,7 @@
 ﻿[System.Serializable]
 public class Interaction
 {
-    int id;
+    public int id;
 
-    string text;
+    public string text;
 }

@@ -1,8 +1,8 @@
 [System.Serializable]
 public class CauseOfDeath
 {
-    int id;
+    public int id;
 
-    string name;
-    string explain;
+    public string name;
+    public string explain;
 }

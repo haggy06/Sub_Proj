@@ -50,5 +50,5 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     }
 
     // todo : 메서드용 툴팁 넣기
-    protected abstract void SetInstanceToThis();
+    protected abstract void SetInstanceToThis(); // instance = this;
 }
