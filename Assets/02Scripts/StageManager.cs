@@ -9,23 +9,25 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        PlayerController.Inst.transform.position = stageInfo.startPosition;
     }
 }
 
-
+[System.Serializable]
 public struct StageInfo
 {
-    public int targetTime;
-    public int targetJumpCount;
+    public int goalTime;
+    public int goalJumpCount;
 
     public Vector2 doorPosition;
+    public Vector2 startPosition;
 
-    public StageInfo(int targetTime = 60, int targetJumpCount = 5, Vector2 doorPosition = new Vector2())
+    public StageInfo(int goalTime = 60, int goalJumpCount = 5, Vector2 doorPosition = new Vector2(), Vector2 startPosition = new Vector2())
     {
-        this.targetTime = targetTime;
-        this.targetJumpCount = targetJumpCount;
+        this.goalTime = goalTime;
+        this.goalJumpCount = goalJumpCount;
 
         this.doorPosition = doorPosition;
+        this.startPosition = startPosition;
     }
 }

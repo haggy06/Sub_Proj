@@ -10,10 +10,14 @@ public class LanguageConverter : MonoBehaviour
     [SerializeField]
     private int textID;
 
-    private void Start() // Inst를 쓰는 것들은 Start에 넣어놔야 오류가 안 난다.
+    private void Awake()
     {
         GameManager.Inst.LanguageChangeEvent += SetText;
         SetText();
+    }
+    private void OnDestroy()
+    {
+        GameManager.Inst.LanguageChangeEvent -= SetText;
     }
 
     private void SetText()

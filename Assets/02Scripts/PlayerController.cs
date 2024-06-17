@@ -115,6 +115,11 @@ public class PlayerController : MonoSingleton<PlayerController>
                 break;
         }
     }
+    public void DoorInteract(Transform doorPosition)
+    {
+        LeanTween.moveX(gameObject, doorPosition.position.x, 0.5f);
+        controllable = false;
+    }
     private void Dead(Obstacle obstacle)
     {
     }

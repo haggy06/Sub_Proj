@@ -25,13 +25,14 @@ public class GameManager : MonoSingleton<GameManager>
 
             if (newScene.buildIndex > (int)SCENE.StageSelect) // 스테이지 내부일 경우
             {
+                PopupManager.Inst.SetRetry(true);
                 PopupManager.Inst.PopupOpen(Popup.Minimap); // 미니맵 오픈
 
-                jumpCount = 0;
                 StartCoroutine("TimerStart");
             }
             else // 스테이지 선택창일 경우
             {
+                PopupManager.Inst.SetRetry(false);
                 PopupManager.Inst.SetForStageSelect();
             }
         }
@@ -226,26 +227,23 @@ public class GameManager : MonoSingleton<GameManager>
         get => isJewelyGet;
         set
         {
-            if (isJewelyGet != value)
+            isJewelyGet = value;
+            PopupManager.Inst.SetJewelyMark(isJewelyGet);
+            /*
+            if (isJewelyGet)
             {
-                isJewelyGet = value;
-                PopupManager.Inst.SetJewelyMark(isJewelyGet);
-                /*
-                if (isJewelyGet)
-                {
-                    JewelyGetMark.enabled = true;
-                }
-                else
-                {
-                    JewelyGetMark.enabled = false;
-                }
-                */
+                JewelyGetMark.enabled = true;
             }
+            else
+            {
+                JewelyGetMark.enabled = false;
+            }
+            */
         }
     }
     private IEnumerator TimerStart()
     {
-        jumpCount = time = 0;
+        JumpCount = Time = 0;
         do
         {
             Time++;

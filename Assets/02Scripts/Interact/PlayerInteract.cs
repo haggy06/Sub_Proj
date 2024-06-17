@@ -14,9 +14,5 @@ public class PlayerInteract : MonoBehaviour
             GameManager.Inst.ChangeGameStatus(GameStatus.GameOver, obstacle);
             PlayerController.Inst.DamageInteract(obstacle);
         }
-        else if (collision.CompareTag("Clear")) // 클리어 감지
-        {
-            GameManager.Inst.ChangeGameStatus(GameStatus.GameClear);
-        }
     }
 }

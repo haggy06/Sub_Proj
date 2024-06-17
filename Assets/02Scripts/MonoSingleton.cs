@@ -14,10 +14,13 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         get
         {
             if (instance == null) // 아직 인스턴스가 할당이 안 되었을 경우
-            {
+            {                
+                instance = (T)FindObjectOfType(typeof(T));
+                if (instance == null) // 씬 내에 아예 인스턴스가 없을 경우
                 try
                 {
-                    instance = Resources.Load<T>(Path.Combine("MonoSingletons", typeof(T).Name)); // Resources 폴더의 MonoSingleton 폴더에서 T를 불러온다.
+                    T inst = Instantiate(Resources.Load<T>(Path.Combine("MonoSingletons", typeof(T).Name))); // Resources 폴더에서 개체 소환
+                    instance = inst;
                 }
                 catch (NullReferenceException) // 로드에 실패했을 경우
                 {

@@ -64,6 +64,12 @@ public class PopupManager : MonoSingleton<PopupManager>
     [SerializeField]
     private Image timeStar;
     #endregion
+    #region _Ect Components_
+    [Header("Ect Components")]
+
+    [SerializeField]
+    private GameObject pause_RetryButton;
+    #endregion
 
     private void Start()
     {
@@ -83,7 +89,12 @@ public class PopupManager : MonoSingleton<PopupManager>
 
             Invoke("GameOver", 1f);
         };
-        GameManager.Inst.GameClearEvent += () => Invoke("GameClear", 1f);
+        GameManager.Inst.GameClearEvent += () =>
+        {
+            popupList[(int)Popup.Minimap].PopupClose();
+
+            Invoke("GameClear", 1f);
+        };
     }
     private void GameOver()
     {
@@ -91,6 +102,7 @@ public class PopupManager : MonoSingleton<PopupManager>
     }
     private void GameClear()
     {
+        print("LOL");
         popupList[(int)Popup.GameClear].PopupOpen();
     }
 
@@ -143,6 +155,10 @@ public class PopupManager : MonoSingleton<PopupManager>
         popupList[(int)targetPopup].PopupClose();
     }
     #endregion
+    public void SetRetry(bool isOn)
+    {
+        pause_RetryButton.SetActive(isOn);
+    }
 }
 
 public enum Popup

@@ -492,6 +492,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 374738111409263539}
+  - component: {fileID: 2689647712341186995}
   m_Layer: 0
   m_Name: Stage Essential Elements
   m_TagString: Untagged
@@ -518,6 +519,18 @@ Transform:
   - {fileID: 44752096732115274}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2689647712341186995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6028840618875224670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19748a863e3f80442bb49f67a7de47f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8018502534980019385
 GameObject:
   m_ObjectHideFlags: 0
