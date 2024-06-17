@@ -4,14 +4,13 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Button))]
-public class SceneMoveButton : MonoBehaviour
+public class SceneMoveButton : EventButton
 {
     [SerializeField]
     private SCENE targetScene;
 
-    private void Awake()
+    protected override void ClickEvent()
     {
-        GetComponent<Button>().onClick.AddListener(() => GameManager.Inst.SceneMove(targetScene));
+        GameManager.Inst.SceneMove(targetScene);
     }
 }

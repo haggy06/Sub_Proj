@@ -4,6 +4,8 @@ using UnityEngine;
 
 using UnityEditor;
 using Unity.Burst.Intrinsics;
+using UnityEngine.SceneManagement;
+using Cinemachine;
 
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoSingleton<PlayerController>
@@ -11,6 +13,18 @@ public class PlayerController : MonoSingleton<PlayerController>
     protected override void SetInstanceToThis()
     {
         instance = this;
+    }
+    protected override void SceneChanged(Scene replacedScene, Scene newScene)
+    {
+        if (newScene.buildIndex >= (int)SCENE.StageSelect) // 플레이어가 필요한 스테이지일 경우
+        {
+            gameObject.SetActive(true);
+            Revive();
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     [SerializeField, Range(0f, 90f), Tooltip("정수리 기준 최소 점프 각도")]
@@ -51,7 +65,6 @@ public class PlayerController : MonoSingleton<PlayerController>
     private SpriteRenderer sprite;
     
     private AimingLine line;
-    private PlayerInteract interact;
 
     public Collider2D Col => col;
     public  Rigidbody2D Rigid2D => rigid2D;
@@ -65,9 +78,9 @@ public class PlayerController : MonoSingleton<PlayerController>
         sprite = GetComponent<SpriteRenderer>();
 
         line = GetComponentInChildren<AimingLine>();
-        interact = GetComponentInChildren<PlayerInteract>();
-        interact.HitEvent += Dead;
-        interact.ClearEvent += Clear;
+
+        GameManager.Inst.GameOverEvent += Dead;
+        GameManager.Inst.GameClearEvent += Clear;
 
         DragManager drag = GetComponentInChildren<DragManager>();
 
@@ -76,7 +89,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         AngleRefresh();
     }
-    private void Dead(Obstacle obstacle)
+    public void DamageInteract(Obstacle obstacle)
     {
         Debug.Log(obstacle.gameObject.name + "에 의해 사망");
         controllable = false;
@@ -102,9 +115,12 @@ public class PlayerController : MonoSingleton<PlayerController>
                 break;
         }
     }
+    private void Dead(Obstacle obstacle)
+    {
+    }
     private void Clear()
     {
-        Debug.Log("클리어!");
+
     }
     private void Revive()
     {
@@ -194,6 +210,7 @@ public class PlayerController : MonoSingleton<PlayerController>
             return;
         }
 
+        GameManager.Inst.JumpCount++;
         line.HideAuxiliaryLine(); // 보조선 숨김        
 
         aim = AngleLock(aim); // 점프 각도 조정

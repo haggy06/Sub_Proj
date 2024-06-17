@@ -6,9 +6,11 @@ public class Obstacle : MonoBehaviour
 {
     [SerializeField]
     private ObstacleType obstacletype;
-    public ObstacleType Obstacletype => obstacletype;
+    [SerializeField]
+    private int obstacleID;
 
-    
+    public int ObstacleID => obstacleID;
+    public ObstacleType Obstacletype => obstacletype;    
 }
 
 public enum ObstacleType

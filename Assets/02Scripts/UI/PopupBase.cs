@@ -7,9 +7,11 @@ public class PopupBase : MonoBehaviour
 {
     [SerializeField]
     protected float fadeDuration = 0.5f;
+    public float FadeDuration => fadeDuration;
+
     [SerializeField]
     protected LeanTweenType fadeEase = LeanTweenType.linear;
-
+    
     protected CanvasGroup canvas;
     protected virtual void Awake()
     {
