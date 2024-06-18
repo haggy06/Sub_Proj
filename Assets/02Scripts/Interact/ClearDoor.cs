@@ -4,14 +4,31 @@ using UnityEngine;
 
 public class ClearDoor : DoorInteract
 {
-    protected override void DoorOpenComplete()
+    protected override void DetectionStart()
     {
-        PlayerController.Inst.DoorInteract(transform);
-        GameManager.Inst.ChangeGameStatus(GameStatus.GameClear);
+
     }
+    protected override void DetectionEnd()
+    {
+
+    }
+
 
     protected override void DoorOpening()
     {
-        
+
+    }
+
+    protected override void DoorClosing()
+    {
+
+    }
+
+
+    protected override void DoorOpenComplete()
+    {
+        base.DoorOpenComplete();
+
+        GameManager.Inst.ChangeGameStatus(GameStatus.GameClear);
     }
 }

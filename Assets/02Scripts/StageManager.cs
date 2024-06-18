@@ -9,7 +9,7 @@ public class StageManager : MonoBehaviour
 
     private void Awake()
     {
-        PlayerController.Inst.transform.position = stageInfo.startPosition;
+        GameManager.Inst.SetStageInfo(stageInfo);
     }
 }
 

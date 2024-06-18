@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpAngle: 75
-  jumpPower: 40
+  jumpPower: 30
   speedRetention: 0.75
   hitKnockback: {x: 15, y: 5}
   aiming: 0
@@ -600,7 +600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clickPoint: {fileID: 5938061738567982289}
   dragPoint: {fileID: 3730379510483381289}
-  maximumLength: 10
+  maximumLength: 7
   aiming: 0
   aim: {x: 0, y: 0}
   powerPercent: 0

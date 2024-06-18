@@ -4,7 +4,7 @@ using UnityEngine;
 
 using TMPro;
 
-[RequireComponent(typeof(TextMeshProUGUI))]
+[RequireComponent(typeof(TMP_Text))]
 public class LanguageConverter : MonoBehaviour
 {
     [SerializeField]
@@ -22,6 +22,6 @@ public class LanguageConverter : MonoBehaviour
 
     private void SetText()
     {
-        GetComponent<TextMeshProUGUI>().text = GameManager.Inst.GetInteractionText(textID);
+        GetComponent<TMP_Text>().text = GameManager.Inst.GetInteractionText(textID);
     }
 }

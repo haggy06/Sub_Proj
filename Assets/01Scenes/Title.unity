@@ -239,6 +239,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PopupManager
       objectReference: {fileID: 0}
+    - target: {fileID: 8334935660304058199, guid: f31540dc0d8b47b4883e78895285eb43, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -357,7 +361,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1448799480697052819, guid: 36ca992894f22c044a8df485017c1dfd, type: 3}
       propertyPath: targetScene
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2450850803037771097, guid: 36ca992894f22c044a8df485017c1dfd, type: 3}
       propertyPath: m_Pivot.x
@@ -548,6 +552,10 @@ PrefabInstance:
     - target: {fileID: 6245460532438262527, guid: d845c1e84c52e3e498ec67eec3b765be, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7902248343513802590, guid: d845c1e84c52e3e498ec67eec3b765be, type: 3}
+      propertyPath: m_text
+      value: Setting
       objectReference: {fileID: 0}
     - target: {fileID: 8441082725070877625, guid: d845c1e84c52e3e498ec67eec3b765be, type: 3}
       propertyPath: isOpen

@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 5168520606388038579}
   - component: {fileID: 4889568070616138237}
   m_Layer: 5
-  m_Name: Star
+  m_Name: Jewelry Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 3161408067450230329}
   - component: {fileID: 2975052658984990950}
   m_Layer: 5
-  m_Name: Star (1)
+  m_Name: TIme Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 6699951354606921155}
   - component: {fileID: 7175150674621954753}
   m_Layer: 5
-  m_Name: Dia Check
+  m_Name: Jewelry Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1800,7 +1800,7 @@ GameObject:
   - component: {fileID: 8150877015850908287}
   - component: {fileID: 6540255377426013290}
   m_Layer: 5
-  m_Name: Star (2)
+  m_Name: Jump Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2243,7 +2243,7 @@ GameObject:
   - component: {fileID: 8912390751402701326}
   - component: {fileID: 2139742667121676194}
   m_Layer: 5
-  m_Name: Time
+  m_Name: Jump Count
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2297,9 +2297,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '01 : 00
-
-'
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3104c6646aad91746824305048448652, type: 2}
   m_sharedMaterial: {fileID: -65307010146382729, guid: 3104c6646aad91746824305048448652, type: 2}
@@ -4050,7 +4048,7 @@ GameObject:
   - component: {fileID: 5926132813086748268}
   - component: {fileID: 2081428591920183948}
   m_Layer: 5
-  m_Name: Jump Count
+  m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4104,9 +4102,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '5
-
-'
+  m_text: '01 : 00'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 3104c6646aad91746824305048448652, type: 2}
   m_sharedMaterial: {fileID: -65307010146382729, guid: 3104c6646aad91746824305048448652, type: 2}
@@ -4543,7 +4539,7 @@ GameObject:
   - component: {fileID: 1010707102401919195}
   - component: {fileID: 2330861194215670799}
   m_Layer: 5
-  m_Name: Time Check
+  m_Name: Jump Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4737,19 +4733,19 @@ MonoBehaviour:
   - {fileID: 6708788256485480706}
   - {fileID: 1342941185266762903}
   - {fileID: 3692335678199978326}
-  jewelyGetMark: {fileID: 5461866859074582678}
+  jewelryGetMark: {fileID: 5461866859074582678}
   timer: {fileID: 1470063283854602665}
   jumpCounter: {fileID: 7127110378711131936}
   causeOfDeath: {fileID: 3771247642034806608}
   explain: {fileID: 5448837645495648765}
-  jumpLimit: {fileID: 2081428591920183948}
-  timeLimit: {fileID: 2139742667121676194}
-  JewelyCheck: {fileID: 7175150674621954753}
-  jumpCheck: {fileID: 3992756317664068643}
-  timeCheck: {fileID: 2330861194215670799}
-  JewelyStar: {fileID: 4889568070616138237}
-  jumpStar: {fileID: 2975052658984990950}
-  timeStar: {fileID: 6540255377426013290}
+  goalTime: {fileID: 2081428591920183948}
+  goalJumpCount: {fileID: 2139742667121676194}
+  jewelryCheck: {fileID: 7175150674621954753}
+  timeCheck: {fileID: 3992756317664068643}
+  jumpCheck: {fileID: 2330861194215670799}
+  jewelryStar: {fileID: 4889568070616138237}
+  timeStar: {fileID: 2975052658984990950}
+  jumpStar: {fileID: 6540255377426013290}
   pause_RetryButton: {fileID: 6505342962151549255}
 --- !u!1 &8501974036870863124
 GameObject:
@@ -4843,7 +4839,7 @@ GameObject:
   - component: {fileID: 5814387666434085745}
   - component: {fileID: 8431743573626413868}
   m_Layer: 5
-  m_Name: Diamond
+  m_Name: Jewelry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4919,7 +4915,7 @@ GameObject:
   - component: {fileID: 8292426599737475161}
   - component: {fileID: 3992756317664068643}
   m_Layer: 5
-  m_Name: Jump Check
+  m_Name: Time Check
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

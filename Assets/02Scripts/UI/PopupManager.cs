@@ -16,6 +16,10 @@ public class PopupManager : MonoSingleton<PopupManager>
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
+
+        StopCoroutine("GameClear");
+        jewelryCheck.enabled = timeCheck.enabled = jumpCheck.enabled = false;
+        jewelryStar.enabled = timeStar.enabled = jumpStar.enabled = false;
     }
 
     [SerializeField, Tooltip("enum.Popup에 맞춰 PopupBase 삽입")]
@@ -26,7 +30,7 @@ public class PopupManager : MonoSingleton<PopupManager>
     [Header("Ingame Components")]
 
     [SerializeField]
-    private Image jewelyGetMark;
+    private Image jewelryGetMark;
     [SerializeField]
     private TextMeshProUGUI timer;
     [SerializeField]
@@ -44,25 +48,25 @@ public class PopupManager : MonoSingleton<PopupManager>
     [Header("GameClear Components")]
 
     [SerializeField]
-    private TextMeshProUGUI jumpLimit;
+    private TextMeshProUGUI goalTime;
     [SerializeField]
-    private TextMeshProUGUI timeLimit;
+    private TextMeshProUGUI goalJumpCount;
 
     [Space(5)]
     [SerializeField]
-    private Image JewelyCheck;
-    [SerializeField]
-    private Image jumpCheck;
+    private Image jewelryCheck;
     [SerializeField]
     private Image timeCheck;
+    [SerializeField]
+    private Image jumpCheck;
 
     [Space(5)]
     [SerializeField]
-    private Image JewelyStar;
-    [SerializeField]
-    private Image jumpStar;
+    private Image jewelryStar;
     [SerializeField]
     private Image timeStar;
+    [SerializeField]
+    private Image jumpStar;
     #endregion
     #region _Ect Components_
     [Header("Ect Components")]
@@ -79,31 +83,53 @@ public class PopupManager : MonoSingleton<PopupManager>
 
         GameManager.Inst.GameOverEvent += (obstacle) =>
         {
-            popupList[(int)Popup.Screen].PopupClose();
-            popupList[(int)Popup.Minimap].PopupClose();
-            popupList[(int)Popup.Ingame].PopupClose();
-
             string[] sheet = GameManager.Inst.GetCauseOfDeth(obstacle.ObstacleID);
             causeOfDeath.text = sheet[0];
             explain.text = sheet[1];
 
-            Invoke("GameOver", 1f);
+            StartCoroutine("GameOver");
         };
-        GameManager.Inst.GameClearEvent += () =>
+        GameManager.Inst.GameClearEvent += (jewelyClear, timeClear, jumpClear) =>
         {
-            popupList[(int)Popup.Minimap].PopupClose();
-
-            Invoke("GameClear", 1f);
+            StartCoroutine(GameClear(jewelyClear, timeClear, jumpClear));
         };
     }
-    private void GameOver()
+    private IEnumerator GameOver()
     {
+        popupList[(int)Popup.Screen].PopupClose();
+        popupList[(int)Popup.Minimap].PopupClose();
+        popupList[(int)Popup.Ingame].PopupClose();
+
+        yield return YieldReturn.WaitForSeconds(1f);
+
         popupList[(int)Popup.GameOver].PopupOpen();
     }
-    private void GameClear()
+    private IEnumerator GameClear(bool jewelyClear, bool timeClear, bool jumpClear)
     {
-        print("LOL");
+        popupList[(int)Popup.Screen].PopupClose();
+        popupList[(int)Popup.Minimap].PopupClose();
+
+        yield return YieldReturn.WaitForSeconds(1f);
+
         popupList[(int)Popup.GameClear].PopupOpen();
+
+        yield return YieldReturn.WaitForSeconds(0.75f);
+
+        jewelryCheck.enabled = GameManager.Inst.IsJewelryGet; // 보석을 얻었을 경우 체크 ON
+
+        yield return YieldReturn.WaitForSeconds(0.75f);
+
+        timeCheck.enabled = GameManager.Inst.Time <= GameManager.Inst.GoalTime; // 목표시간 내로 들어왔을 경우 체크 ON
+
+        yield return YieldReturn.WaitForSeconds(0.75f);
+
+        jumpCheck.enabled = GameManager.Inst.JumpCount <= GameManager.Inst.GoalJumpCount; // 목표 점프 횟수 내로 클리어했을 경우 체크 ON
+
+        yield return YieldReturn.WaitForSeconds(1f);
+
+        jewelryStar.enabled = jewelryCheck.enabled;
+        timeStar.enabled = timeCheck.enabled;
+        jumpStar.enabled = jumpCheck.enabled;
     }
 
     public void AllPopupClose()
@@ -131,17 +157,23 @@ public class PopupManager : MonoSingleton<PopupManager>
     {
         jumpCounter.text = jumpCount.ToString();
     }
-    public void SetJewelyMark(bool isJewelyGet)
+    public void SetJewelryMark(bool isjewelryGet)
     {
-        jewelyGetMark.enabled = isJewelyGet;
+        jewelryGetMark.enabled = isjewelryGet;
     }
 
     public void SetForStageSelect()
     {
-        jewelyGetMark.enabled = false;
+        jewelryGetMark.enabled = false;
 
         timer.text = "-- : --";
         jumpCounter.text = "-";
+    }
+
+    public void SetClearPopup(int goalTime, int goalJumpCount)
+    {
+        this.goalTime.text = (goalTime / 60).ToString("D2") + " : " + (goalTime % 60).ToString("D2");
+        this.goalJumpCount.text = goalJumpCount.ToString();
     }
     #endregion
 

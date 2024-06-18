@@ -12,6 +12,9 @@ public class GameManager : MonoSingleton<GameManager>
     {
         instance = this;
     }
+
+    [SerializeField]
+    private Vector2 stageSelectPosition = Vector2.zero;
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
         StopCoroutine("TimerStart");
@@ -19,8 +22,11 @@ public class GameManager : MonoSingleton<GameManager>
 
         if (newScene.buildIndex >= (int)SCENE.StageSelect) // 플레이어가 존재하는 씬일 경우
         {
+            PlayerController.Inst.gameObject.SetActive(true);
+            PlayerController.Inst.Revive();
+
             gameStatus = GameStatus.Play;
-            IsJewelyGet = false; // 보석 체크 숨김
+            IsJewelryGet = false; // 보석 체크 숨김
             PopupManager.Inst.PopupOpen(Popup.Ingame); // 인게임 UI 오픈
 
             if (newScene.buildIndex > (int)SCENE.StageSelect) // 스테이지 내부일 경우
@@ -34,14 +40,19 @@ public class GameManager : MonoSingleton<GameManager>
             {
                 PopupManager.Inst.SetRetry(false);
                 PopupManager.Inst.SetForStageSelect();
+
+                PlayerController.Inst.transform.position = stageSelectPosition;
             }
         }
         else // 이외의 씬의 경우
         {
+            PlayerController.Inst.gameObject.SetActive(false);
+
             gameStatus = GameStatus.None;
         }
     }
 
+    #region _About Setting_
     private Setting setting = null;
     public Setting SettingData
     {
@@ -59,6 +70,17 @@ public class GameManager : MonoSingleton<GameManager>
             return setting;
         }
     }
+    #endregion
+
+    #region _Abourt ClearData_
+    private ClearData clearData;
+
+    public int StageIndex { get; set; }
+    public StageClearInfo GetClearInfo(int stageIndex)
+    {
+        return new StageClearInfo(); 
+    }
+    #endregion
 
     private void Start()
     {
@@ -179,6 +201,7 @@ public class GameManager : MonoSingleton<GameManager>
     public SCENE TargetScene => targetScene;
     public void SceneMove(SCENE targetScene)
     {
+        Debug.Log(targetScene.ToString() + "으로 이동 준비");
         this.targetScene = targetScene;
         PopupManager.Inst.PopupOpen(Popup.Fade);
         Invoke("LoadScene", PopupManager.Inst.PopupList[(int)Popup.Fade].FadeDuration);
@@ -189,8 +212,9 @@ public class GameManager : MonoSingleton<GameManager>
     }
     #endregion
 
-    private WaitForSeconds Wait1Sec = new WaitForSeconds(1f);
     #region _About Ingame UI_
+    private int goalTime = 0;
+    public int GoalTime => goalTime;
     private int time = 0;
     public int Time
     {
@@ -205,7 +229,8 @@ public class GameManager : MonoSingleton<GameManager>
             }
         }
     }
-
+    private int goalJumpCount = 0;
+    public int GoalJumpCount => goalJumpCount;
     private int jumpCount = 0;
     public int JumpCount
     {
@@ -221,25 +246,33 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
-    private bool isJewelyGet = false;
-    public bool IsJewelyGet
+    private bool isJewelryGet = false;
+    public bool IsJewelryGet
     {
-        get => isJewelyGet;
+        get => isJewelryGet;
         set
         {
-            isJewelyGet = value;
-            PopupManager.Inst.SetJewelyMark(isJewelyGet);
+            isJewelryGet = value;
+            PopupManager.Inst.SetJewelryMark(isJewelryGet);
             /*
-            if (isJewelyGet)
+            if (isJewelryGet)
             {
-                JewelyGetMark.enabled = true;
+                JewelryGetMark.enabled = true;
             }
             else
             {
-                JewelyGetMark.enabled = false;
+                JewelryGetMark.enabled = false;
             }
             */
         }
+    }
+    public void SetStageInfo(StageInfo info)
+    {
+        goalTime = info.goalTime;
+        goalJumpCount = info.goalJumpCount;
+
+        stageSelectPosition = info.doorPosition;
+        PlayerController.Inst.transform.position = info.startPosition;
     }
     private IEnumerator TimerStart()
     {
@@ -248,7 +281,7 @@ public class GameManager : MonoSingleton<GameManager>
         {
             Time++;
 
-            yield return Wait1Sec;
+            yield return YieldReturn.WaitForSeconds(1f);
         }
         while (GameManager.Inst.GameStatus == GameStatus.Play); // 플레이 중인 동안 반복
     }
@@ -261,7 +294,12 @@ public class GameManager : MonoSingleton<GameManager>
 
     public event Action GameStartEvent = () => { Debug.Log("게임 스타트"); };
     public event Action<Obstacle> GameOverEvent = (_) => { Debug.Log("게임 오버"); };
-    public event Action GameClearEvent = () => { Debug.Log("게임 클리어"); };
+    public event Action<bool, bool, bool> GameClearEvent = (jewelyClear, timeClear, jumpClear) => 
+    {
+        Debug.Log("게임 클리어");
+        
+        
+    };
     public void ChangeGameStatus(GameStatus newStatus, Obstacle obstacle = null)
     {
         if (gameStatus == newStatus) // 만약 현재 상태와 새 상태가 같다면 메소드 탈출
@@ -280,7 +318,7 @@ public class GameManager : MonoSingleton<GameManager>
                 GameOverEvent.Invoke(obstacle);
                 break;
             case GameStatus.GameClear:
-                GameClearEvent.Invoke();
+                GameClearEvent.Invoke(isJewelryGet, time <= goalTime, jumpCount <= goalJumpCount);
                 break;
             default:
                 break;
@@ -303,6 +341,7 @@ public enum GameStatus
 
 }
 
+[Serializable]
 public class Setting
 {
     public float bgmVolume = 1f;
@@ -311,4 +350,35 @@ public class Setting
     public Language language = Language.Eng;
 
     public float minimapSize = 1f;
+}
+
+[Serializable]
+public class ClearData
+{
+    public bool tutorialClear = false;
+
+    public List<StageClearInfo> stageList = new List<StageClearInfo>();
+
+    public List<bool> deathRecord = new List<bool>();
+}
+
+[Serializable]
+public struct StageClearInfo
+{
+    public bool stageClear;
+
+    public bool jewelryClear;
+    public bool timeClear;
+    public bool jumpClear;
+
+    public bool clearAtOnce;
+
+    public StageClearInfo(bool stageClear = false, bool jewelryClear = false, bool timeClear = false, bool jumpClear = false, bool clearAtOnce = false)
+    {
+        this.stageClear = stageClear;
+        this.jewelryClear = jewelryClear;
+        this.timeClear = timeClear;
+        this.jumpClear = jumpClear;
+        this.clearAtOnce = clearAtOnce;
+    }
 }
