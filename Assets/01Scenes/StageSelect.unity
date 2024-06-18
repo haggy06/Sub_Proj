@@ -149,11 +149,11 @@ Transform:
   m_GameObject: {fileID: 735080870}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 2.5, z: 0}
+  m_LocalPosition: {x: 1.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1367943616}
+  m_Father: {fileID: 2121977183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &735080872
 SpriteRenderer:
@@ -197,7 +197,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -508,9 +508,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2121977183}
-  - {fileID: 2020500694}
-  - {fileID: 1622304165}
-  - {fileID: 735080871}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1367943619
@@ -526,19 +523,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   detection: 0
-  censorSize: {x: 1.5, y: 1.5}
   openRequireTime: 3
   closeRequireTime: 0.5
   progress: 0
   targetStage: 3
-  stageID: 0
-  leanTweenType: 1
+  stageIndex: 0
+  leanTweenType: 9
   leanTweenTime: 0.5
   infoBackground: {fileID: 2121977183}
   stageTitle: {fileID: 1060582564}
-  jewelyStar: {fileID: 2020500694}
-  timeStar: {fileID: 1622304165}
-  jumpStar: {fileID: 735080871}
+  jewelyStar: {fileID: 2020500695}
+  timeStar: {fileID: 1622304166}
+  jumpStar: {fileID: 735080872}
 --- !u!61 &1367943620
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -610,11 +606,11 @@ Transform:
   m_GameObject: {fileID: 1622304164}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1367943616}
+  m_Father: {fileID: 2121977183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1622304166
 SpriteRenderer:
@@ -658,7 +654,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -14013,11 +14009,11 @@ Transform:
   m_GameObject: {fileID: 2020500693}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 2.5, z: 0}
+  m_LocalPosition: {x: -1.5, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1367943616}
+  m_Father: {fileID: 2121977183}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2020500695
 SpriteRenderer:
@@ -14061,7 +14057,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -14186,6 +14182,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1060582563}
+  - {fileID: 2020500694}
+  - {fileID: 1622304165}
+  - {fileID: 735080871}
   m_Father: {fileID: 1367943616}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2121977184

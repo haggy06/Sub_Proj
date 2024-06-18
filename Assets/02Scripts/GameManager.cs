@@ -73,18 +73,54 @@ public class GameManager : MonoSingleton<GameManager>
     #endregion
 
     #region _Abourt ClearData_
-    private ClearData clearData;
+    private GameData saveData;
+    private GameData gameData
+    {
+        get
+        {
+            if (saveData == null) // 세이브 데이터가 비어 있었을 경우
+            {
+                if (!FileSaveLoader<GameData>.TryLoadData("GameData", out saveData))
+                { // 세이브 데이터를 불러오는 데 실패했을 경우
+                    saveData = new GameData();
+
+                    FileSaveLoader<GameData>.SaveData("GameData", saveData);
+                }
+            }
+
+            return saveData;
+        }
+    }
 
     public int StageIndex { get; set; }
+    public StageClearInfo CurStageData { get; set; }
     public StageClearInfo GetClearInfo(int stageIndex)
     {
-        return new StageClearInfo(); 
+        if (stageIndex > gameData.stageList.Count - 1)
+        {
+            Debug.LogWarning("StageList를 벗어난 인덱스가 들어옴");
+
+            do
+            {
+                gameData.stageList.Add(new StageClearInfo());
+            }
+            while (stageIndex >= gameData.stageList.Count);
+        }
+
+        return gameData.stageList[stageIndex];
+    }
+
+    private void SaveGameData()
+    {
+        Debug.Log("게임 데이터 저장");
+        FileSaveLoader<GameData>.SaveData("GameData", saveData);
     }
     #endregion
 
     private void Start()
     {
-        print(instance.gameObject.name + ", " + instance.transform.position);
+        GameClearEvent += GameClear;
+
         SceneChanged(new Scene(), SceneManager.GetActiveScene());
         LanguageChange(SettingData.language); // 언어 새로고침
     }
@@ -292,14 +328,32 @@ public class GameManager : MonoSingleton<GameManager>
     public GameStatus GameStatus => gameStatus;
 
 
-    public event Action GameStartEvent = () => { Debug.Log("게임 스타트"); };
-    public event Action<Obstacle> GameOverEvent = (_) => { Debug.Log("게임 오버"); };
-    public event Action<bool, bool, bool> GameClearEvent = (jewelyClear, timeClear, jumpClear) => 
+    public event Action GameStartEvent = () => Debug.Log("게임 스타트");
+    public event Action<Obstacle> GameOverEvent = (_) => Debug.Log("게임 오버");
+    public event Action<bool, bool, bool> GameClearEvent = (_, _, _) => Debug.Log("게임 오버");
+    private void GameClear(bool jewelyClear, bool timeClear, bool jumpClear)
     {
-        Debug.Log("게임 클리어");
-        
-        
-    };
+        StageClearInfo clearInfo = GetClearInfo(StageIndex);
+
+        clearInfo.stageClear = true;
+        if (StageIndex == 0) // 첫번째 스테이지, 즉 튜토리얼 스테이지를 깼을 경우
+        {
+            gameData.tutorialClear = true;
+        }
+
+        if (jewelyClear)
+            clearInfo.jewelryClear = true;
+        if (timeClear)
+            clearInfo.timeClear = true;
+        if (jumpClear)
+            clearInfo.jumpClear = true;
+
+        if (jewelyClear && timeClear && jumpClear)
+            clearInfo.clearAtOnce = true;
+
+        SaveGameData();
+    }
+
     public void ChangeGameStatus(GameStatus newStatus, Obstacle obstacle = null)
     {
         if (gameStatus == newStatus) // 만약 현재 상태와 새 상태가 같다면 메소드 탈출
@@ -353,7 +407,7 @@ public class Setting
 }
 
 [Serializable]
-public class ClearData
+public class GameData
 {
     public bool tutorialClear = false;
 
@@ -363,22 +417,13 @@ public class ClearData
 }
 
 [Serializable]
-public struct StageClearInfo
+public class StageClearInfo
 {
-    public bool stageClear;
+    public bool stageClear = false;
 
-    public bool jewelryClear;
-    public bool timeClear;
-    public bool jumpClear;
+    public bool jewelryClear = false;
+    public bool timeClear = false;
+    public bool jumpClear = false;
 
-    public bool clearAtOnce;
-
-    public StageClearInfo(bool stageClear = false, bool jewelryClear = false, bool timeClear = false, bool jumpClear = false, bool clearAtOnce = false)
-    {
-        this.stageClear = stageClear;
-        this.jewelryClear = jewelryClear;
-        this.timeClear = timeClear;
-        this.jumpClear = jumpClear;
-        this.clearAtOnce = clearAtOnce;
-    }
+    public bool clearAtOnce = false;
 }

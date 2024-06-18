@@ -30,12 +30,12 @@ public static class FileSaveLoader<T> where T : class
     {
         Debug.Log(fileName + " 파일을 저장합니다.");
 
-        File.WriteAllText(Path.Combine(Application.persistentDataPath, fileName.ToString()), JsonUtility.ToJson(nData));
+        File.WriteAllText(Path.Combine(Application.persistentDataPath, fileName), JsonUtility.ToJson(nData));
     }
 
     public static bool TryLoadData(string fileName, out T data)
     {
-        if (File.Exists(Path.Combine(Application.persistentDataPath, fileName.ToString()))) // 경로에 파일이 존재할 경우
+        if (File.Exists(Path.Combine(Application.persistentDataPath, fileName))) // 경로에 파일이 존재할 경우
         {
             Debug.Log("저장된 " + fileName + " 파일을 가져오는 데 성공했습니다.");
 

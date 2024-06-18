@@ -10,6 +10,21 @@ public class StageManager : MonoBehaviour
     private void Awake()
     {
         GameManager.Inst.SetStageInfo(stageInfo);
+        curJewelry = 0;
+    }
+
+    [SerializeField]
+    private int goalJewelry;
+    [SerializeField]
+    private int curJewelry;
+    public void GetJewelry()
+    {
+        curJewelry++;
+
+        if (curJewelry >= goalJewelry) // 목표치의 보석을 먹었을 경우
+        {
+            GameManager.Inst.IsJewelryGet = true;
+        }
     }
 }
 

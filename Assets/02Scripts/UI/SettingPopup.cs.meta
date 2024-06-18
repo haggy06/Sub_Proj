@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 0433f0addc3f3a14e88df5c0fd88572c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - bgm: {fileID: 4562342306331881924, guid: 96d8a3885ff82774f9c4474bac38ddf0, type: 2}
+  - sfx: {fileID: -1900352435769069910, guid: 96d8a3885ff82774f9c4474bac38ddf0, type: 2}
+  - bgmSlider: {instanceID: 0}
+  - sfxSlider: {instanceID: 0}
+  - minimapSlider: {instanceID: 0}
+  - languageButton: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

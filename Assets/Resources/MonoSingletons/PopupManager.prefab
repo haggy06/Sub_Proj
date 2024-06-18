@@ -390,7 +390,6 @@ GameObject:
   - component: {fileID: 687466585886715974}
   - component: {fileID: 134359715012142152}
   - component: {fileID: 3910088979294585851}
-  - component: {fileID: 5474681749633255839}
   m_Layer: 5
   m_Name: Language Button
   m_TagString: Untagged
@@ -500,18 +499,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5474681749633255839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 953824019492663801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceab29186a740684d917984ba92e34a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &997377088594951722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1135,7 +1122,7 @@ GameObject:
   - component: {fileID: 3103785125776746418}
   - component: {fileID: 4820802499466583952}
   - component: {fileID: 5115759033314260484}
-  - component: {fileID: 6708788256485480706}
+  - component: {fileID: 2454921648809764030}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -1213,7 +1200,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &6708788256485480706
+--- !u!114 &2454921648809764030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1222,7 +1209,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2299400852697775870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5ac4abb1739624fb10a3562fe6cc06, type: 3}
+  m_Script: {fileID: 11500000, guid: 155eede6793db684c88536f719a9bcb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fadeDuration: 0.25
@@ -1986,7 +1973,7 @@ GameObject:
   - component: {fileID: 4505327315311628098}
   - component: {fileID: 1352192232802950540}
   - component: {fileID: 4752768545425324192}
-  - component: {fileID: 1342941185266762903}
+  - component: {fileID: 6772583204620320027}
   m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
@@ -2069,7 +2056,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1342941185266762903
+--- !u!114 &6772583204620320027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2078,11 +2065,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3492346160236638818}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e5ac4abb1739624fb10a3562fe6cc06, type: 3}
+  m_Script: {fileID: 11500000, guid: 0433f0addc3f3a14e88df5c0fd88572c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeDuration: 0.25
+  fadeDuration: 0.5
   fadeEase: 1
+  bgm: {fileID: 4562342306331881924, guid: 96d8a3885ff82774f9c4474bac38ddf0, type: 2}
+  sfx: {fileID: -1900352435769069910, guid: 96d8a3885ff82774f9c4474bac38ddf0, type: 2}
+  bgmSlider: {fileID: 489024924460071193}
+  sfxSlider: {fileID: 8381653546873049537}
+  minimapSlider: {fileID: 5147519356132934937}
+  languageButton: {fileID: 3910088979294585851}
 --- !u!1 &3495059306409528058
 GameObject:
   m_ObjectHideFlags: 0
@@ -2446,7 +2439,7 @@ GameObject:
   - component: {fileID: 5734516212050714515}
   - component: {fileID: 4902934570865849320}
   m_Layer: 5
-  m_Name: Block Ratcast
+  m_Name: Block Raycast
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4730,8 +4723,8 @@ MonoBehaviour:
   - {fileID: 5878500240500330008}
   - {fileID: 2977221089725653383}
   - {fileID: 1544651087180124851}
-  - {fileID: 6708788256485480706}
-  - {fileID: 1342941185266762903}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 3692335678199978326}
   jewelryGetMark: {fileID: 5461866859074582678}
   timer: {fileID: 1470063283854602665}
