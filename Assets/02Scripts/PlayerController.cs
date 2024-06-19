@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using System;
 using UnityEditor;
 using Unity.Burst.Intrinsics;
 using UnityEngine.SceneManagement;
@@ -16,7 +17,12 @@ public class PlayerController : MonoSingleton<PlayerController>
     }
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
+        LeanTween.cancel(damageTweenID);
 
+        sprite.color = Color.white;
+
+        rigid2D.gravityScale = 3f;
+        rigid2D.velocity = Vector2.zero;
     }
 
     [SerializeField, Range(0f, 90f), Tooltip("정수리 기준 최소 점프 각도")]
@@ -25,8 +31,6 @@ public class PlayerController : MonoSingleton<PlayerController>
     private float jumpPower = 20f;
     [SerializeField, Range(0f, 1f), Tooltip("벽에 부딫혔을 때 X 속도의 보존률")]
     private float speedRetention = 0.75f;
-    [SerializeField]
-    private Vector2 hitKnockback;
 
     public float JumpPower => jumpPower;
     public float JumpAngle => jumpAngle;
@@ -96,32 +100,55 @@ public class PlayerController : MonoSingleton<PlayerController>
     }
     #endregion
 
+    [SerializeField]
+    private List<ParticleSystem> particleList = new List<ParticleSystem>();
+    private int damageTweenID = 0;
     public void DamageInteract(Obstacle obstacle)
     {
-        Debug.Log(obstacle.gameObject.name + "에 의해 사망");
-        controllable = false;
-        alive = false;
+        Vector2 knockback;
+        knockback.x = obstacle.transform.position.x < transform.position.x ? obstacle.HitKnockback.x : -obstacle.HitKnockback.x; // 내가 장애물보다 오른쪽에 있었으면 오른쪽으로, 반대면 왼쪽으로 튐
+        knockback.y = obstacle.transform.position.y < transform.position.y ? obstacle.HitKnockback.y : -obstacle.HitKnockback.y; // 내가 장애물보다 위쪽에 있었으면 위쪽으로, 반대면 아래쪽으로 튐
+        if (!obstacle.VelocityImpulse) // 이동속도를 완전히 바꿔버리지 않을 경우
+        {
+            knockback.x += rigid2D.velocity.x; // 기존 이동 속도 더해주기
+            knockback.y += rigid2D.velocity.y;
+        }
+        rigid2D.velocity = knockback;
+
+        rigid2D.gravityScale = obstacle.GravityScale;
+
+        if (obstacle.Obstacletype != DamageType.None)
+        {
+            particleList[(int)obstacle.Obstacletype].Play();
+        }
 
         switch (obstacle.Obstacletype) // 장애물 타입 비교
         {
-            case ObstacleType.Physical: // 물리 타입 공격일 경우
-                Vector2 knockback;
-                knockback.x = obstacle.transform.position.x < transform.position.x ? hitKnockback.x : -hitKnockback.x; // 내가 장애물보다 오른쪽에 있었으면 오른쪽으로, 반대면 왼쪽으로 튐
-                knockback.y = obstacle.transform.position.y < transform.position.y ? hitKnockback.y : -hitKnockback.y; // 내가 장애물보다 위쪽에 있었으면 위쪽으로, 반대면 아래쪽으로 튐
+            case DamageType.None: // 아무 것도 안 튈 경우. 보통 잡아먹히거나 떨어졌을 때 사용됨.
 
-                rigid2D.velocity = knockback; // 속도에 넉백 대입
                 break;
 
-            case ObstacleType.Chemical: // 화학 타입 공격일 경우
-                sprite.color = new Color(0f, 0f, 0f, 0f);
-                rigid2D.simulated = false;
+            case DamageType.Dust: // 먼지가 튈 경우. 보통 둔기 피해에 사용됨.
+
                 break;
 
-            case ObstacleType.Fall: // 낙사일 경우
-                rigid2D.simulated = false;
+            case DamageType.Fire: // 불에 탈 경우. 불에 타거나 용암에 빠졌을 때 사용됨.
+                damageTweenID = LeanTween.color(gameObject, CustomColor.fireDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
+                break;
+
+            case DamageType.Blood: // 피가 튈 경우. 찔리거나 베일 때 사용됨.
+                damageTweenID = LeanTween.color(gameObject, CustomColor.bloodDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
+                break;
+
+            case DamageType.Steam: // 증기가 필 경우. 염산에 빠질 때 사용됨.
+                damageTweenID = LeanTween.color(gameObject, CustomColor.zero, 0.5f).setOnComplete(() => damageTweenID = 0).id;
+                break;
+
+            default:
+                Debug.LogError("알려지지 않은 피해를 입음. 알맞은 대미지 이벤트를 제작해주세요.");
                 break;
         }
-    }
+}
     public void DoorInteract(Transform doorPosition)
     {
         LeanTween.moveX(gameObject, doorPosition.position.x, 0.5f);
@@ -129,7 +156,8 @@ public class PlayerController : MonoSingleton<PlayerController>
     }
     private void Dead(Obstacle obstacle)
     {
-
+        controllable = false;
+        alive = false;
     }
     private void Clear(bool jewelyClear, bool timeClear, bool jumpClear)
     {
@@ -139,9 +167,6 @@ public class PlayerController : MonoSingleton<PlayerController>
     {
         controllable = true;
         alive = true;
-
-        sprite.color = Color.white;
-        rigid2D.simulated = true;
     }
 
     [SerializeField]
@@ -315,3 +340,12 @@ public class E_PlayerController : Editor
     }
 }
 #endif
+
+public static class CustomColor
+{
+    public static readonly Color zero = new Color(0f, 0f, 0f, 0f);
+
+    public static readonly Color bloodDamageColor = new Color(0.75f, 0f, 0f, 1f);
+    public static readonly Color fireDamageColor = new Color(0.25f, 0.25f, 0.25f, 1f);
+
+}

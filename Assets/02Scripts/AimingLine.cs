@@ -17,12 +17,11 @@ public class AimingLine : MonoBehaviour
     public bool Visible => visible;
     public void HideAuxiliaryLine(int index = 0) // 몇 번째 점부터 끌지
     {
-        Color transparent = new Color(0f, 0f, 0f, 0f); // 투명 컬러 준비
         for (int i = index; i <transform.childCount; i++)
         {
             Transform dot = transform.GetChild(i);
             dot.localPosition = Vector2.zero;
-            dot.GetComponent<SpriteRenderer>().color = transparent;
+            dot.GetComponent<SpriteRenderer>().color = CustomColor.zero;
         }
         /*
         foreach (SpriteRenderer sprite in transform.GetComponentsInChildren<SpriteRenderer>())
