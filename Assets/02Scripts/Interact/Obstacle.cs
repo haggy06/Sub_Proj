@@ -5,7 +5,7 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     [SerializeField]
-    private DamageType obstacletype;
+    private DamageType obstacleType;
     [SerializeField]
     private int obstacleID;
 
@@ -21,7 +21,7 @@ public class Obstacle : MonoBehaviour
     [SerializeField]
     private float cameraShakeAmplitude = 10f;
 
-    public DamageType Obstacletype => obstacletype;
+    public DamageType Obstacletype => obstacleType;
     public int ObstacleID => obstacleID;
 
     public bool VelocityImpulse => velocityImpulse;

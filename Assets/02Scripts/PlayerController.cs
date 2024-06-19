@@ -119,6 +119,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         if (obstacle.Obstacletype != DamageType.None)
         {
+            print((int)obstacle.Obstacletype);
             particleList[(int)obstacle.Obstacletype].Play();
         }
 
