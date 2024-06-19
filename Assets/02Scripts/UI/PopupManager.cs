@@ -4,6 +4,7 @@ using UnityEngine;
 
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 using TMPro;
 using System.Runtime.CompilerServices;
 
@@ -68,19 +69,36 @@ public class PopupManager : MonoSingleton<PopupManager>
     [SerializeField]
     private Image jumpStar;
     #endregion
-    #region _Ect Components_
-    [Header("Ect Components")]
+    #region _Setting Components_
+    [Header("Setting Components")]
 
     [SerializeField]
-    private GameObject pause_RetryButton;
+    private Slider bgmSlider;
+    [SerializeField]
+    private Slider sfxSlider;
+
+    [Space(5)]
+    [SerializeField]
+    private Slider minimapSlider;
+
+    [Space(5)]
+    [SerializeField]
+    private Button languageButton;
+    #endregion
+    #region _Pause Components_
+    [Header("Pause Components")]
+
+    [SerializeField]
+    private GameObject retryButton;
+    [SerializeField]
+    private GameObject menuButton;
     #endregion
 
     private void Start()
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
 
-        SceneManager.activeSceneChanged += SceneChanged;
-
+        #region _GameManager Event Setting_
         GameManager.Inst.GameOverEvent += (obstacle) =>
         {
             string[] sheet = GameManager.Inst.GetCauseOfDeth(obstacle.ObstacleID);
@@ -92,8 +110,51 @@ public class PopupManager : MonoSingleton<PopupManager>
         GameManager.Inst.GameClearEvent += (jewelyClear, timeClear, jumpClear) =>
         {
             StartCoroutine(GameClear(jewelyClear, timeClear, jumpClear));
+            SetClearPopup(GameManager.Inst.GoalTime, GameManager.Inst.GoalJumpCount);
         };
+        #endregion
+        #region _Setting Event Setting_
+        bgmSlider.value = GameManager.Inst.GetBGM();
+        sfxSlider.value = GameManager.Inst.GetSFX();
+
+        minimapSlider.value = GameManager.Inst.GetMinimapSize();
+        SetMinimapSize(GameManager.Inst.GetMinimapSize());
+
+        bgmSlider.onValueChanged.AddListener((value) => // 배경음 슬라이더 이벤트 삽입
+        {
+            Debug.Log("Set BGM");
+            GameManager.Inst.SetBGM(value);
+        });
+        sfxSlider.onValueChanged.AddListener((value) => // 효과음 슬라이더 이벤트 삽입
+        {
+            Debug.Log("Set SFX");
+            GameManager.Inst.SetSFX(value);
+        });
+
+        minimapSlider.onValueChanged.AddListener((value) => // 미니맵 슬라이더 이벤트 삽입
+        {
+            SetMinimapSize(value);
+
+            GameManager.Inst.SetMinimapSize(value);
+        });
+
+        languageButton.onClick.AddListener(() => // 언어 변경 버튼 이벤트 삽입
+        {
+            Language language = GameManager.Inst.SettingData.language;
+            if (++language > Language.Kor) // 열거형을 벗어났을 경우
+            {
+                language = 0;
+            }
+
+            GameManager.Inst.SetLanguage(language);
+        });
+        #endregion
     }
+    private void SetMinimapSize(float size)
+    {
+        popupList[(int)Popup.Minimap].transform.localScale = new Vector2(size, size);
+    }
+
     private IEnumerator GameOver()
     {
         popupList[(int)Popup.Screen].PopupClose();
@@ -125,7 +186,7 @@ public class PopupManager : MonoSingleton<PopupManager>
 
         jumpCheck.enabled = GameManager.Inst.JumpCount <= GameManager.Inst.GoalJumpCount; // 목표 점프 횟수 내로 클리어했을 경우 체크 ON
 
-        yield return YieldReturn.WaitForSeconds(1f);
+        yield return YieldReturn.WaitForSeconds(1.25f);
 
         jewelryStar.enabled = jewelryCheck.enabled;
         timeStar.enabled = timeCheck.enabled;
@@ -170,7 +231,7 @@ public class PopupManager : MonoSingleton<PopupManager>
         jumpCounter.text = "-";
     }
 
-    public void SetClearPopup(int goalTime, int goalJumpCount)
+    private void SetClearPopup(int goalTime, int goalJumpCount)
     {
         this.goalTime.text = (goalTime / 60).ToString("D2") + " : " + (goalTime % 60).ToString("D2");
         this.goalJumpCount.text = goalJumpCount.ToString();
@@ -187,9 +248,10 @@ public class PopupManager : MonoSingleton<PopupManager>
         popupList[(int)targetPopup].PopupClose();
     }
     #endregion
-    public void SetRetry(bool isOn)
+    public void SetPause(bool isOn)
     {
-        pause_RetryButton.SetActive(isOn);
+        retryButton.SetActive(isOn);
+        menuButton.SetActive(isOn);
     }
 }
 

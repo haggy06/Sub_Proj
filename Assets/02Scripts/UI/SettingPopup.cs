@@ -33,15 +33,6 @@ public class SettingPopup : FadePopup
     {
         base.Awake();
 
-        languageButton.onClick.AddListener(() => // 언어 변경 버튼 이벤트 삽입
-        {
-            Language language = GameManager.Inst.SettingData.language;
-            if (++language > Language.Kor) // 열거형을 벗어났을 경우
-            {
-                language = 0;
-            }
-
-            GameManager.Inst.LanguageChange(language);
-        });
+        
     }
 }

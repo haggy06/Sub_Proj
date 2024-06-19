@@ -9,7 +9,7 @@ public class FadePopup : PopupBase
     {
         base.PopupOpen(reset);
 
-        openID = LeanTween.alphaCanvas(canvas, 1f, (1f - canvas.alpha) * fadeDuration).setEase(fadeEase).setOnComplete(OpenComplete).id;
+        openID = LeanTween.alphaCanvas(canvas, 1f, (1f - canvas.alpha) * fadeDuration).setEase(fadeEase).setOnComplete(OpenComplete).setIgnoreTimeScale(true).id;
     }
     public override void PopupShow()
     {
@@ -22,7 +22,7 @@ public class FadePopup : PopupBase
     {
         base.PopupClose(reset);
 
-        closeID = LeanTween.alphaCanvas(canvas, 0f, canvas.alpha * fadeDuration).setEase(fadeEase).setOnComplete(CloseComplete).id;
+        closeID = LeanTween.alphaCanvas(canvas, 0f, canvas.alpha * fadeDuration).setEase(fadeEase).setOnComplete(CloseComplete).setIgnoreTimeScale(true).id;
     }
     public override void PopupHide()
     {

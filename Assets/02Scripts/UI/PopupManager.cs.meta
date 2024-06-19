@@ -3,7 +3,27 @@ guid: 7ae81277f00abd24a801cf44ad79fbb7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - jewelryGetMark: {instanceID: 0}
+  - timer: {instanceID: 0}
+  - jumpCounter: {instanceID: 0}
+  - causeOfDeath: {instanceID: 0}
+  - explain: {instanceID: 0}
+  - goalTime: {instanceID: 0}
+  - goalJumpCount: {instanceID: 0}
+  - jewelryCheck: {instanceID: 0}
+  - timeCheck: {instanceID: 0}
+  - jumpCheck: {instanceID: 0}
+  - jewelryStar: {instanceID: 0}
+  - timeStar: {instanceID: 0}
+  - jumpStar: {instanceID: 0}
+  - bgmSlider: {instanceID: 0}
+  - sfxSlider: {instanceID: 0}
+  - minimapSlider: {instanceID: 0}
+  - languageButton: {instanceID: 0}
+  - bgm: {fileID: 4562342306331881924, guid: 96d8a3885ff82774f9c4474bac38ddf0, type: 2}
+  - sfx: {fileID: -1900352435769069910, guid: 96d8a3885ff82774f9c4474bac38ddf0, type: 2}
+  - pause_RetryButton: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

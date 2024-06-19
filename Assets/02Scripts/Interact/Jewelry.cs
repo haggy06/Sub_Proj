@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jewelry : PlayerDetection
+public class Jewelry : DetectionBase
 {
     protected override void DetectionEnd()
     {

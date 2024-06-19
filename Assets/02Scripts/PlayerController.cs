@@ -232,7 +232,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     public void Aiming(Vector2 aim, float powerPercent)
     {
-        if (controllable && isGround) // 조종 가능한 상태고 착지해 있을 경우
+        if ((controllable && Time.timeScale > 0.5f) && isGround) // 조종 가능한 상태(+ 일시정지가 아닐 떄)고 착지해 있을 경우
         {
             float g = Physics2D.gravity.y * rigid2D.gravityScale; // 중력 = 공통 중력 세기 * 대상의 중력 세기
             Vector2 startSpeed = (AngleLock(aim) * powerPercent * jumpPower) + rigid2D.velocity; // 초기 속도 = (조준 각도(AngleLock 처리) * 세기 퍼센트 * 최대 점프 파워) + 현재 오브젝트 속도
@@ -273,7 +273,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     }
     public void Jump(Vector2 aim, float powerPercent)
     {
-        if (!isGround || !controllable) // 착지해 있지 않거나 컨트롤이 안 될 땐 점프를 무효화함
+        if (!isGround || !(controllable && Time.timeScale > 0.5f)) // 착지해 있지 않거나 컨트롤이 안 될 땐 점프를 무효화함
         {
             Debug.Log("점프할 수 없는 상태");
             return;

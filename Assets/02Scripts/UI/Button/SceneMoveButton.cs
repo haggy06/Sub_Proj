@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class SceneMoveButton : EventButton
 {
     [SerializeField]
-    private SCENE targetScene;
+    protected SCENE targetScene;
 
     protected override void ClickEvent()
     {

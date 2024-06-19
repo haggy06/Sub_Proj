@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 using System.IO;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+    [SerializeField]
+    private AudioMixer audioMixer;
     protected override void SetInstanceToThis()
     {
         instance = this;
@@ -31,14 +34,14 @@ public class GameManager : MonoSingleton<GameManager>
 
             if (newScene.buildIndex > (int)SCENE.StageSelect) // 스테이지 내부일 경우
             {
-                PopupManager.Inst.SetRetry(true);
+                PopupManager.Inst.SetPause(true);
                 PopupManager.Inst.PopupOpen(Popup.Minimap); // 미니맵 오픈
 
                 StartCoroutine("TimerStart");
             }
             else // 스테이지 선택창일 경우
             {
-                PopupManager.Inst.SetRetry(false);
+                PopupManager.Inst.SetPause(false);
                 PopupManager.Inst.SetForStageSelect();
 
                 PlayerController.Inst.transform.position = stageSelectPosition;
@@ -70,64 +73,49 @@ public class GameManager : MonoSingleton<GameManager>
             return setting;
         }
     }
-    #endregion
-
-    #region _Abourt ClearData_
-    private GameData saveData;
-    private GameData gameData
+    private void SaveSetting()
     {
-        get
-        {
-            if (saveData == null) // 세이브 데이터가 비어 있었을 경우
-            {
-                if (!FileSaveLoader<GameData>.TryLoadData("GameData", out saveData))
-                { // 세이브 데이터를 불러오는 데 실패했을 경우
-                    saveData = new GameData();
-
-                    FileSaveLoader<GameData>.SaveData("GameData", saveData);
-                }
-            }
-
-            return saveData;
-        }
+        FileSaveLoader<Setting>.SaveData("Setting", setting);
     }
 
-    public int StageIndex { get; set; }
-    public StageClearInfo CurStageData { get; set; }
-    public StageClearInfo GetClearInfo(int stageIndex)
+    public void SetBGM(float value)
     {
-        if (stageIndex > gameData.stageList.Count - 1)
-        {
-            Debug.LogWarning("StageList를 벗어난 인덱스가 들어옴");
+        SettingData.bgmVolume = value;
+        audioMixer.SetFloat("BGM", Mathf.Log10(SettingData.bgmVolume) * 80f);
 
-            do
-            {
-                gameData.stageList.Add(new StageClearInfo());
-            }
-            while (stageIndex >= gameData.stageList.Count);
-        }
-
-        return gameData.stageList[stageIndex];
+        SaveSetting();
+    }
+    public float GetBGM()
+    {
+        return SettingData.bgmVolume;
     }
 
-    private void SaveGameData()
+    public void SetSFX(float value)
     {
-        Debug.Log("게임 데이터 저장");
-        FileSaveLoader<GameData>.SaveData("GameData", saveData);
+        SettingData.sfxVolume = value;
+        audioMixer.SetFloat("SFX", Mathf.Log10(SettingData.sfxVolume) * 80f);
+
+        SaveSetting();
     }
-    #endregion
-
-    private void Start()
+    public float GetSFX()
     {
-        GameClearEvent += GameClear;
+        return SettingData.sfxVolume;
+    }
 
-        SceneChanged(new Scene(), SceneManager.GetActiveScene());
-        LanguageChange(SettingData.language); // 언어 새로고침
+    public void SetMinimapSize(float value)
+    {
+        SettingData.minimapSize = value;
+
+        SaveSetting();
+    }
+    public float GetMinimapSize()
+    {
+        return SettingData.minimapSize;
     }
 
     #region _About Language_
-    public event Action LanguageChangeEvent = ()=> { Debug.Log("언어 바뀜"); };
-    public void LanguageChange(Language newLanguage)
+    public event Action LanguageChangeEvent = () => { Debug.Log("언어 바뀜"); };
+    public void SetLanguage(Language newLanguage)
     {
         // 딕셔너리들 초기화
         interactionSheet.Clear();
@@ -164,7 +152,7 @@ public class GameManager : MonoSingleton<GameManager>
         }
 
         SettingData.language = newLanguage;
-        FileSaveLoader<Setting>.SaveData("Setting", setting);
+        SaveSetting();
 
         LanguageChangeEvent.Invoke();
         /*
@@ -201,7 +189,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         if (interactionSheet.Count < 1)  // 딕셔너리가 비어 있을 경우
         {
-            LanguageChange(SettingData.language); // 언어 새로고침
+            SetLanguage(SettingData.language); // 언어 새로고침
         }
 
         string value;
@@ -217,7 +205,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         if (interactionSheet.Count < 1)  // 딕셔너리가 비어 있을 경우
         {
-            LanguageChange(SettingData.language); // 언어 새로고침
+            SetLanguage(SettingData.language); // 언어 새로고침
         }
 
         string[] value;
@@ -231,6 +219,75 @@ public class GameManager : MonoSingleton<GameManager>
         return value;
     }
     #endregion
+    #endregion
+
+    #region _About ClearData_
+    private GameData saveData;
+    private GameData gameData
+    {
+        get
+        {
+            if (saveData == null) // 세이브 데이터가 비어 있었을 경우
+            {
+                if (!FileSaveLoader<GameData>.TryLoadData("GameData", out saveData))
+                { // 세이브 데이터를 불러오는 데 실패했을 경우
+                    saveData = new GameData();
+
+                    FileSaveLoader<GameData>.SaveData("GameData", saveData);
+                }
+            }
+
+            return saveData;
+        }
+    }
+
+    public int StageIndex { get; set; }
+    public StageClearInfo CurStageData { get; set; }
+    public StageClearInfo GetClearInfo(int stageIndex)
+    {
+        if (stageIndex > gameData.stageList.Count - 1)
+        {
+            Debug.LogWarning("StageList를 벗어난 인덱스가 들어옴");
+
+            do
+            {
+                gameData.stageList.Add(new StageClearInfo());
+            }
+            while (stageIndex >= gameData.stageList.Count);
+        }
+
+        return gameData.stageList[stageIndex];
+    }
+    public bool GetTutorialClear()
+    {
+        return gameData.tutorialClear;
+    }
+
+    public void ResetGameData()
+    {
+        Debug.Log("데이터 리셋");
+
+        saveData = new GameData();
+        SaveGameData();
+    }
+    private void SaveGameData()
+    {
+        Debug.Log("게임 데이터 저장");
+        FileSaveLoader<GameData>.SaveData("GameData", saveData);
+    }
+    #endregion
+
+    private void Start()
+    {
+        GameClearEvent += GameClear;
+
+        SceneChanged(new Scene(), SceneManager.GetActiveScene());
+        SetLanguage(SettingData.language); // 언어 새로고침
+
+        SetBGM(SettingData.bgmVolume);
+        SetSFX(SettingData.sfxVolume);
+    }
+
 
     #region _About Scenemove_
     private SCENE targetScene;
@@ -240,10 +297,14 @@ public class GameManager : MonoSingleton<GameManager>
         Debug.Log(targetScene.ToString() + "으로 이동 준비");
         this.targetScene = targetScene;
         PopupManager.Inst.PopupOpen(Popup.Fade);
-        Invoke("LoadScene", PopupManager.Inst.PopupList[(int)Popup.Fade].FadeDuration);
+
+        StartCoroutine("LoadScene");
+        //Invoke("LoadScene", PopupManager.Inst.PopupList[(int)Popup.Fade].FadeDuration);
     }
-    private void LoadScene()
+    private IEnumerator LoadScene()
     {
+        yield return YieldReturn.WaitForSecondsRealtime(PopupManager.Inst.PopupList[(int)Popup.Fade].FadeDuration);
+
         SceneManager.LoadScene((int)SCENE.Loading);
     }
     #endregion
@@ -313,6 +374,8 @@ public class GameManager : MonoSingleton<GameManager>
     private IEnumerator TimerStart()
     {
         JumpCount = Time = 0;
+
+        yield return YieldReturn.WaitForSeconds(1f); // 시작하자마자 1초가 느는 걸 막기 위함
         do
         {
             Time++;
@@ -323,10 +386,10 @@ public class GameManager : MonoSingleton<GameManager>
     }
     #endregion
 
+    #region _About GameOver & GameClear_
     [SerializeField]
     private GameStatus gameStatus = GameStatus.None;
     public GameStatus GameStatus => gameStatus;
-
 
     public event Action GameStartEvent = () => Debug.Log("게임 스타트");
     public event Action<Obstacle> GameOverEvent = (_) => Debug.Log("게임 오버");
@@ -378,6 +441,7 @@ public class GameManager : MonoSingleton<GameManager>
                 break;
         }
     }
+    #endregion
 }
 public enum Language
 {
@@ -401,9 +465,9 @@ public class Setting
     public float bgmVolume = 1f;
     public float sfxVolume = 1f;
 
-    public Language language = Language.Eng;
+    public float minimapSize = 0.75f;
 
-    public float minimapSize = 1f;
+    public Language language = Language.Eng;
 }
 
 [Serializable]
@@ -413,7 +477,7 @@ public class GameData
 
     public List<StageClearInfo> stageList = new List<StageClearInfo>();
 
-    public List<bool> deathRecord = new List<bool>();
+    public List<DeathInfo> deathRecord = new List<DeathInfo>();
 }
 
 [Serializable]
@@ -426,4 +490,10 @@ public class StageClearInfo
     public bool jumpClear = false;
 
     public bool clearAtOnce = false;
+}
+[Serializable]
+public class DeathInfo
+{
+    public bool isDeathBefore = false;
+    public int deathCount = 0;
 }

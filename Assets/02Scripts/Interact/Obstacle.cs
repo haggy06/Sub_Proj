@@ -9,8 +9,19 @@ public class Obstacle : MonoBehaviour
     [SerializeField]
     private int obstacleID;
 
+    [Space(5)]
+    [SerializeField]
+    private Vector2 hitKnockback;
+    [SerializeField]
+    private float gravityScale = 3f;
+
+    [SerializeField]
+    private float cameraShakeAmplitude = 10f;
+
     public int ObstacleID => obstacleID;
-    public ObstacleType Obstacletype => obstacletype;    
+    public ObstacleType Obstacletype => obstacletype;
+
+    public float CameraShakeAmplitude => cameraShakeAmplitude;
 }
 
 public enum ObstacleType

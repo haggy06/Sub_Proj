@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DoorInteract : PlayerDetection
+public abstract class DoorInteract : DetectionBase
 {
     [SerializeField]
     private float openRequireTime = 1f; // 문이 열리기까지 소요되는 시간

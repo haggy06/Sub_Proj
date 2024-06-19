@@ -44,4 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bde94ad233b2b54c8ed0c25a88bfa9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 96d8a3885ff82774f9c4474bac38ddf0, type: 2}
+  stageSelectPosition: {x: 0, y: 0}
   gameStatus: 0
