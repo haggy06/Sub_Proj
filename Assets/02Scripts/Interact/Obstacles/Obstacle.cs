@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : DetectionBase
 {
     [SerializeField]
     private DamageType obstacleType;
@@ -29,6 +29,22 @@ public class Obstacle : MonoBehaviour
     public float GravityScale => gravityScale;
 
     public float CameraShakeAmplitude => cameraShakeAmplitude;
+
+    protected override void DetectionEnd()
+    {
+
+    }
+
+    protected override void DetectionStart()
+    {
+        GameManager.Inst.ChangeGameStatus(GameStatus.GameOver, this);
+        PlayerController.Inst.DamageInteract(this);
+    }
+
+    protected override void HitGround()
+    {
+
+    }
 }
 
 public enum DamageType // 대미지를 받았을 때 튀는 파티클을 의미한다.

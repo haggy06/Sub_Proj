@@ -4,16 +4,6 @@ using UnityEngine;
 
 public class ClearDoor : DoorInteract
 {
-    protected override void DetectionStart()
-    {
-
-    }
-    protected override void DetectionEnd()
-    {
-
-    }
-
-
     protected override void DoorOpening()
     {
 

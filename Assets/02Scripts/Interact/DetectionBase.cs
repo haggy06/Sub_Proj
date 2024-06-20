@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class DetectionBase : MonoBehaviour
 {
     [SerializeField]
-    private string targetTag = "Player";
+    protected Tag targetTag = Tag.Player;
     [SerializeField]
     protected bool detection = false;
     public bool Detection
@@ -30,18 +30,48 @@ public abstract class DetectionBase : MonoBehaviour
         }
     }
 
+    protected virtual void Awake()
+    {
+        gameObject.layer = (int)LAYER.Censor; // Censor 레이어는 Censor, Ground와만 충돌한다.
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag(targetTag))
+        if (collision.gameObject.layer == (int)LAYER.Ground) // 땅과 충돌했을 경우
         {
-            Detection = true;
+            HitGround();
+        }
+        else
+        {
+            if (collision.CompareTag(targetTag.ToString()))
+            {
+                Detection = true;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Detection = false;
+        if (collision.CompareTag(targetTag.ToString()))
+        {
+            Detection = false;
+        }
     }
 
     protected abstract void DetectionStart();
     protected abstract void DetectionEnd();
+
+    protected abstract void HitGround();
+}
+
+public enum Tag
+{
+    Untagged,
+    Respawn,
+    Finish,
+    EditorOnly,
+    MainCamera,
+    Player,
+    GameController,
+    Clear,
+
 }

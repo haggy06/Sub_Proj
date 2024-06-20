@@ -522,6 +522,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa664d5f6b45204199799f411c1d6c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetTag: 5
   detection: 0
   openRequireTime: 3
   closeRequireTime: 0.5
@@ -14417,6 +14418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd5026270b463d4eab16d2c3c644af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraShakeTime: 0.5
 --- !u!20 &4824097001263900037
 Camera:
   m_ObjectHideFlags: 0
@@ -14456,7 +14458,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 255
+    m_Bits: 767
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 6b90399d0678f3541b2f37894cc34c01, type: 2}
   m_TargetDisplay: 0

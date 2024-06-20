@@ -69,10 +69,16 @@ public static class MyCalculator
 {
     public static float Distance(Vector2 pos1, Vector2 pos2)
     {
-        /*
-        pos2 = pos2 - pos1; // 벡터 평행이동
-        return Mathf.Log((pos2.x * pos2.x) + (pos2.y * pos2.y), 2);
-        */
         return Mathf.Sqrt(Mathf.Pow(pos1.x - pos2.x, 2) + Mathf.Pow(pos1.y - pos2.y, 2));
+    }
+
+    public static Vector2 Deg2Vec(float deg)
+    {
+        return new Vector2(Mathf.Cos(deg), Mathf.Sin(deg));
+    }
+    public static float Vec2Deg(Vector2 vec)
+    {
+        vec = vec.normalized;
+        return Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg;
     }
 }

@@ -32,8 +32,10 @@ public class StageDoor : DoorInteract
     private SpriteRenderer jumpStar;
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         StageClearInfo clearInfo = GameManager.Inst.GetClearInfo(stageIndex);
         
         if (clearInfo.clearAtOnce)
@@ -55,14 +57,16 @@ public class StageDoor : DoorInteract
     private int infoOpenID = 0;
     protected override void DetectionEnd()
     {
-        leanTweenCancle();
+        base.DetectionEnd();
 
+        leanTweenCancle();
         infoOpenID = LeanTween.scale(infoBackground.gameObject, Vector2.zero, infoBackground.localScale.x * leanTweenTime).setEase(leanTweenType).setOnComplete(() => infoOpenID = 0).id;
     }
     protected override void DetectionStart()
     {
-        leanTweenCancle();
+        base.DetectionStart();
 
+        leanTweenCancle();
         infoOpenID = LeanTween.scale(infoBackground.gameObject, Vector2.one, (1f - infoBackground.localScale.x) * leanTweenTime).setEase(leanTweenType).setOnComplete(() => infoOpenID = 0).id;
     }
     private void leanTweenCancle()

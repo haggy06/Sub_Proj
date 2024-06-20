@@ -17,6 +17,8 @@ public class PlayerController : MonoSingleton<PlayerController>
     }
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
+        line.HideAimingLine();
+
         LeanTween.cancel(damageTweenID);
 
         sprite.color = Color.white;
@@ -134,14 +136,17 @@ public class PlayerController : MonoSingleton<PlayerController>
                 break;
 
             case DamageType.Fire: // 불에 탈 경우. 불에 타거나 용암에 빠졌을 때 사용됨.
+                LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.fireDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
                 break;
 
             case DamageType.Blood: // 피가 튈 경우. 찔리거나 베일 때 사용됨.
+                LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.bloodDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
                 break;
 
             case DamageType.Steam: // 증기가 필 경우. 염산에 빠질 때 사용됨.
+                LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.zero, 0.5f).setOnComplete(() => damageTweenID = 0).id;
                 break;
 
@@ -191,14 +196,14 @@ public class PlayerController : MonoSingleton<PlayerController>
             Vector2 lastVelocity = GetTempVelo();
             if (Mathf.Abs(collision.contacts[0].normal.x) > 0.72f) // 경사가 약 45도 초과, 135도 미만인 땅에 부딫혔을 경우
             {
-                Debug.Log("공중에서 벽에 충돌함. 반작용 : " + lastVelocity);
+                //Debug.Log("공중에서 벽에 충돌함. 반작용 : " + lastVelocity);
                 rigid2D.velocity = new Vector2(-lastVelocity.x * speedRetention, lastVelocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
 
                 isCollisioned = true;
             }
             else if (collision.contacts[0].normal.y < -0.71f) // 천장에 박았을 경우
             {
-                Debug.Log("머리 박음. 반작용 : " + lastVelocity);
+                //Debug.Log("머리 박음. 반작용 : " + lastVelocity);
                 rigid2D.velocity = new Vector2(lastVelocity.x, rigid2D.velocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
 
                 isCollisioned = true;
@@ -271,7 +276,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         {
             if (line.Visible) // 보조선이 보일 경우
             {
-                line.HideAuxiliaryLine(); // 보조선 숨김
+                line.HideAimingLine(); // 보조선 숨김
             }
             return;
         }
@@ -310,7 +315,7 @@ public class PlayerController : MonoSingleton<PlayerController>
             GameManager.Inst.JumpCount++;
         }
 
-        line.HideAuxiliaryLine(); // 보조선 숨김        
+        line.HideAimingLine(); // 보조선 숨김        
 
         aim = AngleLock(aim); // 점프 각도 조정
         rigid2D.velocity += aim * (powerPercent * jumpPower); // 조정된 점프를 현재 이동속도에 더해준다. (아예 바꿔버리면 미끄러지고 있던 속도 등의 디테일이 사라짐)
