@@ -5,7 +5,7 @@ using UnityEngine;
 public class Obstacle : DetectionBase
 {
     [SerializeField]
-    private DamageType obstacleType;
+    private ParticleType obstacleType;
     [SerializeField]
     private int obstacleID;
 
@@ -21,7 +21,7 @@ public class Obstacle : DetectionBase
     [SerializeField]
     private float cameraShakeAmplitude = 10f;
 
-    public DamageType Obstacletype => obstacleType;
+    public ParticleType Obstacletype => obstacleType;
     public int ObstacleID => obstacleID;
 
     public bool VelocityImpulse => velocityImpulse;
@@ -45,14 +45,4 @@ public class Obstacle : DetectionBase
     {
 
     }
-}
-
-public enum DamageType // 대미지를 받았을 때 튀는 파티클을 의미한다.
-{
-    None = -1, // ParticleList[DamageType.Dust]를 했을 때 인덱스 0이 집히게 하기 위함.
-    Dust,
-    Fire,
-    Blood,
-    Steam,
-
 }

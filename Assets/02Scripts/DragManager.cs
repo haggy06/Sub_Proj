@@ -74,7 +74,7 @@ public static class MyCalculator
 
     public static Vector2 Deg2Vec(float deg)
     {
-        return new Vector2(Mathf.Cos(deg), Mathf.Sin(deg));
+        return new Vector2(Mathf.Cos(deg * Mathf.Deg2Rad), Mathf.Sin(deg * Mathf.Deg2Rad));
     }
     public static float Vec2Deg(Vector2 vec)
     {

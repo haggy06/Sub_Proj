@@ -15,21 +15,16 @@ public class Spear_Cycle : CycleObstacle
     [SerializeField]
     private Vector2 outPosition = new Vector2(0f, -0.5f);
 
-
-    private bool isOut = false;
     private int spearTweenID = 0;
     protected override void Run()
     {
-        isOut = !isOut;
-
         LeanTween.cancel(spearTweenID);
-        if (isOut) // 튀어나왔을 경우
-        {
-            spearTweenID = LeanTween.moveLocal(gameObject, outPosition, spearSpeed).setEase(spearOutType).setOnComplete(() => spearTweenID = 0).id;
-        }
-        else // 들어갔을 경우
-        {
-            spearTweenID = LeanTween.moveLocal(gameObject, inPosition, spearSpeed).setEase(spearOutType).setOnComplete(() => spearTweenID = 0).id;
-        }
+        spearTweenID = LeanTween.moveLocal(gameObject, outPosition, spearSpeed).setEase(spearOutType).setOnComplete(() => spearTweenID = 0).id; // 창 튀어나옴
+    }
+
+    protected override void RunStop()
+    {
+        LeanTween.cancel(spearTweenID);
+        spearTweenID = LeanTween.moveLocal(gameObject, inPosition, spearSpeed).setEase(spearOutType).setOnComplete(() => spearTweenID = 0).id; // 창 집어넣음
     }
 }

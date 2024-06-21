@@ -9,14 +9,10 @@ public class Launcher_Cycle : CycleObstacle
     private ObjectPool pool;
     [SerializeField]
     private Transform launchPosition;
-    [SerializeField]
-    private bool dynamicLaunchAngle = false;
 
     [Header("Projectile Setting")]
     [SerializeField]
     private GameObject launchObject;
-    [SerializeField]
-    private Vector2 launchDirection = Vector2.right;
     [SerializeField]
     private float launchPower = 10f;
 
@@ -29,11 +25,13 @@ public class Launcher_Cycle : CycleObstacle
         }
 
         projectile.transform.position = launchPosition.position;
-        if (dynamicLaunchAngle)
-        {
-            launchDirection = MyCalculator.Deg2Vec(transform.eulerAngles.z);
-        }
 
-        projectile.GetComponent<I_Projectile>().Launch(launchDirection, launchPower);
+
+        projectile.GetComponent<I_Projectile>().Launch(transform.eulerAngles.z, launchPower);
+    }
+
+    protected override void RunStop()
+    {
+
     }
 }

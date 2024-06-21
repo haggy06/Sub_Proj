@@ -25,6 +25,8 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         rigid2D.gravityScale = 3f;
         rigid2D.velocity = Vector2.zero;
+
+        hitBox.enabled = true;
     }
 
     [SerializeField, Range(0f, 90f), Tooltip("정수리 기준 최소 점프 각도")]
@@ -63,6 +65,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     private SpriteRenderer sprite;
     
     private AimingLine line;
+    private Collider2D hitBox;
 
     public Collider2D Col => col;
     public  Rigidbody2D Rigid2D => rigid2D;
@@ -76,6 +79,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         sprite = GetComponent<SpriteRenderer>();
 
         line = GetComponentInChildren<AimingLine>();
+        hitBox = transform.Find("Hit box").GetComponent<Collider2D>();
 
         GameManager.Inst.GameOverEvent += Dead;
         GameManager.Inst.GameClearEvent += Clear;
@@ -102,11 +106,11 @@ public class PlayerController : MonoSingleton<PlayerController>
     }
     #endregion
 
-    [SerializeField]
-    private List<ParticleSystem> particleList = new List<ParticleSystem>();
     private int damageTweenID = 0;
     public void DamageInteract(Obstacle obstacle)
     {
+        line.HideAimingLine(); // 녹아 사라질 때 뒤에 점이 보이길래
+
         Vector2 knockback;
         knockback.x = obstacle.transform.position.x < transform.position.x ? obstacle.HitKnockback.x : -obstacle.HitKnockback.x; // 내가 장애물보다 오른쪽에 있었으면 오른쪽으로, 반대면 왼쪽으로 튐
         knockback.y = obstacle.transform.position.y < transform.position.y ? obstacle.HitKnockback.y : -obstacle.HitKnockback.y; // 내가 장애물보다 위쪽에 있었으면 위쪽으로, 반대면 아래쪽으로 튐
@@ -119,35 +123,32 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         rigid2D.gravityScale = obstacle.GravityScale;
 
-        if (obstacle.Obstacletype != DamageType.None)
-        {
-            print((int)obstacle.Obstacletype);
-            particleList[(int)obstacle.Obstacletype].Play();
-        }
+        ParticleManager.Inst.PlayParticle(obstacle.Obstacletype, transform);
 
         switch (obstacle.Obstacletype) // 장애물 타입 비교
         {
-            case DamageType.None: // 아무 것도 안 튈 경우. 보통 잡아먹히거나 떨어졌을 때 사용됨.
+            case ParticleType.None: // 아무 것도 안 튈 경우. 보통 잡아먹히거나 떨어졌을 때 사용됨.
+                hitBox.enabled = false;
+                break;
+
+            case ParticleType.Dust: // 먼지가 튈 경우. 보통 둔기 피해에 사용됨.
 
                 break;
 
-            case DamageType.Dust: // 먼지가 튈 경우. 보통 둔기 피해에 사용됨.
-
-                break;
-
-            case DamageType.Fire: // 불에 탈 경우. 불에 타거나 용암에 빠졌을 때 사용됨.
+            case ParticleType.Fire: // 불에 탈 경우. 불에 타거나 용암에 빠졌을 때 사용됨.
                 LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.fireDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
                 break;
 
-            case DamageType.Blood: // 피가 튈 경우. 찔리거나 베일 때 사용됨.
+            case ParticleType.Blood: // 피가 튈 경우. 찔리거나 베일 때 사용됨.
                 LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.bloodDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
                 break;
 
-            case DamageType.Steam: // 증기가 필 경우. 염산에 빠질 때 사용됨.
+            case ParticleType.Steam: // 증기가 필 경우. 염산에 빠질 때 사용됨.
                 LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.zero, 0.5f).setOnComplete(() => damageTweenID = 0).id;
+                hitBox.enabled =  false;
                 break;
 
             default:

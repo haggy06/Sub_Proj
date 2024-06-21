@@ -11,6 +11,12 @@ public abstract class CycleObstacle : MonoBehaviour
     [SerializeField]
     protected float cycle = 2f;
 
+    [Space(5)]
+    [SerializeField, Tooltip("트리거 방식이면 true, 껐다 켜지는 방식이면 false")]
+    private bool isTrigger= false;
+    [SerializeField]
+    protected float maintainTime = 0f;
+
     protected bool repeat = false;
     public bool Repeat
     {
@@ -27,6 +33,7 @@ public abstract class CycleObstacle : MonoBehaviour
                 else
                 {
                     StopCoroutine("LaunchCoroutine");
+                    RunStop();
                 }
             }
         }
@@ -41,11 +48,19 @@ public abstract class CycleObstacle : MonoBehaviour
 
         while (repeat)
         {
-            yield return YieldReturn.WaitForSeconds(cycle);
-
             Run();
+
+            if (!isTrigger) // 트리거 방식이 아닐 경우
+            {
+                yield return YieldReturn.WaitForSeconds(maintainTime);
+
+                RunStop();
+            }
+
+            yield return YieldReturn.WaitForSeconds(cycle);
         }
     }
 
     protected abstract void Run();
+    protected abstract void RunStop();
 }

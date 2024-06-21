@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PoolObject : MonoBehaviour
 {
-    private Stack<GameObject> connectedPool;
-    private Transform myPoolTrans;
+    protected Stack<GameObject> connectedPool;
+    protected Transform myPoolTrans;
     [SerializeField]
-    private float lifeTime = 3f;
+    protected float lifeTime = 3f;
 
-    private bool isExit = false;
+    protected bool isExit = false;
     public void RememberPool(Stack<GameObject> connectedPool, Transform myPoolTrans) // *Dictionary의 value로 있는 Stack을 받기 때문에 오류가 날 가능성이 있음
     {
         this.connectedPool = connectedPool;
         this.myPoolTrans = myPoolTrans;
     }
 
-    public void ReturnToPool()
+    public virtual void ReturnToPool()
     {
         if (isExit)
         {
@@ -27,11 +27,11 @@ public class PoolObject : MonoBehaviour
         }
     }
     
-    public void ExitFromPool()
+    public virtual void ExitFromPool(Transform newParent = null)
     {
         isExit = true;
 
-        transform.parent = null;
+        transform.parent = newParent;
 
         Invoke("ReturnToPool", lifeTime);
     }
