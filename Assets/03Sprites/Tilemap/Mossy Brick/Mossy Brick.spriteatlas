@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Mossy Brick
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 17035b478d783e54b87dcc55a6562a0a, type: 3}
+    - {fileID: 2800000, guid: a96334ed22927ac4cb31ac825d7cc67f, type: 3}
+    - {fileID: 2800000, guid: 62af92eccf5ee914f8bdd0a33e95a10e, type: 3}
+    - {fileID: 2800000, guid: 30e6d49d01840cc4d8a27e8ab1cb5d36, type: 3}
+    - {fileID: 2800000, guid: 1df85c2a2ec22e042a43149a6b21a135, type: 3}
+    - {fileID: 2800000, guid: d200c6d400a1df64dba2eaf13aa9f7b9, type: 3}
+    - {fileID: 2800000, guid: fae14cbb72e3c8f4ca96089efd760643, type: 3}
+    - {fileID: 2800000, guid: 1d5bed9bc1a5e0245ad68dcd5766a91d, type: 3}
+    - {fileID: 2800000, guid: 978744f97dbdb8f40a3ad81f41e33076, type: 3}
+    - {fileID: 2800000, guid: 0b8c72c4448cae046b58f26af318132e, type: 3}
+    - {fileID: 2800000, guid: b34ed141bda1b854ba03eff091c2c6fb, type: 3}
+    - {fileID: 2800000, guid: 5ab862f30232112459ad185133321f81, type: 3}
+    - {fileID: 2800000, guid: 4afc200eb2192b84089c730067d3e8eb, type: 3}
+    - {fileID: 2800000, guid: d7979b3220c628541923b0a558a2e486, type: 3}
+    - {fileID: 2800000, guid: fc63e2570a4b8204984e6443316d9489, type: 3}
+    - {fileID: 2800000, guid: 5dde08a23278e894784c80efc76e93cf, type: 3}
+    - {fileID: 2800000, guid: ab50106808aee8d4ba746c53cd8b3744, type: 3}
+    - {fileID: 2800000, guid: 1ad146d5245061b4282ef1b50777b3a7, type: 3}
+    - {fileID: 2800000, guid: 0db62142cf821c7499943c0fb7002248, type: 3}
+    - {fileID: 2800000, guid: 7c3e1f962aee37a4bab13b82fdc5bf96, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - b34ed141bda1b854ba03eff091c2c6fb: 21300000
+    - d7979b3220c628541923b0a558a2e486: 21300000
+    - 0db62142cf821c7499943c0fb7002248: 21300000
+    - 5dde08a23278e894784c80efc76e93cf: 21300000
+    - 5ab862f30232112459ad185133321f81: 21300000
+    - 0b8c72c4448cae046b58f26af318132e: 21300000
+    - d200c6d400a1df64dba2eaf13aa9f7b9: 21300000
+    - 1ad146d5245061b4282ef1b50777b3a7: 21300000
+    - 7c3e1f962aee37a4bab13b82fdc5bf96: 21300000
+    - 17035b478d783e54b87dcc55a6562a0a: 21300000
+    - fc63e2570a4b8204984e6443316d9489: 21300000
+    - ab50106808aee8d4ba746c53cd8b3744: 21300000
+    - 978744f97dbdb8f40a3ad81f41e33076: 21300000
+    - 1df85c2a2ec22e042a43149a6b21a135: 21300000
+    - 1d5bed9bc1a5e0245ad68dcd5766a91d: 21300000
+    - fae14cbb72e3c8f4ca96089efd760643: 21300000
+    - 62af92eccf5ee914f8bdd0a33e95a10e: 21300000
+    - 30e6d49d01840cc4d8a27e8ab1cb5d36: 21300000
+    - a96334ed22927ac4cb31ac825d7cc67f: 21300000
+    - 4afc200eb2192b84089c730067d3e8eb: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: b34ed141bda1b854ba03eff091c2c6fb, type: 3}
+  - {fileID: 21300000, guid: d7979b3220c628541923b0a558a2e486, type: 3}
+  - {fileID: 21300000, guid: 0db62142cf821c7499943c0fb7002248, type: 3}
+  - {fileID: 21300000, guid: 5dde08a23278e894784c80efc76e93cf, type: 3}
+  - {fileID: 21300000, guid: 5ab862f30232112459ad185133321f81, type: 3}
+  - {fileID: 21300000, guid: 0b8c72c4448cae046b58f26af318132e, type: 3}
+  - {fileID: 21300000, guid: d200c6d400a1df64dba2eaf13aa9f7b9, type: 3}
+  - {fileID: 21300000, guid: 1ad146d5245061b4282ef1b50777b3a7, type: 3}
+  - {fileID: 21300000, guid: 7c3e1f962aee37a4bab13b82fdc5bf96, type: 3}
+  - {fileID: 21300000, guid: 17035b478d783e54b87dcc55a6562a0a, type: 3}
+  - {fileID: 21300000, guid: fc63e2570a4b8204984e6443316d9489, type: 3}
+  - {fileID: 21300000, guid: ab50106808aee8d4ba746c53cd8b3744, type: 3}
+  - {fileID: 21300000, guid: 978744f97dbdb8f40a3ad81f41e33076, type: 3}
+  - {fileID: 21300000, guid: 1df85c2a2ec22e042a43149a6b21a135, type: 3}
+  - {fileID: 21300000, guid: 1d5bed9bc1a5e0245ad68dcd5766a91d, type: 3}
+  - {fileID: 21300000, guid: fae14cbb72e3c8f4ca96089efd760643, type: 3}
+  - {fileID: 21300000, guid: 62af92eccf5ee914f8bdd0a33e95a10e, type: 3}
+  - {fileID: 21300000, guid: 30e6d49d01840cc4d8a27e8ab1cb5d36, type: 3}
+  - {fileID: 21300000, guid: a96334ed22927ac4cb31ac825d7cc67f, type: 3}
+  - {fileID: 21300000, guid: 4afc200eb2192b84089c730067d3e8eb, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Mossy Brick 11
+  - Mossy Brick 20
+  - Mossy Brick 25
+  - Mossy Brick 22
+  - Mossy Brick 12
+  - Mossy Brick 10
+  - Mossy Brick 05
+  - Mossy Brick 24
+  - Mossy Brick 26
+  - Mossy Brick 00
+  - Mossy Brick 21
+  - Mossy Brick 23
+  - Mossy Brick 08
+  - Mossy Brick 04
+  - Mossy Brick 07
+  - Mossy Brick 06
+  - Mossy Brick 02
+  - Mossy Brick 03
+  - Mossy Brick 01
+  - Mossy Brick 13
+  m_RenderDataMap: {}
+  m_Tag: Mossy Brick
+  m_IsVariant: 0

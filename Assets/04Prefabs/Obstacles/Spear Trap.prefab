@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 9012935966319988916}
   - component: {fileID: 5300483466002588220}
   - component: {fileID: 5632888032346291539}
-  - component: {fileID: 216147021995151731}
   - component: {fileID: 8037625783947836567}
+  - component: {fileID: 9006698988514993671}
   m_Layer: 7
   m_Name: Spear
   m_TagString: Untagged
@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 2097946805236621026}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6987450431477478050}
@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 077fd6ad6cbe26b4c9361d3a7a8819b7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.16, y: 0.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,12 +104,31 @@ MonoBehaviour:
   cycle: 1
   isTrigger: 0
   maintainTime: 0.5
-  spearOutType: 24
+  spearOutType: 30
   spearSpeed: 0.25
-  inPosition: {x: 0, y: -1}
-  outPosition: {x: 0, y: -0.5}
---- !u!70 &216147021995151731
-CapsuleCollider2D:
+  outPosition: 1
+--- !u!114 &8037625783947836567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097946805236621026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isParticle: 0
+  targetTag: 5
+  obstacleType: 2
+  obstacleID: 1003
+  velocityImpulse: 1
+  hitKnockback: {x: 0, y: 0}
+  gravityScale: 3
+  cameraShakeAmplitude: 10
+--- !u!61 &9006698988514993671
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -140,29 +159,19 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.0000001, y: 2}
-  m_Direction: 0
---- !u!114 &8037625783947836567
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2097946805236621026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isParticle: 0
-  targetTag: 5
-  obstacleType: 2
-  obstacleID: 1003
-  velocityImpulse: 1
-  hitKnockback: {x: 0, y: 0}
-  gravityScale: 3
-  cameraShakeAmplitude: 10
+  m_Offset: {x: 0, y: -1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 1}
+    oldSize: {x: 1, y: 3}
+    newSize: {x: 0.16, y: 0.48}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.75, y: 2}
+  m_EdgeRadius: 0
 --- !u!1 &4187107699107060204
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +199,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6987450431477478050}
@@ -237,12 +246,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a3f5aa08a836684ba6761e3d45e9d6d, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.16, y: 0.04}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -274,8 +283,8 @@ Transform:
   m_GameObject: {fileID: 9064449359359970186}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 15, z: 0}
-  m_LocalScale: {x: 0.75, y: 30, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9012935966319988916}
@@ -322,8 +331,8 @@ SpriteMask:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_MaskAlphaCutoff: 0
+  m_Sprite: {fileID: 21300000, guid: 022d0d610dddc214fa8504a1404d5745, type: 3}
+  m_MaskAlphaCutoff: 1
   m_FrontSortingLayerID: 0
   m_BackSortingLayerID: 0
   m_FrontSortingLayer: 0
@@ -331,4 +340,4 @@ SpriteMask:
   m_FrontSortingOrder: 0
   m_BackSortingOrder: 0
   m_IsCustomRangeActive: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1

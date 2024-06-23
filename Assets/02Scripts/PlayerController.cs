@@ -26,7 +26,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         rigid2D.gravityScale = 3f;
         rigid2D.velocity = Vector2.zero;
 
-        hitBox.enabled = true;
+        damageInsteract = true;
     }
 
     [SerializeField, Range(0f, 90f), Tooltip("정수리 기준 최소 점프 각도")]
@@ -107,8 +107,14 @@ public class PlayerController : MonoSingleton<PlayerController>
     #endregion
 
     private int damageTweenID = 0;
+    private bool damageInsteract = true;
     public void DamageInteract(Obstacle obstacle)
     {
+        if (!damageInsteract) // 대미지 상호작용이 꺼졌을 경우 메소드 종료
+        {
+            return;
+        }
+
         line.HideAimingLine(); // 녹아 사라질 때 뒤에 점이 보이길래
 
         Vector2 knockback;
@@ -148,7 +154,7 @@ public class PlayerController : MonoSingleton<PlayerController>
             case ParticleType.Steam: // 증기가 필 경우. 염산에 빠질 때 사용됨.
                 LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.zero, 0.5f).setOnComplete(() => damageTweenID = 0).id;
-                hitBox.enabled =  false;
+                damageInsteract = false;
                 break;
 
             default:

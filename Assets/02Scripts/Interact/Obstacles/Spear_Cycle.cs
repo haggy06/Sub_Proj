@@ -10,21 +10,19 @@ public class Spear_Cycle : CycleObstacle
     private float spearSpeed = 0.25f;
 
     [Space(5)]
-    [SerializeField]
-    private Vector2 inPosition = new Vector2(0f, -1f);
-    [SerializeField]
-    private Vector2 outPosition = new Vector2(0f, -0.5f);
+    [SerializeField, Range(1, 2)]
+    private int outPosition = 1;
 
     private int spearTweenID = 0;
     protected override void Run()
     {
         LeanTween.cancel(spearTweenID);
-        spearTweenID = LeanTween.moveLocal(gameObject, outPosition, spearSpeed).setEase(spearOutType).setOnComplete(() => spearTweenID = 0).id; // Ã¢ Æ¢¾î³ª¿È
+        spearTweenID = LeanTween.moveLocal(gameObject, Vector2.up * outPosition, spearSpeed).setEase(spearOutType).setOnComplete(() => spearTweenID = 0).id; // Ã¢ Æ¢¾î³ª¿È
     }
 
     protected override void RunStop()
     {
         LeanTween.cancel(spearTweenID);
-        spearTweenID = LeanTween.moveLocal(gameObject, inPosition, spearSpeed).setEase(spearOutType).setOnComplete(() => spearTweenID = 0).id; // Ã¢ Áý¾î³ÖÀ½
+        spearTweenID = LeanTween.moveLocal(gameObject, Vector2.zero, spearSpeed).setEase(spearOutType).setOnComplete(() => spearTweenID = 0).id; // Ã¢ Áý¾î³ÖÀ½
     }
 }
