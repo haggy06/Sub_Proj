@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4664663595973052866}
   - component: {fileID: 6969253332283895178}
   - component: {fileID: 384650365319377289}
+  - component: {fileID: 7267333669802630549}
   m_Layer: 9
   m_Name: Acid Sewer
   m_TagString: Untagged
@@ -98,13 +99,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233024a365859374caf420c10bd612c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTrigger: 0
+  playOnAwake: 1
+  particle: {fileID: 3034009171009113067}
+--- !u!114 &7267333669802630549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2564573687930305802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd9739940a84e74f9d12e9cf5369c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetEvent: {fileID: 384650365319377289}
   playOnAwake: 1
   startDelay: 0
-  cycle: 2
-  isTrigger: 0
-  maintainTime: 3
-  particle: {fileID: 3034009171009113067}
-  infinity: 0
+  cycle: 3
+  maintainTime: 2
 --- !u!1 &9073432848164666448
 GameObject:
   m_ObjectHideFlags: 0

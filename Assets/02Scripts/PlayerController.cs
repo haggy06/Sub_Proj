@@ -195,7 +195,6 @@ public class PlayerController : MonoSingleton<PlayerController>
         PushTempVelo(); // 계속해서 이동속도 저장
     }
 
-    private bool isCollisioned = false;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.layer == (int)LAYER.Ground) // 공중에서 지형에 충돌했을 경우
@@ -203,17 +202,16 @@ public class PlayerController : MonoSingleton<PlayerController>
             Vector2 lastVelocity = GetTempVelo();
             if (Mathf.Abs(collision.contacts[0].normal.x) > 0.72f) // 경사가 약 45도 초과, 135도 미만인 땅에 부딫혔을 경우
             {
-                //Debug.Log("공중에서 벽에 충돌함. 반작용 : " + lastVelocity);
-                rigid2D.velocity = new Vector2(-lastVelocity.x * speedRetention, lastVelocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
-
-                isCollisioned = true;
+                if (!Mathf.Approximately(Mathf.Sign(lastVelocity.x), Mathf.Sign(collision.contacts[0].normal.x))) // 뒤집은 속도가 벽 충돌 방향의 반대일 경우
+                {
+                    rigid2D.velocity = new Vector2(-lastVelocity.x * speedRetention, lastVelocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
+                    Debug.Log("공중에서 벽에 충돌함. 반작용 : " + rigid2D.velocity);
+                }
             }
             else if (collision.contacts[0].normal.y < -0.71f) // 천장에 박았을 경우
             {
-                //Debug.Log("머리 박음. 반작용 : " + lastVelocity);
                 rigid2D.velocity = new Vector2(lastVelocity.x, rigid2D.velocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
-
-                isCollisioned = true;
+                Debug.Log("머리 박음. 반작용 : " + rigid2D.velocity);
             }
 
             /*
@@ -239,31 +237,16 @@ public class PlayerController : MonoSingleton<PlayerController>
             Vector2 lastVelocity = GetTempVelo();
             if (Mathf.Abs(collision.contacts[0].normal.x) > 0.72f) // 경사가 약 45도 초과, 135도 미만인 땅이 되었을 경우
             {
-                if (isCollisioned) // 이번에 이미 충돌했었을 경우
+                if (!Mathf.Approximately(Mathf.Sign(lastVelocity.x), Mathf.Sign(collision.contacts[0].normal.x))) // 뒤집은 속도가 벽 충돌 방향의 반대일 경우
                 {
-                    isCollisioned = false; // 튕기지 않고 패스함(ConCollisionStay2D가 한 타임 늦게 호출되기 때문에 이미 튕겨졌음에도 다시 한 번 튕겨져 벽으로 돌아오기 때문)
-                }
-                else
-                {
-                    Debug.Log("벽에 빠르게 충돌함. 반작용 : " + lastVelocity);
                     rigid2D.velocity = new Vector2(-lastVelocity.x * speedRetention, lastVelocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
-
-                    isCollisioned = true;
+                    Debug.Log("벽에 빠르게 충돌함. 반작용 : " + rigid2D.velocity);
                 }
             }
-            else if (collision.contacts[0].normal.y < -0.71f) // 천장에 박았은 게 되었을 경우
+            else if (collision.contacts[0].normal.y < -0.71f) // 천장에 박았을 경우
             {
-                if (isCollisioned)
-                {
-                    isCollisioned = false;
-                }
-                else
-                {
-                    Debug.Log("빠르게 머리 박음. 반작용 : " + lastVelocity);
-                    rigid2D.velocity = new Vector2(lastVelocity.x, rigid2D.velocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
-
-                    isCollisioned = true;
-                }
+                rigid2D.velocity = new Vector2(lastVelocity.x, rigid2D.velocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
+                Debug.Log("빠르게 머리 박음. 반작용 : " + rigid2D.velocity);
             }
         }
     }

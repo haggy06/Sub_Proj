@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CycleObstacle : MonoBehaviour
+public class CycleEvent : MonoBehaviour
 {
+    [SerializeField]
+    protected EntityEvent targetEvent;
+
+    [Space(5)]
     [SerializeField]
     protected bool playOnAwake = true;
     [SerializeField]
     protected float startDelay = 0f;
     [SerializeField]
     protected float cycle = 2f;
-
-    [Space(5)]
-    [SerializeField, Tooltip("트리거 방식이면 true, 껐다 켜지는 방식이면 false")]
-    private bool isTrigger= false;
     [SerializeField]
-    protected float maintainTime = 0f;
+    protected float maintainTime = 0.5f;
+
+    public float StartDelay => startDelay;
+    public float Cycle => cycle;
+    public float MaintainTime => maintainTime;
 
     protected bool repeat = false;
     public bool Repeat
@@ -33,7 +37,10 @@ public abstract class CycleObstacle : MonoBehaviour
                 else
                 {
                     StopCoroutine("LaunchCoroutine");
-                    RunStop();
+                    if (!targetEvent.IsTrigger && !cycleComplete)
+                    {
+                        targetEvent.RunStop();
+                    }
                 }
             }
         }
@@ -42,25 +49,26 @@ public abstract class CycleObstacle : MonoBehaviour
     {
         Repeat = playOnAwake;
     }
+
+    protected bool cycleComplete = false;
     protected IEnumerator LaunchCoroutine()
     {
         yield return YieldReturn.WaitForSeconds(startDelay);
 
         while (repeat)
         {
-            Run();
+            cycleComplete = false;
+            targetEvent.Run();
 
-            if (!isTrigger) // 트리거 방식이 아닐 경우
+            if (!targetEvent.IsTrigger) // 트리거 방식이 아닐 경우
             {
                 yield return YieldReturn.WaitForSeconds(maintainTime);
 
-                RunStop();
+                targetEvent.RunStop();
             }
+            cycleComplete = true;
 
             yield return YieldReturn.WaitForSeconds(cycle);
         }
     }
-
-    protected abstract void Run();
-    protected abstract void RunStop();
 }

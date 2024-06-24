@@ -4863,9 +4863,10 @@ GameObject:
   - component: {fileID: 7957532468971176418}
   - component: {fileID: 5667777566249781503}
   - component: {fileID: 5649191253736507580}
+  - component: {fileID: 391286605971486061}
   m_Layer: 9
   m_Name: Lava Sewer
-  m_TagString: Untagged
+  m_TagString: Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4950,10 +4951,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 233024a365859374caf420c10bd612c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTrigger: 0
+  playOnAwake: 1
+  particle: {fileID: 3163307885507113885}
+--- !u!114 &391286605971486061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7444897631599531133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd9739940a84e74f9d12e9cf5369c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetEvent: {fileID: 5649191253736507580}
   playOnAwake: 1
   startDelay: 0
-  cycle: 2
-  isTrigger: 0
-  maintainTime: 3
-  particle: {fileID: 3163307885507113885}
-  infinity: 0
+  cycle: 3
+  maintainTime: 2

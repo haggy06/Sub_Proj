@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine;  
 
-public class Launcher_Cycle : CycleObstacle
+public class Launcher : EntityEvent
 {
     [Header("Launcher Setting")]
     [SerializeField]
@@ -16,7 +16,7 @@ public class Launcher_Cycle : CycleObstacle
     [SerializeField]
     private float launchPower = 10f;
 
-    protected override void Run()
+    public override void Run()
     {
         if (!pool.TryGetObject(launchObject, out GameObject projectile)) // 이 발사체에 대한 오브젝트풀이 없을 경우
         {
@@ -30,7 +30,7 @@ public class Launcher_Cycle : CycleObstacle
         projectile.GetComponent<I_Projectile>().Launch(transform.eulerAngles.z, launchPower);
     }
 
-    protected override void RunStop()
+    public override void RunStop()
     {
 
     }

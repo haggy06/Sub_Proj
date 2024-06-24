@@ -1,0 +1,79 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using UnityEngine.Events;
+
+public class Switch : DetectionBase
+{
+    [SerializeField]
+    private bool oneInteract = true;
+
+    [SerializeField]
+    private bool on = false;
+    public bool ON
+    {
+        get => on;
+        set
+        {
+            if (on != value)
+            {
+                on = value;
+
+                if (on)
+                {
+                    interactON.Invoke();
+                }
+                else
+                {
+                    interactOFF.Invoke();
+                }
+            }
+        }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        if (on) // 시작 이벤트 실행
+        {
+            interactON.Invoke();
+        }
+        else
+        {
+            interactOFF.Invoke();
+        }
+    }
+    protected override void DetectionEnd()
+    {
+
+    }
+    protected override void HitGround()
+    {
+
+    }
+
+    private bool interactable = true;
+    protected override void DetectionStart()
+    {
+        if (interactable)
+        {
+            if (!on) // 꺼져 있었을 경우
+            {
+                ON = true;
+            }
+            else // 켜져 있었을 경우
+            {
+                ON = false;
+            }
+
+            if (oneInteract) // 일회성 스위치일 경우
+            {
+                interactable = false;
+            }
+        }
+    }
+    public UnityEvent interactON;
+    public UnityEvent interactOFF;
+}

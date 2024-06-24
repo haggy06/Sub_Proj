@@ -11,9 +11,19 @@ public class ParticleManager : MonoSingleton<ParticleManager>
     }
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
+        ParticleSystem particle;
+
         foreach (GameObject obj in particleArray)
         {
-            obj.GetComponent<ParticleSystem>().Stop();
+            particle = obj.GetComponent<ParticleSystem>();
+            particle.Stop();
+            particle.Clear();
+        }
+        for (int i = 0; i < trackingParticles.childCount; i++)
+        {
+            particle = trackingParticles.GetChild(i).GetComponent<ParticleSystem>();
+            particle.Stop();
+            particle.Clear();
         }
     }
 
@@ -86,5 +96,7 @@ public enum ParticleType
     Blood,
     Steam,
     Gravel,
+    Gem,
+    Ash,
 
 }

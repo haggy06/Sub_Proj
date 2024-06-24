@@ -42,7 +42,8 @@ GameObject:
   - component: {fileID: 3257178769445947607}
   - component: {fileID: 3187726739685052710}
   - component: {fileID: 2623307715630267292}
-  - component: {fileID: 3095041021664597808}
+  - component: {fileID: 7003664216769877712}
+  - component: {fileID: 7191372015726019946}
   m_Layer: 3
   m_Name: Arrow Launcher
   m_TagString: Untagged
@@ -167,7 +168,7 @@ PolygonCollider2D:
       - {x: 0.4375, y: 0.5}
       - {x: 0.4375, y: -0.5}
   m_UseDelaunayMesh: 0
---- !u!114 &3095041021664597808
+--- !u!114 &7003664216769877712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -179,12 +180,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8309e8ec5717574fa9c9f318eb7d160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playOnAwake: 1
-  startDelay: 0
-  cycle: 2
   isTrigger: 1
-  maintainTime: 0
+  playOnAwake: 0
   pool: {fileID: 0}
   launchPosition: {fileID: 179335573796883113}
   launchObject: {fileID: 3154562019823299120, guid: ed70c2b6d6c78de49ae5225d9303608f, type: 3}
   launchPower: 25
+--- !u!114 &7191372015726019946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6107812096795043650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd9739940a84e74f9d12e9cf5369c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetEvent: {fileID: 7003664216769877712}
+  playOnAwake: 1
+  startDelay: 0
+  cycle: 2
+  maintainTime: 0.5

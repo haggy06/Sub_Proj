@@ -13,7 +13,8 @@ public class Jewelry : DetectionBase
     {
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
-        transform.GetChild(0).gameObject.SetActive(true); // 첫 번째 자식 = 파티클
+
+        ParticleManager.Inst.PlayParticle(ParticleType.Gem, transform.position, Vector2.one);
 
         transform.root.GetComponent<StageManager>().GetJewelry();
     }
