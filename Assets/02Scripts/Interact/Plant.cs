@@ -15,9 +15,14 @@ public class Plant : DetectionBase
     {
         ParticleManager.Inst.PlayParticle(ParticleType.Fire, transform);
 
-        LeanTween.color(gameObject, Color.black, burningTime).setOnComplete(() => GetComponent<SpriteRenderer>().enabled = false);
+        LeanTween.color(gameObject, Color.black, burningTime).setOnComplete(BurnOut);
+    }
+    private void BurnOut()
+    {
+        ParticleManager.Inst.PlayParticle(ParticleType.Ash, transform.position, transform.localScale, transform.localEulerAngles.z);
+        ParticleManager.Inst.PlayParticle(ParticleType.Gravel, transform.position, transform.localScale, transform.localEulerAngles.z);
 
-        ParticleManager.Inst.PlayParticle(ParticleType.Fire, transform.position, transform.localScale, transform.localEulerAngles.z);
+        Destroy(gameObject);
     }
 
     protected override void HitGround()

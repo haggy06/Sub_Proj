@@ -101,5 +101,6 @@ public enum Tag
     Player,
     GameController,
     Clear,
+    Fire,
 
 }
