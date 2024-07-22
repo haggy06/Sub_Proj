@@ -751,7 +751,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1494270956203125221}
-  - component: {fileID: 4177131711953036257}
+  - component: {fileID: 6185838521786949287}
   m_Layer: 7
   m_Name: Hit box
   m_TagString: Player
@@ -774,8 +774,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4007871519591868210}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &4177131711953036257
-CircleCollider2D:
+--- !u!61 &6185838521786949287
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -807,8 +807,18 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 1.05, y: 1.05}
+  m_EdgeRadius: 0
 --- !u!1 &5113302385904972347
 GameObject:
   m_ObjectHideFlags: 0

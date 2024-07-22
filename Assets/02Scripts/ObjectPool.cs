@@ -27,7 +27,8 @@ public class ObjectPool : MonoBehaviour
 
         if (member.TryGetComponent<PoolObject>(out _))
         {
-            Transform memberPool = Instantiate<GameObject>(new GameObject(), this.transform).transform;
+            Transform memberPool = new GameObject().transform;
+            memberPool.transform.parent = transform;
             memberPool.name = member.name + " Pool";
 
             Stack<GameObject> pool;
@@ -39,7 +40,7 @@ public class ObjectPool : MonoBehaviour
 
             for (int i = 0; i < countPerObj; i++)
             {
-                GameObject newObject = Instantiate<GameObject>(member, memberPool);
+                GameObject newObject = Instantiate(member, memberPool);
 
                 newObject.GetComponent<PoolObject>().RememberPool(pool, memberPool);
                 newObject.GetComponent<PoolObject>().ReturnToPool();
@@ -64,7 +65,7 @@ public class ObjectPool : MonoBehaviour
                 //Debug.LogError(member.name + "의 재고가 다 떨어졌습니다.");
                 Transform memberPool = transform.Find(member.name + " Pool").transform;
 
-                outObject = Instantiate<GameObject>(member, memberPool);
+                outObject = Instantiate(member, memberPool);
                 outObject.SetActive(true);
                 outObject.GetComponent<PoolObject>().RememberPool(pool, memberPool);
 

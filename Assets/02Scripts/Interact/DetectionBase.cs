@@ -5,9 +5,6 @@ using UnityEngine;
 public abstract class DetectionBase : MonoBehaviour
 {
     [SerializeField]
-    private bool isParticle = false;
-
-    [SerializeField]
     protected Tag targetTag = Tag.Player;
 
     protected bool detection = false;
@@ -61,7 +58,7 @@ public abstract class DetectionBase : MonoBehaviour
     {
         particleCoolDown = false;
 
-        yield return new WaitForSeconds(0.25f);
+        yield return YieldReturn.WaitForSeconds(0.25f);
 
         particleCoolDown = true;
     }

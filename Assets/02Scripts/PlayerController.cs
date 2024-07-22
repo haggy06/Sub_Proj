@@ -108,7 +108,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     private int damageTweenID = 0;
     private bool damageInsteract = true;
-    public void DamageInteract(Obstacle obstacle)
+    public void DamageInteract(Attack obstacle)
     {
         if (!damageInsteract) // 대미지 상호작용이 꺼졌을 경우 메소드 종료
         {
@@ -148,7 +148,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
             case ParticleType.Blood: // 피가 튈 경우. 찔리거나 베일 때 사용됨.
                 LeanTween.cancel(damageTweenID);
-                damageTweenID = LeanTween.color(gameObject, CustomColor.bloodDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
+                //damageTweenID = LeanTween.color(gameObject, CustomColor.bloodDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
                 break;
 
             case ParticleType.Steam: // 증기가 필 경우. 염산에 빠질 때 사용됨.
@@ -167,7 +167,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         LeanTween.moveX(gameObject, doorPosition.position.x, 0.5f);
         controllable = false;
     }
-    private void Dead(Obstacle obstacle)
+    private void Dead(Attack obstacle)
     {
         controllable = false;
         alive = false;

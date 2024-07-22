@@ -392,7 +392,7 @@ public class GameManager : MonoSingleton<GameManager>
     public GameStatus GameStatus => gameStatus;
 
     public event Action GameStartEvent = () => Debug.Log("게임 스타트");
-    public event Action<Obstacle> GameOverEvent = (_) => Debug.Log("게임 오버");
+    public event Action<Attack> GameOverEvent = (_) => Debug.Log("게임 오버");
     public event Action<bool, bool, bool> GameClearEvent = (_, _, _) => Debug.Log("게임 오버");
     private void GameClear(bool jewelyClear, bool timeClear, bool jumpClear)
     {
@@ -417,7 +417,7 @@ public class GameManager : MonoSingleton<GameManager>
         SaveGameData();
     }
 
-    public void ChangeGameStatus(GameStatus newStatus, Obstacle obstacle = null)
+    public void ChangeGameStatus(GameStatus newStatus, Attack obstacle = null)
     {
         if (gameStatus == newStatus) // 만약 현재 상태와 새 상태가 같다면 메소드 탈출
         {

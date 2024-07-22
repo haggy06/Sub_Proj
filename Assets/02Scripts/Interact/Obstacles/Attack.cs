@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : DetectionBase
+using System;
+
+public class Attack : DetectionBase
 {
     [SerializeField]
     private ParticleType obstacleType;
@@ -30,19 +32,24 @@ public class Obstacle : DetectionBase
 
     public float CameraShakeAmplitude => cameraShakeAmplitude;
 
+    public event Action DetectionEndEvent = () => { };
+    public event Action DetectionStartEvent = () => { };
+    public event Action HitGroundEvent = () => { };
     protected override void DetectionEnd()
     {
-
+        DetectionEndEvent.Invoke();
     }
 
     protected override void DetectionStart()
     {
         GameManager.Inst.ChangeGameStatus(GameStatus.GameOver, this);
         PlayerController.Inst.DamageInteract(this);
+
+        DetectionStartEvent.Invoke();
     }
 
     protected override void HitGround()
     {
-
+        HitGroundEvent.Invoke();
     }
 }

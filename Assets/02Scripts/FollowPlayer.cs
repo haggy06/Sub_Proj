@@ -19,7 +19,7 @@ public class FollowPlayer : MonoBehaviour
 
         GameManager.Inst.GameOverEvent += CameraShake;
     }
-    private void CameraShake(Obstacle obstacle)
+    private void CameraShake(Attack obstacle)
     {
         LeanTween.value(obstacle.CameraShakeAmplitude, 0f, cameraShakeTime).setOnUpdate((value) => cameraShake.m_AmplitudeGain = value);
     }
