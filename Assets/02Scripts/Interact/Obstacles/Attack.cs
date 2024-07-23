@@ -48,7 +48,7 @@ public class Attack : DetectionBase
         DetectionStartEvent.Invoke();
     }
 
-    protected override void HitGround()
+    protected override void HitGround(string tag)
     {
         HitGroundEvent.Invoke();
     }

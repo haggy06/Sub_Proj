@@ -29,10 +29,6 @@ public abstract class DetectionBase : MonoBehaviour
         }
     }
 
-    protected virtual void Awake()
-    {
-        gameObject.layer = (int)LAYER.Censor; // Censor 레이어는 Censor, Ground와만 충돌한다.
-    }
     protected virtual void OnDestroy()
     {
         StopCoroutine("ParticleDetectionCoolDown");
@@ -50,7 +46,7 @@ public abstract class DetectionBase : MonoBehaviour
         }        
         else if (other.layer == (int)LAYER.Ground) // 땅과 충돌했을 경우
         {
-            HitGround();
+            HitGround(other.tag);
         }
     }
     private bool particleCoolDown = true; // 파티클을 통해 잠깐 동안 너무 많이 감지하는 걸 완화하기 위한 장치.
@@ -67,7 +63,7 @@ public abstract class DetectionBase : MonoBehaviour
     {
         if (collision.gameObject.layer == (int)LAYER.Ground) // 땅과 충돌했을 경우
         {
-            HitGround();
+            HitGround(collision.gameObject.tag);
         }
         else if (collision.CompareTag(targetTag.ToString())) // 타겟과 충돌했을 경우
         {
@@ -85,7 +81,7 @@ public abstract class DetectionBase : MonoBehaviour
     protected abstract void DetectionStart();
     protected abstract void DetectionEnd();
 
-    protected abstract void HitGround();
+    protected abstract void HitGround(string tag);
 }
 
 public enum Tag

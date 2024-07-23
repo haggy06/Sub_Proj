@@ -12,7 +12,7 @@ public abstract class DoorInteract : DetectionBase
     [SerializeField, Range(0f, 1f)]
     private float progress = 0f;
 
-    protected override void HitGround()
+    protected override void HitGround(string tag)
     {
 
     }

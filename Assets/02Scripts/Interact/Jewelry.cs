@@ -19,7 +19,7 @@ public class Jewelry : DetectionBase
         transform.root.GetComponent<StageManager>().GetJewelry();
     }
 
-    protected override void HitGround()
+    protected override void HitGround(string tag)
     {
 
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Plant : DetectionBase
+public class BurningObject : DetectionBase
 {
     [SerializeField]
     private float burningTime = 2f;
@@ -44,7 +44,7 @@ public class Plant : DetectionBase
         gameObject.SetActive(false);
     }
 
-    protected override void HitGround()
+    protected override void HitGround(string tag)
     {
 
     }

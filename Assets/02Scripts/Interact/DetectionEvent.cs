@@ -38,7 +38,7 @@ public class DetectionEvent : DetectionBase
         }
     }
 
-    protected override void HitGround()
+    protected override void HitGround(string tag)
     {
 
     }

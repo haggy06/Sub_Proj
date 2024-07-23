@@ -788,7 +788,7 @@ ParticleSystem:
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
-    radiusThickness: 0
+    radiusThickness: 1
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 0, y: 0, z: -135}
@@ -4963,11 +4963,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isParticle: 0
   targetTag: 5
   obstacleType: 3
   obstacleID: 2000
   velocityImpulse: 1
   hitKnockback: {x: 0, y: 0}
-  gravityScale: 3
+  gravityScale: 0
   cameraShakeAmplitude: 10

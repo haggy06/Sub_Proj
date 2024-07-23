@@ -18,7 +18,8 @@ public class PlayerController : MonoSingleton<PlayerController>
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
         line.HideAimingLine();
-
+        
+        col.enabled = true;
         LeanTween.cancel(damageTweenID);
 
         sprite.color = Color.white;
@@ -49,7 +50,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         Gizmos.color = Color.cyan;
         if (col)
         {
-            Gizmos.DrawCube(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2((col.bounds.extents.x * 2) - 0.05f, 0.1f));
+            Gizmos.DrawCube(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2((col.bounds.extents.x * 2) - 0.02f, 0.02f));
         }
     }
     [Space(5)]
@@ -119,7 +120,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         Vector2 knockback;
         knockback.x = obstacle.transform.position.x < transform.position.x ? obstacle.HitKnockback.x : -obstacle.HitKnockback.x; // 내가 장애물보다 오른쪽에 있었으면 오른쪽으로, 반대면 왼쪽으로 튐
-        knockback.y = obstacle.transform.position.y < transform.position.y ? obstacle.HitKnockback.y : -obstacle.HitKnockback.y; // 내가 장애물보다 위쪽에 있었으면 위쪽으로, 반대면 아래쪽으로 튐
+        knockback.y = obstacle.HitKnockback.y;//obstacle.transform.position.y < transform.position.y ? obstacle.HitKnockback.y : -obstacle.HitKnockback.y; // 내가 장애물보다 위쪽에 있었으면 위쪽으로, 반대면 아래쪽으로 튐
         if (!obstacle.VelocityImpulse) // 이동속도를 완전히 바꿔버리지 않을 경우
         {
             knockback.x += rigid2D.velocity.x; // 기존 이동 속도 더해주기
@@ -153,6 +154,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
             case ParticleType.Steam: // 증기가 필 경우. 염산에 빠질 때 사용됨.
                 LeanTween.cancel(damageTweenID);
+                col.enabled = false;
                 damageTweenID = LeanTween.color(gameObject, CustomColor.zero, 0.5f).setOnComplete(() => damageTweenID = 0).id;
                 damageInsteract = false;
                 break;
@@ -161,7 +163,7 @@ public class PlayerController : MonoSingleton<PlayerController>
                 Debug.LogError("알려지지 않은 피해를 입음. 알맞은 대미지 이벤트를 제작해주세요.");
                 break;
         }
-}
+    }
     public void DoorInteract(Transform doorPosition)
     {
         LeanTween.moveX(gameObject, doorPosition.position.x, 0.5f);
@@ -188,7 +190,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     private void FixedUpdate()
     {
         // 콜라이더 밑부분에서 착지 체크
-        isGround = Physics2D.OverlapBox(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2((col.bounds.extents.x * 2) - 0.05f, 0.1f), 0f, 1 << (int)LAYER.Ground);
+        isGround = Physics2D.OverlapBox(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2((col.bounds.extents.x * 2) - 0.02f, 0.02f), 0f, 1 << (int)LAYER.Ground);
         //isGround = Physics2D.OverlapArea(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f), 1 << (int)LAYER.Ground);
         //Debug.DrawLine(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f));
 
@@ -197,6 +199,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        print(collision.contacts[0].normal);
         if (collision.gameObject.layer == (int)LAYER.Ground) // 공중에서 지형에 충돌했을 경우
         {
             Vector2 lastVelocity = GetTempVelo();
@@ -207,11 +210,19 @@ public class PlayerController : MonoSingleton<PlayerController>
                     rigid2D.velocity = new Vector2(-lastVelocity.x * speedRetention, lastVelocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
                     Debug.Log("공중에서 벽에 충돌함. 반작용 : " + rigid2D.velocity);
                 }
+                else
+                {
+                    print("저런");
+                }
             }
             else if (collision.contacts[0].normal.y < -0.71f) // 천장에 박았을 경우
             {
                 rigid2D.velocity = new Vector2(lastVelocity.x, rigid2D.velocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
                 Debug.Log("머리 박음. 반작용 : " + rigid2D.velocity);
+            }
+            else
+            {
+                print("이런");
             }
 
             /*
@@ -228,6 +239,10 @@ public class PlayerController : MonoSingleton<PlayerController>
                 rigid2D.velocity = new Vector2(-relativeVelocity.x, rigid2D.velocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
             }
             */
+        }
+        else
+        {
+            print("이게?!");
         }
     }
     private void OnCollisionStay2D(Collision2D collision) // 속도가 빠르거나 벽에 붙어 점프하는 등 특정 상황에서 벽에 튕기지 않는 상황을 방지하기 위함.

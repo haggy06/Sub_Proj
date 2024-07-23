@@ -32,10 +32,8 @@ public class Switch : DetectionBase
         }
     }
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         if (on) // 시작 이벤트 실행
         {
             interactON.Invoke();
@@ -49,7 +47,7 @@ public class Switch : DetectionBase
     {
 
     }
-    protected override void HitGround()
+    protected override void HitGround(string tag)
     {
 
     }

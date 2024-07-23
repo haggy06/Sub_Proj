@@ -23,9 +23,7 @@ public class Launcher : EntityEvent
             pool.MakePool(launchObject);
             pool.TryGetObject(launchObject, out projectile); // 풀 제작 후 다시 가져오기
         }
-
         projectile.transform.position = launchPosition.position;
-
 
         projectile.GetComponent<I_Projectile>().Launch(transform.eulerAngles.z, launchPower);
     }
