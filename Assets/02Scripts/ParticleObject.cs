@@ -24,12 +24,15 @@ public class ParticleObject : PoolObject
     {
         yield return YieldReturn.WaitForSeconds(particle.main.duration + particle.main.startLifetime.constantMax);
 
-        ReturnToPool();
+        if (gameObject.activeInHierarchy)
+            ReturnToPool();
     }
+
     public override void ReturnToPool()
     {
-        transform.parent = myPoolTrans;
-        connectedPool.Push(gameObject);
+        base.ReturnToPool();
+
+        StopCoroutine("ParticleTracking");
     }
 
     public override void ExitFromPool(Transform newParent = null)

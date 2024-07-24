@@ -199,7 +199,6 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        print(collision.contacts[0].normal);
         if (collision.gameObject.layer == (int)LAYER.Ground) // 공중에서 지형에 충돌했을 경우
         {
             Vector2 lastVelocity = GetTempVelo();
@@ -210,19 +209,11 @@ public class PlayerController : MonoSingleton<PlayerController>
                     rigid2D.velocity = new Vector2(-lastVelocity.x * speedRetention, lastVelocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
                     Debug.Log("공중에서 벽에 충돌함. 반작용 : " + rigid2D.velocity);
                 }
-                else
-                {
-                    print("저런");
-                }
             }
             else if (collision.contacts[0].normal.y < -0.71f) // 천장에 박았을 경우
             {
                 rigid2D.velocity = new Vector2(lastVelocity.x, rigid2D.velocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
                 Debug.Log("머리 박음. 반작용 : " + rigid2D.velocity);
-            }
-            else
-            {
-                print("이런");
             }
 
             /*
@@ -239,10 +230,6 @@ public class PlayerController : MonoSingleton<PlayerController>
                 rigid2D.velocity = new Vector2(-relativeVelocity.x, rigid2D.velocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
             }
             */
-        }
-        else
-        {
-            print("이게?!");
         }
     }
     private void OnCollisionStay2D(Collision2D collision) // 속도가 빠르거나 벽에 붙어 점프하는 등 특정 상황에서 벽에 튕기지 않는 상황을 방지하기 위함.

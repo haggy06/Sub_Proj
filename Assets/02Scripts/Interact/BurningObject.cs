@@ -8,12 +8,20 @@ public class BurningObject : DetectionBase
     private float burningTime = 2f;
     [SerializeField]
     private Collider2D burningAttack;
+    private PoolObject burningParticle;
 
     private int burnTweenID;
     private void OnEnable()
     {
         burningAttack.enabled = false;
         burnTweenID = 0;
+    }
+    private void OnDisable()
+    {
+        if (burnTweenID != 0)
+        {
+            LeanTween.cancel(burnTweenID);
+        }
     }
     protected override void DetectionEnd()
     {
@@ -28,7 +36,7 @@ public class BurningObject : DetectionBase
         }
 
         Invoke("FireSpread", 0.2f);
-        ParticleManager.Inst.PlayParticle(ParticleType.Fire, transform);
+        burningParticle = ParticleManager.Inst.PlayParticle(ParticleType.Fire, transform);
         burnTweenID = LeanTween.color(gameObject, Color.black, burningTime).setOnComplete(BurnOut).id;
     }
     private void FireSpread()
@@ -38,6 +46,9 @@ public class BurningObject : DetectionBase
 
     private void BurnOut()
     {
+        burningParticle.ReturnToPool();
+        burnTweenID = 0;
+
         ParticleManager.Inst.PlayParticle(ParticleType.Ash, transform.position, transform.localScale, transform.localEulerAngles.z);
         ParticleManager.Inst.PlayParticle(ParticleType.Gravel, transform.position, transform.localScale, transform.localEulerAngles.z);
 

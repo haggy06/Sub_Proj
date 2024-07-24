@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Attack))]
+[RequireComponent(typeof(Rigidbody2D), typeof(BurningObject), typeof(Attack))]
 public class Arrow : PoolObject, I_Projectile
 {
     private Attack attack;
+    private BurningObject burningObject;
     private void Awake()
     {
         attack = GetComponent<Attack>();
+        burningObject = GetComponent<BurningObject>();
 
         attack.HitGroundEvent += HitGround;
     }

@@ -9,38 +9,38 @@ public class ObjectPool : MonoBehaviour
 
     [Space(10)]
     [SerializeField]
-    private List<GameObject> poolMembers = new List<GameObject>();
+    private List<PoolObject> poolMembers = new List<PoolObject>();
     private void Awake()
     {
-        foreach(GameObject member in poolMembers)
+        foreach(PoolObject member in poolMembers)
         {
             MakePool(member, false);
         }
     }
 
     [SerializeField]
-    private Dictionary<string, Stack<GameObject>> objectPool = new Dictionary<string, Stack<GameObject>>();
-    public void MakePool(GameObject member, bool newMember = true)
+    private Dictionary<string, Stack<PoolObject>> objectPool = new Dictionary<string, Stack<PoolObject>>();
+    public void MakePool(PoolObject member, bool newMember = true)
     {
         if (newMember)
             poolMembers.Add(member);
 
         if (member.TryGetComponent<PoolObject>(out _))
         {
-            Transform memberPool = new GameObject().transform;
+            Transform memberPool = new PoolObject().transform;
             memberPool.transform.parent = transform;
             memberPool.name = member.name + " Pool";
 
-            Stack<GameObject> pool;
+            Stack<PoolObject> pool;
             if (!objectPool.TryGetValue(member.name, out pool)) // 딕셔너리에 알맞는 스택이 있었을 경우 pool에 저장하고, 없었다면 새로 만들어 저장함
             {
-                pool = new Stack<GameObject>();
+                pool = new Stack<PoolObject>();
                 objectPool.Add(member.name, pool);
             }
 
             for (int i = 0; i < countPerObj; i++)
             {
-                GameObject newObject = Instantiate(member, memberPool);
+                PoolObject newObject = Instantiate(member, memberPool);
 
                 newObject.GetComponent<PoolObject>().RememberPool(pool, memberPool);
                 newObject.GetComponent<PoolObject>().ReturnToPool();
@@ -51,13 +51,13 @@ public class ObjectPool : MonoBehaviour
             Debug.LogError("풀 멤버 " + member.name + "에게 PoolObject 인터페이스가 구현되어있지 않음");
         }
     }
-    public bool TryGetObject(GameObject member, out GameObject outObject)
+    public bool TryGetObject(PoolObject member, out PoolObject outObject)
     {
-        if (objectPool.TryGetValue(member.name, out Stack<GameObject> pool))
+        if (objectPool.TryGetValue(member.name, out Stack<PoolObject> pool))
         {
             if (pool.TryPop(out outObject))
             {
-                outObject.SetActive(true);
+                outObject.gameObject.SetActive(true);
                 outObject.GetComponent<PoolObject>().ExitFromPool();
             }
             else
@@ -66,7 +66,7 @@ public class ObjectPool : MonoBehaviour
                 Transform memberPool = transform.Find(member.name + " Pool").transform;
 
                 outObject = Instantiate(member, memberPool);
-                outObject.SetActive(true);
+                outObject.gameObject.SetActive(true);
                 outObject.GetComponent<PoolObject>().RememberPool(pool, memberPool);
 
                 outObject.GetComponent<PoolObject>().ExitFromPool();
@@ -82,9 +82,9 @@ public class ObjectPool : MonoBehaviour
             return false;
         }
     }
-    public bool ReturnObject(GameObject member)
+    public bool ReturnObject(PoolObject member)
     {
-        if (objectPool.TryGetValue(member.name, out Stack<GameObject> pool))
+        if (objectPool.TryGetValue(member.name, out Stack<PoolObject> pool))
         {
             pool.Push(member);
             return true;

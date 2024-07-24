@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PoolObject : MonoBehaviour
 {
-    protected Stack<GameObject> connectedPool;
+    protected Stack<PoolObject> connectedPool;
     protected Transform myPoolTrans;
+
+    [Space(10)]
+    [SerializeField]
+    protected bool useAutoReturn = true;
     [SerializeField]
     protected float lifeTime = 3f;
 
-    public void RememberPool(Stack<GameObject> connectedPool, Transform myPoolTrans) // *Dictionary의 value로 있는 Stack을 받기 때문에 오류가 날 가능성이 있음
+    protected bool isReturned = false;
+    public void RememberPool(Stack<PoolObject> connectedPool, Transform myPoolTrans) // *Dictionary의 value로 있는 Stack을 받기 때문에 오류가 날 가능성이 있음
     {
         this.connectedPool = connectedPool;
         this.myPoolTrans = myPoolTrans;
@@ -16,19 +21,23 @@ public class PoolObject : MonoBehaviour
 
     public virtual void ReturnToPool()
     {
+        isReturned = true;
         StopCoroutine("AutoReturn"); // 자동 리턴 취소
 
         transform.parent = myPoolTrans;
-        connectedPool.Push(gameObject);
+        connectedPool.Push(this);
 
         gameObject.SetActive(false);
     }
     
     public virtual void ExitFromPool(Transform newParent = null)
     {
+        isReturned = false;
+
         transform.parent = newParent;
 
-        StartCoroutine("AutoReturn"); // 자동 리턴 시작
+        if (useAutoReturn)
+            StartCoroutine("AutoReturn"); // 자동 리턴 시작
     }
 
     private IEnumerator AutoReturn()

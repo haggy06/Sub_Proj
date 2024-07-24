@@ -31,14 +31,14 @@ public class ParticleManager : MonoSingleton<ParticleManager>
     private GameObject[] particleArray;
     [SerializeField]
     private Transform trackingParticles;
-    private Stack<GameObject>[] trackingParticleStack;
+    private Stack<PoolObject>[] trackingParticleStack;
     protected override void Awake()
     {
         base.Awake();
-        trackingParticleStack = new Stack<GameObject>[particleArray.Length]; // trackingParticleStack 초기화
+        trackingParticleStack = new Stack<PoolObject>[particleArray.Length]; // trackingParticleStack 초기화
         for (int i = 0; i < particleArray.Length; i++)
         {
-            trackingParticleStack[i] = new Stack<GameObject>();
+            trackingParticleStack[i] = new Stack<PoolObject>();
         }
     }
 
@@ -58,7 +58,7 @@ public class ParticleManager : MonoSingleton<ParticleManager>
 
         particle.GetComponent<ParticleSystem>().Play();
     }
-    public void PlayParticle(ParticleType particleType, Transform target)
+    public PoolObject PlayParticle(ParticleType particleType, Transform target)
     {
         foreach (ParticleObject businessTripParticle in target.GetComponentsInChildren<ParticleObject>())
         {
@@ -67,14 +67,14 @@ public class ParticleManager : MonoSingleton<ParticleManager>
                 Debug.Log("출장 가 있는 오브젝트 재활용");
                 businessTripParticle.PlayParticle(); // 그 파티클 한 번 더 재활용
 
-                return;
+                return businessTripParticle;
             }
         }
 
         // 출장 가 있는 파티클이 없을 경우
-        if (!trackingParticleStack[(int)particleType].TryPop(out GameObject particle)) // 스택에서 하나 빼옴
+        if (!trackingParticleStack[(int)particleType].TryPop(out PoolObject particle)) // 스택에서 하나 빼옴
         { // 스택에 빼올 파티클이 없을 경우
-            particle = Instantiate(particleArray[(int)particleType]);
+            particle = Instantiate(particleArray[(int)particleType].gameObject).GetComponent<PoolObject>();
             particle.GetComponent<ParticleObject>().RememberPool(trackingParticleStack[(int)particleType], trackingParticles); // 하나 새로 만들고 풀 등록
         }
 
@@ -85,6 +85,7 @@ public class ParticleManager : MonoSingleton<ParticleManager>
         particle.transform.localScale = Vector3.one;
 
         particle.GetComponent<ParticleObject>().PlayParticle();
+        return particle;
     }
 }
 
