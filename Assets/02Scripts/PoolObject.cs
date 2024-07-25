@@ -21,10 +21,8 @@ public class PoolObject : MonoBehaviour
     protected DetectionBase connectedDetection;
     protected virtual void Awake()
     {
-        print("아 미친");
         if (connectedDetection != null)
         {
-            print("이벤트 등록");
             connectedDetection.DetectionStartEvent += DetectionStart;
             connectedDetection.DetectionEndEvent += DetectionEnd;
             connectedDetection.HitGroundEvent += HitGround;
@@ -64,7 +62,7 @@ public class PoolObject : MonoBehaviour
 
         if (isReturned)
         {
-            Debug.LogError("얜 이미 반납된 오브젝트임");
+            Debug.Log("얜 이미 반납된 오브젝트임");
             return;
         }
 
@@ -79,7 +77,6 @@ public class PoolObject : MonoBehaviour
     
     public virtual void ExitFromPool(Transform newParent = null)
     {
-        print("꺼내짐");
         StopCoroutine("AutoReturn"); // 자동 리턴 취소
 
         gameObject.SetActive(true);

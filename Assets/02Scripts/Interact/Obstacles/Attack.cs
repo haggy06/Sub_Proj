@@ -35,7 +35,10 @@ public class Attack : DetectionBase
     {
         base.DetectionStart();
 
-        GameManager.Inst.ChangeGameStatus(GameStatus.GameOver, this);
-        PlayerController.Inst.DamageInteract(this);
+        if (targetTag == Tag.Player)
+        {
+            GameManager.Inst.ChangeGameStatus(GameStatus.GameOver, this);
+            PlayerController.Inst.DamageInteract(this);
+        }
     }
 }

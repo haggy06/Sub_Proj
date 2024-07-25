@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.SceneManagement;
+
 public class ParticleObject : PoolObject
 {
     [SerializeField]
@@ -14,6 +16,28 @@ public class ParticleObject : PoolObject
         base.Awake();
 
         particle = GetComponent<ParticleSystem>();
+
+        SceneManager.activeSceneChanged += ClearParticle;
+    }
+    private void OnDestroy()
+    {
+        SceneManager.activeSceneChanged -= ClearParticle;
+    }
+    private void ClearParticle(Scene replacedScene, Scene newScene)
+    {
+        particle.Stop();
+        particle.Clear();
+    }
+
+    private Transform target;
+    public void Follow(Transform target)
+    {
+        this.target = target;
+    }
+    private void FixedUpdate()
+    {
+        if (target != null)
+            transform.position = target.position;
     }
 
     public void PlayParticle()
@@ -22,15 +46,15 @@ public class ParticleObject : PoolObject
         {
             particle.Play();
 
-            StopCoroutine("ParticleTracking");
-            StartCoroutine("ParticleTracking");
+            StopCoroutine("ParticleReturn");
+            StartCoroutine("ParticleReturn");
         }
         else
         {
-            Debug.LogError("비활성화된 상태에선 파티클 실행 불가능함");
+            Debug.Log("비활성화된 상태에선 파티클 실행 불가능함");
         }
     }
-    private IEnumerator ParticleTracking()
+    private IEnumerator ParticleReturn()
     {
         yield return YieldReturn.WaitForSeconds(particle.main.duration + particle.main.startLifetime.constantMax);
 
@@ -51,7 +75,8 @@ public class ParticleObject : PoolObject
     {
         base.ReturnToPool();
 
-        StopCoroutine("ParticleTracking");
+        target = null;
+        StopCoroutine("ParticleReturn");
     }
 
     public override void ExitFromPool(Transform newParent = null)

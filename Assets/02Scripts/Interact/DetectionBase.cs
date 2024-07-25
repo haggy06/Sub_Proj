@@ -36,7 +36,6 @@ public class DetectionBase : MonoBehaviour
     {
         StopCoroutine("ParticleDetectionCoolDown");
     }
-
     private void OnParticleCollision(GameObject other)
     {
         if (!detecting)
@@ -65,6 +64,20 @@ public class DetectionBase : MonoBehaviour
         particleCoolDown = true;
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!detecting)
+            return;
+
+        if (collision.gameObject.layer == (int)LAYER.Ground) // 땅과 충돌했을 경우
+        {
+            HitGround(collision.gameObject.tag);
+        }
+        else if (collision.gameObject.CompareTag(targetTag.ToString())) // 타겟과 충돌했을 경우
+        {
+            Detection = true;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!detecting)
@@ -77,6 +90,17 @@ public class DetectionBase : MonoBehaviour
         else if (collision.CompareTag(targetTag.ToString())) // 타겟과 충돌했을 경우
         {
             Detection = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (!detecting)
+            return;
+
+        if (collision.gameObject.CompareTag(targetTag.ToString()))
+        {
+            Detection = false;
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -95,11 +119,11 @@ public class DetectionBase : MonoBehaviour
     public event Action<string> HitGroundEvent = (_) => { };
     protected virtual void DetectionStart()
     {
-        DetectionEndEvent.Invoke();
+        DetectionStartEvent.Invoke();
     }
     protected virtual void DetectionEnd()
     {
-        DetectionStartEvent.Invoke();
+        DetectionEndEvent.Invoke();
     }
 
     protected virtual void HitGround(string tag)

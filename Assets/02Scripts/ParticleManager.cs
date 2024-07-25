@@ -11,6 +11,7 @@ public class ParticleManager : MonoSingleton<ParticleManager>
     }
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
+        /*
         ParticleSystem particle;
 
         foreach (GameObject obj in particleArray)
@@ -25,6 +26,7 @@ public class ParticleManager : MonoSingleton<ParticleManager>
             particle.Stop();
             particle.Clear();
         }
+        */
     }
 
     [SerializeField]
@@ -75,16 +77,16 @@ public class ParticleManager : MonoSingleton<ParticleManager>
         if (!trackingParticleStack[(int)particleType].TryPop(out PoolObject particle)) // 스택에서 하나 빼옴
         { // 스택에 빼올 파티클이 없을 경우
             particle = Instantiate(particleArray[(int)particleType].gameObject).GetComponent<PoolObject>();
-            particle.GetComponent<ParticleObject>().RememberPool(trackingParticleStack[(int)particleType], trackingParticles); // 하나 새로 만들고 풀 등록
+            particle.RememberPool(trackingParticleStack[(int)particleType], trackingParticles); // 하나 새로 만들고 풀 등록
         }
 
         // 파티클 위치 초기화
         particle.ExitFromPool();
 
-        particle.transform.parent = target;
-        particle.transform.localPosition = Vector3.zero;
-        particle.transform.localEulerAngles = Vector3.zero;
-        particle.transform.localScale = Vector3.one;
+        particle.GetComponent<ParticleObject>().Follow(target);
+        particle.transform.position = target.position;
+        particle.transform.eulerAngles = target.eulerAngles;
+        particle.transform.localScale = target.localScale;
 
         return particle;
     }

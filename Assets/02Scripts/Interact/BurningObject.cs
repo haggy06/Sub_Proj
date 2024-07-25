@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class BurningObject : PoolObject
 {
+    [Header("Burning Object")]
+
+    [SerializeField]
+    private float SpreadTerm = 0.1f;
     [SerializeField]
     private float burningTime = 2f;
     [SerializeField]
-    private Attack burningAttack;
+    private GameObject burningAttack;
     private PoolObject burningParticle;
 
     private int burnTweenID = 0;
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        burningAttack.SetActive(false);
+    }
     public override void ExitFromPool(Transform newParent = null)
     {
         base.ExitFromPool(newParent);
 
-        burningAttack.detecting = false;
+        burningAttack.SetActive(false);
         burnTweenID = 0;
     }
     public override void ReturnToPool()
@@ -38,15 +48,15 @@ public class BurningObject : PoolObject
             return;
         }
 
-        Invoke("FireSpread", 0.2f);
+        Invoke("FireSpread", SpreadTerm);
         burningParticle = ParticleManager.Inst.PlayParticle(ParticleType.Fire, transform);
         burnTweenID = LeanTween.color(gameObject, Color.black, burningTime).setOnComplete(BurnOut).id;
     }
+
     private void FireSpread()
     {
-        burningAttack.detecting = true;
+        burningAttack.SetActive(true);
     }
-
     private void BurnOut()
     {
         burningParticle.ReturnToPool();

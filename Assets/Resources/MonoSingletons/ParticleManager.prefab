@@ -4901,7 +4901,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29405e9524dbc434c90d7d21bdd524c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAutoReturn: 0
   lifeTime: 3
+  isReturned: 0
+  connectedDetection: {fileID: 0}
   particleType: 3
 --- !u!1 &299647350349800954
 GameObject:
@@ -9835,7 +9838,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29405e9524dbc434c90d7d21bdd524c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAutoReturn: 0
   lifeTime: 3
+  isReturned: 0
+  connectedDetection: {fileID: 0}
   particleType: 2
 --- !u!1 &4829797586658589558
 GameObject:
@@ -9848,6 +9854,7 @@ GameObject:
   - component: {fileID: 1283858570069158625}
   - component: {fileID: 5672374474892581218}
   - component: {fileID: 1173780664696618113}
+  - component: {fileID: 8915880398887240972}
   m_Layer: 7
   m_Name: Ash
   m_TagString: Untagged
@@ -9943,7 +9950,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
   randomSeed: 0
@@ -14725,6 +14732,23 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8915880398887240972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4829797586658589558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29405e9524dbc434c90d7d21bdd524c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useAutoReturn: 0
+  lifeTime: 3
+  isReturned: 0
+  connectedDetection: {fileID: 0}
+  particleType: 6
 --- !u!1 &5085771132183476483
 GameObject:
   m_ObjectHideFlags: 0
@@ -14736,6 +14760,7 @@ GameObject:
   - component: {fileID: 7686693889449285737}
   - component: {fileID: 4428694088987173891}
   - component: {fileID: 5092388343709818267}
+  - component: {fileID: 6698850441103115396}
   m_Layer: 7
   m_Name: Gem
   m_TagString: Untagged
@@ -19613,6 +19638,23 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &6698850441103115396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5085771132183476483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29405e9524dbc434c90d7d21bdd524c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useAutoReturn: 0
+  lifeTime: 3
+  isReturned: 0
+  connectedDetection: {fileID: 0}
+  particleType: 5
 --- !u!1 &5948065285422090839
 GameObject:
   m_ObjectHideFlags: 0
@@ -24607,7 +24649,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29405e9524dbc434c90d7d21bdd524c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAutoReturn: 0
   lifeTime: 3
+  isReturned: 0
+  connectedDetection: {fileID: 0}
   particleType: 0
 --- !u!1 &8573715912641539665
 GameObject:
@@ -29519,7 +29564,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29405e9524dbc434c90d7d21bdd524c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAutoReturn: 0
   lifeTime: 3
+  isReturned: 0
+  connectedDetection: {fileID: 0}
   particleType: 4
 --- !u!1 &9152019649873397064
 GameObject:
@@ -34364,5 +34412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29405e9524dbc434c90d7d21bdd524c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useAutoReturn: 0
   lifeTime: 3
+  isReturned: 0
+  connectedDetection: {fileID: 0}
   particleType: 1
