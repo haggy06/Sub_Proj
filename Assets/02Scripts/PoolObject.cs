@@ -15,6 +15,38 @@ public class PoolObject : MonoBehaviour
     [SerializeField]
     protected bool isReturned = false;
     public bool IsReturned => isReturned;
+
+    [Space(10)]
+    [SerializeField]
+    protected DetectionBase connectedDetection;
+    protected virtual void Awake()
+    {
+        print("아 미친");
+        if (connectedDetection != null)
+        {
+            print("이벤트 등록");
+            connectedDetection.DetectionStartEvent += DetectionStart;
+            connectedDetection.DetectionEndEvent += DetectionEnd;
+            connectedDetection.HitGroundEvent += HitGround;
+        }
+        else
+        {
+            print(connectedDetection);
+        }
+    }
+    protected virtual void DetectionStart()
+    {
+
+    }
+    protected virtual void DetectionEnd()
+    {
+
+    }
+    protected virtual void HitGround(string tag)
+    {
+
+    }
+
     public void RememberPool(Stack<PoolObject> connectedPool, Transform myPoolTrans) // *Dictionary의 value로 있는 Stack을 받기 때문에 오류가 날 가능성이 있음
     {
         this.connectedPool = connectedPool;
@@ -23,13 +55,19 @@ public class PoolObject : MonoBehaviour
 
     public virtual void ReturnToPool()
     {
+        if (connectedPool == null)
+        {
+            Debug.Log(name + "은 부모가 없음");
+            Destroy(gameObject);
+            return;
+        }
+
         if (isReturned)
         {
             Debug.LogError("얜 이미 반납된 오브젝트임");
             return;
         }
 
-        print("들어감");
         StopCoroutine("AutoReturn"); // 자동 리턴 취소
 
         gameObject.SetActive(false);

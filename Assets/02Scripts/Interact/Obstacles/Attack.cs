@@ -31,25 +31,11 @@ public class Attack : DetectionBase
     public float GravityScale => gravityScale;
 
     public float CameraShakeAmplitude => cameraShakeAmplitude;
-
-    public event Action DetectionEndEvent = () => { };
-    public event Action DetectionStartEvent = () => { };
-    public event Action HitGroundEvent = () => { };
-    protected override void DetectionEnd()
-    {
-        DetectionEndEvent.Invoke();
-    }
-
     protected override void DetectionStart()
     {
+        base.DetectionStart();
+
         GameManager.Inst.ChangeGameStatus(GameStatus.GameOver, this);
         PlayerController.Inst.DamageInteract(this);
-
-        DetectionStartEvent.Invoke();
-    }
-
-    protected override void HitGround(string tag)
-    {
-        HitGroundEvent.Invoke();
     }
 }

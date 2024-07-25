@@ -79,12 +79,13 @@ public class ParticleManager : MonoSingleton<ParticleManager>
         }
 
         // 파티클 위치 초기화
+        particle.ExitFromPool();
+
         particle.transform.parent = target;
         particle.transform.localPosition = Vector3.zero;
         particle.transform.localEulerAngles = Vector3.zero;
         particle.transform.localScale = Vector3.one;
 
-        particle.GetComponent<ParticleObject>().PlayParticle();
         return particle;
     }
 }

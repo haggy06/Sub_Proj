@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(BurningObject), typeof(Attack))]
-public class Arrow : PoolObject, I_Projectile
+[RequireComponent(typeof(Rigidbody2D), typeof(Attack))]
+public class Arrow : BurningObject, I_Projectile
 {
-    private Attack attack;
-    private BurningObject burningObject;
-    private void Awake()
+    protected override void Awake()
     {
-        attack = GetComponent<Attack>();
-        burningObject = GetComponent<BurningObject>();
-
-        attack.HitGroundEvent += HitGround;
+        base.Awake();
     }
 
     public void Launch(float direction, float speed)
@@ -24,8 +19,10 @@ public class Arrow : PoolObject, I_Projectile
         GetComponent<Rigidbody2D>().velocity = MyCalculator.Deg2Vec(direction) * speed;
     }
 
-    private void HitGround()
+    protected override void HitGround(string tag)
     {
+        base.HitGround(tag);
+
         GetComponent<SpriteRenderer>().color = CustomColor.zero;
         ParticleManager.Inst.PlayParticle(ParticleType.Gravel, transform.position, new Vector2(0.1f, 0.1f), transform.eulerAngles.z + 90f);
 

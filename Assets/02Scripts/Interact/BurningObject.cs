@@ -2,34 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BurningObject : DetectionBase
+public class BurningObject : PoolObject
 {
     [SerializeField]
     private float burningTime = 2f;
     [SerializeField]
-    private Collider2D burningAttack;
+    private Attack burningAttack;
     private PoolObject burningParticle;
 
-    private int burnTweenID;
-    private void OnEnable()
+    private int burnTweenID = 0;
+
+    public override void ExitFromPool(Transform newParent = null)
     {
-        burningAttack.enabled = false;
+        base.ExitFromPool(newParent);
+
+        burningAttack.detecting = false;
         burnTweenID = 0;
     }
-    private void OnDisable()
+    public override void ReturnToPool()
     {
+        base.ReturnToPool();
+
         if (burnTweenID != 0)
         {
             LeanTween.cancel(burnTweenID);
         }
     }
-    protected override void DetectionEnd()
-    {
-
-    }
 
     protected override void DetectionStart()
     {
+        print("불이야");
+
         if (burnTweenID != 0) // 이미 불이 붙었을 경우
         {
             return;
@@ -41,7 +44,7 @@ public class BurningObject : DetectionBase
     }
     private void FireSpread()
     {
-        burningAttack.enabled = true;
+        burningAttack.detecting = true;
     }
 
     private void BurnOut()
@@ -52,11 +55,6 @@ public class BurningObject : DetectionBase
         ParticleManager.Inst.PlayParticle(ParticleType.Ash, transform.position, transform.localScale, transform.localEulerAngles.z);
         ParticleManager.Inst.PlayParticle(ParticleType.Gravel, transform.position, transform.localScale, transform.localEulerAngles.z);
 
-        gameObject.SetActive(false);
-    }
-
-    protected override void HitGround(string tag)
-    {
-
+        ReturnToPool();
     }
 }

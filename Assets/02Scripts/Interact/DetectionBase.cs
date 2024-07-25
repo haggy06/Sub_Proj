@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class DetectionBase : MonoBehaviour
+using System;
+
+public class DetectionBase : MonoBehaviour
 {
+    public bool detecting = true;
     [SerializeField]
     protected Tag targetTag = Tag.Player;
 
@@ -36,6 +39,9 @@ public abstract class DetectionBase : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
+        if (!detecting)
+            return;
+
         if (other.CompareTag(targetTag.ToString())) // 타겟과 충돌했을 경우
         {
             if (particleCoolDown)
@@ -61,6 +67,9 @@ public abstract class DetectionBase : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (!detecting)
+            return;
+
         if (collision.gameObject.layer == (int)LAYER.Ground) // 땅과 충돌했을 경우
         {
             HitGround(collision.gameObject.tag);
@@ -72,16 +81,31 @@ public abstract class DetectionBase : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (!detecting)
+            return;
+
         if (collision.CompareTag(targetTag.ToString()))
         {
             Detection = false;
         }
     }
 
-    protected abstract void DetectionStart();
-    protected abstract void DetectionEnd();
+    public event Action DetectionEndEvent = () => { };
+    public event Action DetectionStartEvent = () => { };
+    public event Action<string> HitGroundEvent = (_) => { };
+    protected virtual void DetectionStart()
+    {
+        DetectionEndEvent.Invoke();
+    }
+    protected virtual void DetectionEnd()
+    {
+        DetectionStartEvent.Invoke();
+    }
 
-    protected abstract void HitGround(string tag);
+    protected virtual void HitGround(string tag)
+    {
+        HitGroundEvent.Invoke(tag);
+    }
 }
 
 public enum Tag

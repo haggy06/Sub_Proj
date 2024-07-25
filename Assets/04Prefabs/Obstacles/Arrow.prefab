@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3091323451537569434
 Transform:
   m_ObjectHideFlags: 0
@@ -65,8 +65,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.75, y: 0}
-  m_Size: {x: 0.75, y: 0.3}
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 0.3}
   m_Direction: 1
 --- !u!114 &1557299400285690405
 MonoBehaviour:
@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detecting: 1
   targetTag: 5
   obstacleType: 1
   obstacleID: 2001
@@ -100,8 +101,8 @@ GameObject:
   - component: {fileID: 2996664598026519573}
   - component: {fileID: 5785515940894426377}
   - component: {fileID: 3908581988630560351}
+  - component: {fileID: 4867240727253777350}
   - component: {fileID: 4711369108027021590}
-  - component: {fileID: 8681098251210499801}
   m_Layer: 7
   m_Name: Arrow
   m_TagString: Untagged
@@ -264,6 +265,29 @@ MonoBehaviour:
   useAutoReturn: 1
   lifeTime: 3
   isReturned: 0
+  connectedDetection: {fileID: 4711369108027021590}
+  burningTime: 3600
+  burningAttack: {fileID: 4867240727253777350}
+--- !u!114 &4867240727253777350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3154562019823299120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detecting: 1
+  targetTag: 5
+  obstacleType: 1
+  obstacleID: 2001
+  velocityImpulse: 1
+  hitKnockback: {x: 0, y: 0}
+  gravityScale: 3
+  cameraShakeAmplitude: 10
 --- !u!114 &4711369108027021590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detecting: 1
   targetTag: 5
   obstacleType: 2
   obstacleID: 1003
@@ -283,18 +308,3 @@ MonoBehaviour:
   hitKnockback: {x: 8, y: 3}
   gravityScale: 3
   cameraShakeAmplitude: 10
---- !u!114 &8681098251210499801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3154562019823299120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2a52653a466e244c947a3e396c9fa2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetTag: 8
-  burningTime: 3600
-  burningAttack: {fileID: 6586505012347082105}

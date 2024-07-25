@@ -9,25 +9,42 @@ public class ParticleObject : PoolObject
     public ParticleType ParticleType => particleType;
 
     private ParticleSystem particle;
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         particle = GetComponent<ParticleSystem>();
     }
 
     public void PlayParticle()
     {
-        gameObject.SetActive(true);
-        particle.Play();
+        if (gameObject.activeInHierarchy)
+        {
+            particle.Play();
 
-        StopCoroutine("ParticleTracking");
-        StartCoroutine("ParticleTracking");
+            StopCoroutine("ParticleTracking");
+            StartCoroutine("ParticleTracking");
+        }
+        else
+        {
+            Debug.LogError("비활성화된 상태에선 파티클 실행 불가능함");
+        }
     }
     private IEnumerator ParticleTracking()
     {
         yield return YieldReturn.WaitForSeconds(particle.main.duration + particle.main.startLifetime.constantMax);
 
-        if (gameObject.activeInHierarchy)
-            ReturnToPool();
+        if (!isReturned)
+        {
+            if (gameObject.activeInHierarchy)
+            {
+                ReturnToPool();
+            }
+            else
+            {
+                Debug.Log("고립됨");
+            }
+        }
     }
 
     public override void ReturnToPool()
@@ -39,6 +56,8 @@ public class ParticleObject : PoolObject
 
     public override void ExitFromPool(Transform newParent = null)
     {
-        transform.parent = newParent;
+        base.ExitFromPool(newParent);
+
+        PlayParticle();
     }
 }
