@@ -29,7 +29,7 @@ public class Arrow : PoolObject, I_Projectile
         GetComponent<SpriteRenderer>().color = CustomColor.zero;
         ParticleManager.Inst.PlayParticle(ParticleType.Gravel, transform.position, new Vector2(0.1f, 0.1f), transform.eulerAngles.z + 90f);
 
-        GetComponent<PoolObject>().ReturnToPool();
+        ReturnToPool();
     }
 }
 

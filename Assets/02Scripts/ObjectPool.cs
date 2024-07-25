@@ -25,73 +25,74 @@ public class ObjectPool : MonoBehaviour
         if (newMember)
             poolMembers.Add(member);
 
-        if (member.TryGetComponent<PoolObject>(out _))
+        Transform memberPool = new GameObject().transform;
+        memberPool.transform.parent = transform;
+        memberPool.name = member.gameObject.name + " Pool";
+
+        Stack<PoolObject> pool;
+        if (!objectPool.TryGetValue(member.gameObject.name, out pool)) // 딕셔너리에 알맞는 스택이 있었을 경우 pool에 저장하고, 없었다면 새로 만들어 저장함
         {
-            Transform memberPool = new PoolObject().transform;
-            memberPool.transform.parent = transform;
-            memberPool.name = member.name + " Pool";
-
-            Stack<PoolObject> pool;
-            if (!objectPool.TryGetValue(member.name, out pool)) // 딕셔너리에 알맞는 스택이 있었을 경우 pool에 저장하고, 없었다면 새로 만들어 저장함
-            {
-                pool = new Stack<PoolObject>();
-                objectPool.Add(member.name, pool);
-            }
-
-            for (int i = 0; i < countPerObj; i++)
-            {
-                PoolObject newObject = Instantiate(member, memberPool);
-
-                newObject.GetComponent<PoolObject>().RememberPool(pool, memberPool);
-                newObject.GetComponent<PoolObject>().ReturnToPool();
-            }
+            pool = new Stack<PoolObject>();
+            objectPool.Add(member.gameObject.name, pool);
         }
-        else
+
+        for (int i = 0; i < countPerObj; i++)
         {
-            Debug.LogError("풀 멤버 " + member.name + "에게 PoolObject 인터페이스가 구현되어있지 않음");
+            PoolObject newObject = Instantiate(member, memberPool);
+
+            newObject.RememberPool(pool, memberPool);
+            newObject.ReturnToPool();
         }
     }
-    public bool TryGetObject(PoolObject member, out PoolObject outObject)
+    public PoolObject GetObject(PoolObject member)
     {
-        if (objectPool.TryGetValue(member.name, out Stack<PoolObject> pool))
+        PoolObject outObject;
+        if (objectPool.TryGetValue(member.gameObject.name, out Stack<PoolObject> pool))
         {
+            POP_AGAIN:
+
             if (pool.TryPop(out outObject))
             {
-                outObject.gameObject.SetActive(true);
-                outObject.GetComponent<PoolObject>().ExitFromPool();
+                if (!outObject.IsReturned)
+                {
+                    Debug.LogError("이미 대출된 오브젝트를 꺼냄");
+
+                    goto POP_AGAIN; // 다시 꺼내러 뒤로 되돌림
+                }
             }
             else
             {
-                //Debug.LogError(member.name + "의 재고가 다 떨어졌습니다.");
-                Transform memberPool = transform.Find(member.name + " Pool").transform;
+                //Debug.LogError(member.gameObject.name + "의 재고가 다 떨어졌습니다.");
+                Transform memberPool = transform.Find(member.gameObject.name + " Pool").transform;
 
                 outObject = Instantiate(member, memberPool);
-                outObject.gameObject.SetActive(true);
-                outObject.GetComponent<PoolObject>().RememberPool(pool, memberPool);
 
-                outObject.GetComponent<PoolObject>().ExitFromPool();
+                outObject.RememberPool(pool, memberPool);
             }
 
-            return true;
+            outObject.ExitFromPool();
         }
         else
         {
-            Debug.LogError(member.name + "이라는 오브젝트가 이 오브젝트풀에 없습니다.");
+            Debug.LogError(member.gameObject.name + "이라는 오브젝트가 이 오브젝트풀에 없습니다.");
 
-            outObject = null;
-            return false;
+            MakePool(member);
+            objectPool.TryGetValue(member.gameObject.name, out pool);
+            
+            outObject = pool.Pop();
         }
+        return outObject;
     }
     public bool ReturnObject(PoolObject member)
     {
-        if (objectPool.TryGetValue(member.name, out Stack<PoolObject> pool))
+        if (objectPool.TryGetValue(member.gameObject.name, out Stack<PoolObject> pool))
         {
             pool.Push(member);
             return true;
         }
         else
         {
-            Debug.LogError(member.name + " 오브젝트용 전용 풀이 없습니다.");
+            Debug.LogError(member.gameObject.name + " 오브젝트용 전용 풀이 없습니다.");
             return false;
         }
     }

@@ -12,7 +12,9 @@ public class PoolObject : MonoBehaviour
     [SerializeField]
     protected float lifeTime = 3f;
 
+    [SerializeField]
     protected bool isReturned = false;
+    public bool IsReturned => isReturned;
     public void RememberPool(Stack<PoolObject> connectedPool, Transform myPoolTrans) // *Dictionary의 value로 있는 Stack을 받기 때문에 오류가 날 가능성이 있음
     {
         this.connectedPool = connectedPool;
@@ -21,17 +23,28 @@ public class PoolObject : MonoBehaviour
 
     public virtual void ReturnToPool()
     {
-        isReturned = true;
+        if (isReturned)
+        {
+            Debug.LogError("얜 이미 반납된 오브젝트임");
+            return;
+        }
+
+        print("들어감");
         StopCoroutine("AutoReturn"); // 자동 리턴 취소
+
+        gameObject.SetActive(false);
+        isReturned = true;
 
         transform.parent = myPoolTrans;
         connectedPool.Push(this);
-
-        gameObject.SetActive(false);
     }
     
     public virtual void ExitFromPool(Transform newParent = null)
     {
+        print("꺼내짐");
+        StopCoroutine("AutoReturn"); // 자동 리턴 취소
+
+        gameObject.SetActive(true);
         isReturned = false;
 
         transform.parent = newParent;

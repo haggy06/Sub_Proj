@@ -184,7 +184,7 @@ MonoBehaviour:
   playOnAwake: 0
   pool: {fileID: 0}
   launchPosition: {fileID: 179335573796883113}
-  launchObject: {fileID: 3154562019823299120, guid: ed70c2b6d6c78de49ae5225d9303608f, type: 3}
+  launchObject: {fileID: 3908581988630560351, guid: ed70c2b6d6c78de49ae5225d9303608f, type: 3}
   launchPower: 25
 --- !u!114 &7191372015726019946
 MonoBehaviour:

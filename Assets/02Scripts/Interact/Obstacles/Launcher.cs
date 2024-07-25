@@ -18,11 +18,8 @@ public class Launcher : EntityEvent
 
     public override void Run()
     {
-        if (!pool.TryGetObject(launchObject, out PoolObject projectile)) // 이 발사체에 대한 오브젝트풀이 없을 경우
-        {
-            pool.MakePool(launchObject);
-            pool.TryGetObject(launchObject, out projectile); // 풀 제작 후 다시 가져오기
-        }
+        PoolObject projectile = pool.GetObject(launchObject);
+
         projectile.transform.position = launchPosition.position;
 
         projectile.GetComponent<I_Projectile>().Launch(transform.eulerAngles.z, launchPower);

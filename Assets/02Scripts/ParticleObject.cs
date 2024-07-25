@@ -13,8 +13,10 @@ public class ParticleObject : PoolObject
     {
         particle = GetComponent<ParticleSystem>();
     }
+
     public void PlayParticle()
     {
+        gameObject.SetActive(true);
         particle.Play();
 
         StopCoroutine("ParticleTracking");
