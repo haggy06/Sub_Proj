@@ -193,7 +193,7 @@ Transform:
   m_GameObject: {fileID: 5953324589843462185}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.53125, y: -0.25, z: 0}
+  m_LocalPosition: {x: 0.5, y: -0.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5009,10 +5009,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isParticle: 1
+  detecting: 1
   targetTag: 5
   obstacleType: 1
-  obstacleID: 2001
+  obstacleID: 2010
   velocityImpulse: 0
   hitKnockback: {x: 0, y: 0}
   gravityScale: 3

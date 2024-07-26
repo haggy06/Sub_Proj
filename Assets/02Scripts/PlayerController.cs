@@ -24,6 +24,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         sprite.color = Color.white;
 
+        rigid2D.simulated = true;
         rigid2D.gravityScale = 3f;
         rigid2D.velocity = Vector2.zero;
 
@@ -154,6 +155,8 @@ public class PlayerController : MonoSingleton<PlayerController>
 
             case ParticleType.Steam: // 증기가 필 경우. 염산에 빠질 때 사용됨.
                 LeanTween.cancel(damageTweenID);
+
+                rigid2D.simulated = false;
                 col.enabled = false;
                 damageTweenID = LeanTween.color(gameObject, CustomColor.zero, 0.5f).setOnComplete(() => damageTweenID = 0).id;
                 damageInsteract = false;

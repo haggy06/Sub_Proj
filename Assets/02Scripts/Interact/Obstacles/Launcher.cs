@@ -22,7 +22,14 @@ public class Launcher : EntityEvent
 
         projectile.transform.position = launchPosition.position;
 
-        projectile.GetComponent<I_Projectile>().Launch(transform.eulerAngles.z, launchPower);
+        if (projectile.TryGetComponent<I_Projectile>(out I_Projectile proj))
+        {
+            proj.Launch(transform.eulerAngles.z, launchPower);
+        }
+        else
+        {
+            Debug.Log(launchObject.name + " 오브젝트는 발사체가 아님");
+        }   
     }
 
     public override void RunStop()

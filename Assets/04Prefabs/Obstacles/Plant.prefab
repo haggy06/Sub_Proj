@@ -93,7 +93,7 @@ MonoBehaviour:
   detecting: 1
   targetTag: 5
   obstacleType: 1
-  obstacleID: 2001
+  obstacleID: 2012
   velocityImpulse: 0
   hitKnockback: {x: 0, y: 0}
   gravityScale: 3

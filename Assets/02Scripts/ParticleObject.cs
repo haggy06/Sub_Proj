@@ -40,6 +40,12 @@ public class ParticleObject : PoolObject
             transform.position = target.position;
     }
 
+    public void FollowOFF()
+    {
+        target = null;
+        particle.Stop();
+    }
+
     public void PlayParticle()
     {
         if (gameObject.activeInHierarchy)

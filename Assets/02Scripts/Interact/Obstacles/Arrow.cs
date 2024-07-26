@@ -24,7 +24,7 @@ public class Arrow : BurningObject, I_Projectile
         base.HitGround(tag);
 
         GetComponent<SpriteRenderer>().color = CustomColor.zero;
-        ParticleManager.Inst.PlayParticle(ParticleType.Gravel, transform.position, new Vector2(0.1f, 0.1f), transform.eulerAngles.z + 90f);
+        ParticleManager.Inst.PlayParticle(ParticleType.Arrow, transform.position, new Vector2(0.1f, 0.1f), transform.eulerAngles.z + 90f);
 
         ReturnToPool();
     }

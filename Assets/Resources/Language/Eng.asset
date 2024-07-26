@@ -72,6 +72,15 @@ MonoBehaviour:
   - id: 2000
     name: Melt
     explain: "acid\u2026 taste sour."
-  - id: 2001
+  - id: 2010
     name: Burn
-    explain: it was a hot diving.
+    explain: Baked crispy.
+  - id: 2011
+    name: Lava Diving
+    explain: It was a hot diving.
+  - id: 2012
+    name: Fire Spreads
+    explain: Fire must be seen from a distance.
+  - id: 2020
+    name: Spores seeped
+    explain: My inside feels itchy.

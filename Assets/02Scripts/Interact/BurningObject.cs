@@ -12,7 +12,6 @@ public class BurningObject : PoolObject
     private float burningTime = 2f;
     [SerializeField]
     private GameObject burningAttack;
-    private PoolObject burningParticle;
 
     private int burnTweenID = 0;
 
@@ -35,10 +34,12 @@ public class BurningObject : PoolObject
 
         if (burnTweenID != 0)
         {
+            fireParticle.FollowOFF();
             LeanTween.cancel(burnTweenID);
         }
     }
 
+    ParticleObject fireParticle;
     protected override void DetectionStart()
     {
         print("∫“¿Ãæﬂ");
@@ -49,7 +50,7 @@ public class BurningObject : PoolObject
         }
 
         Invoke("FireSpread", SpreadTerm);
-        burningParticle = ParticleManager.Inst.PlayParticle(ParticleType.Fire, transform);
+        fireParticle = ParticleManager.Inst.PlayParticle(ParticleType.Fire, transform);
         burnTweenID = LeanTween.color(gameObject, Color.black, burningTime).setOnComplete(BurnOut).id;
     }
 
@@ -59,11 +60,10 @@ public class BurningObject : PoolObject
     }
     private void BurnOut()
     {
-        burningParticle.ReturnToPool();
         burnTweenID = 0;
 
         ParticleManager.Inst.PlayParticle(ParticleType.Ash, transform.position, transform.localScale, transform.localEulerAngles.z);
-        ParticleManager.Inst.PlayParticle(ParticleType.Gravel, transform.position, transform.localScale, transform.localEulerAngles.z);
+        ParticleManager.Inst.PlayParticle(ParticleType.Arrow, transform.position, transform.localScale, transform.localEulerAngles.z);
 
         ReturnToPool();
     }

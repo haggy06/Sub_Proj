@@ -60,7 +60,7 @@ public class ParticleManager : MonoSingleton<ParticleManager>
 
         particle.GetComponent<ParticleSystem>().Play();
     }
-    public PoolObject PlayParticle(ParticleType particleType, Transform target)
+    public ParticleObject PlayParticle(ParticleType particleType, Transform target)
     {
         foreach (ParticleObject businessTripParticle in target.GetComponentsInChildren<ParticleObject>())
         {
@@ -88,7 +88,7 @@ public class ParticleManager : MonoSingleton<ParticleManager>
         particle.transform.eulerAngles = target.eulerAngles;
         particle.transform.localScale = target.localScale;
 
-        return particle;
+        return particle.GetComponent<ParticleObject>();
     }
 }
 
@@ -99,7 +99,7 @@ public enum ParticleType
     Fire,
     Blood,
     Steam,
-    Gravel,
+    Arrow,
     Gem,
     Ash,
 

@@ -162,10 +162,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isParticle: 0
+  detecting: 1
   targetTag: 5
   obstacleType: 2
-  obstacleID: 1003
+  obstacleID: 1004
   velocityImpulse: 1
   hitKnockback: {x: 0, y: 0}
   gravityScale: 3
