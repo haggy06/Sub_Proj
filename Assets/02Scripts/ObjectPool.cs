@@ -74,7 +74,7 @@ public class ObjectPool : MonoBehaviour
         }
         else
         {
-            Debug.LogError(member.gameObject.name + "이라는 오브젝트가 이 오브젝트풀에 없습니다.");
+            Debug.Log(member.gameObject.name + "이라는 오브젝트가 이 오브젝트풀에 없습니다.");
 
             MakePool(member);
             objectPool.TryGetValue(member.gameObject.name, out pool);

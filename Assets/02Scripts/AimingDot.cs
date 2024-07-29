@@ -18,6 +18,7 @@ public class AimingDot : MonoBehaviour
     {
         transform.localPosition = position;
 
+        stageSprite.enabled = true;
         stageSprite.color = minimapSprite.color = color;
     }
 
@@ -25,6 +26,7 @@ public class AimingDot : MonoBehaviour
     {
         transform.localPosition = Vector2.zero;
 
+        stageSprite.enabled = false;
         stageSprite.color = minimapSprite.color = CustomColor.zero;
     }
 }

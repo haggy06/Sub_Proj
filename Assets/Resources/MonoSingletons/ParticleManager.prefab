@@ -4905,6 +4905,7 @@ MonoBehaviour:
   lifeTime: 3
   isReturned: 0
   connectedDetection: {fileID: 0}
+  autoReturn: 1
   particleType: 3
 --- !u!1 &299647350349800954
 GameObject:
@@ -9842,6 +9843,7 @@ MonoBehaviour:
   lifeTime: 3
   isReturned: 0
   connectedDetection: {fileID: 0}
+  autoReturn: 1
   particleType: 2
 --- !u!1 &4829797586658589558
 GameObject:
@@ -14748,6 +14750,7 @@ MonoBehaviour:
   lifeTime: 3
   isReturned: 0
   connectedDetection: {fileID: 0}
+  autoReturn: 1
   particleType: 6
 --- !u!1 &5085771132183476483
 GameObject:
@@ -19654,6 +19657,7 @@ MonoBehaviour:
   lifeTime: 3
   isReturned: 0
   connectedDetection: {fileID: 0}
+  autoReturn: 1
   particleType: 5
 --- !u!1 &5948065285422090839
 GameObject:
@@ -24653,6 +24657,7 @@ MonoBehaviour:
   lifeTime: 3
   isReturned: 0
   connectedDetection: {fileID: 0}
+  autoReturn: 1
   particleType: 0
 --- !u!1 &8573715912641539665
 GameObject:
@@ -29568,6 +29573,7 @@ MonoBehaviour:
   lifeTime: 3
   isReturned: 0
   connectedDetection: {fileID: 0}
+  autoReturn: 1
   particleType: 4
 --- !u!1 &9152019649873397064
 GameObject:
@@ -29618,7 +29624,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -34416,4 +34422,5 @@ MonoBehaviour:
   lifeTime: 3
   isReturned: 0
   connectedDetection: {fileID: 0}
+  autoReturn: 0
   particleType: 1

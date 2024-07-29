@@ -27,10 +27,6 @@ public class PoolObject : MonoBehaviour
             connectedDetection.DetectionEndEvent += DetectionEnd;
             connectedDetection.HitGroundEvent += HitGround;
         }
-        else
-        {
-            print(connectedDetection);
-        }
     }
     protected virtual void DetectionStart()
     {

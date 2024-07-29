@@ -110,6 +110,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     private int damageTweenID = 0;
     private bool damageInsteract = true;
+    ParticleObject particle;
     public void DamageInteract(Attack obstacle)
     {
         if (!damageInsteract) // 대미지 상호작용이 꺼졌을 경우 메소드 종료
@@ -131,7 +132,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         rigid2D.gravityScale = obstacle.GravityScale;
 
-        ParticleManager.Inst.PlayParticle(obstacle.Obstacletype, transform);
+        particle = ParticleManager.Inst.PlayParticle(obstacle.Obstacletype, transform);
 
         switch (obstacle.Obstacletype) // 장애물 타입 비교
         {
@@ -146,6 +147,8 @@ public class PlayerController : MonoSingleton<PlayerController>
             case ParticleType.Fire: // 불에 탈 경우. 불에 타거나 용암에 빠졌을 때 사용됨.
                 LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.fireDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
+                StopCoroutine("FireStop");
+                StartCoroutine("FireStop");
                 break;
 
             case ParticleType.Blood: // 피가 튈 경우. 찔리거나 베일 때 사용됨.
@@ -167,6 +170,13 @@ public class PlayerController : MonoSingleton<PlayerController>
                 break;
         }
     }
+    private IEnumerator FireStop()
+    {
+        yield return YieldReturn.WaitForSeconds(2f);
+
+        particle.FollowOFF();
+    }
+
     public void DoorInteract(Transform doorPosition)
     {
         LeanTween.moveX(gameObject, doorPosition.position.x, 0.5f);

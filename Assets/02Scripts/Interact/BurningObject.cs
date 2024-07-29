@@ -30,20 +30,18 @@ public class BurningObject : PoolObject
     }
     public override void ReturnToPool()
     {
-        base.ReturnToPool();
-
-        if (burnTweenID != 0)
+        if (fireParticle)
         {
             fireParticle.FollowOFF();
             LeanTween.cancel(burnTweenID);
         }
+
+        base.ReturnToPool();
     }
 
     ParticleObject fireParticle;
     protected override void DetectionStart()
     {
-        print("불이야");
-
         if (burnTweenID != 0) // 이미 불이 붙었을 경우
         {
             return;

@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class ParticleObject : PoolObject
 {
     [SerializeField]
+    private bool autoReturn;
+    [SerializeField]
     private ParticleType particleType;
     public ParticleType ParticleType => particleType;
 
@@ -52,8 +54,11 @@ public class ParticleObject : PoolObject
         {
             particle.Play();
 
-            StopCoroutine("ParticleReturn");
-            StartCoroutine("ParticleReturn");
+            if (autoReturn)
+            {
+                StopCoroutine("ParticleReturn");
+                StartCoroutine("ParticleReturn");
+            }
         }
         else
         {
