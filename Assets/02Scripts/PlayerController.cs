@@ -86,10 +86,8 @@ public class PlayerController : MonoSingleton<PlayerController>
         GameManager.Inst.GameOverEvent += Dead;
         GameManager.Inst.GameClearEvent += Clear;
 
-        DragManager drag = GetComponentInChildren<DragManager>();
-
-        drag.MouseDragEvent += Aiming;
-        drag.MouseUpEvent += Jump;
+        DragManager.MouseDragEvent += Aiming;
+        DragManager.MouseUpEvent += Jump;
 
         AngleRefresh();
         tempVelo.Enqueue(Vector2.zero); // 처음에 빈 값을 넣어 속도 저장이 한 칸씩 밀리게 함.

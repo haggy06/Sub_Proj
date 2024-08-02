@@ -9,6 +9,15 @@ public class LanguageConverter : MonoBehaviour
 {
     [SerializeField]
     private int textID;
+    public int TextID
+    {
+        get => textID;
+        set
+        {
+            textID = value;
+            SetText();
+        }
+    }
 
     private void Awake()
     {

@@ -23,6 +23,8 @@ MonoBehaviour:
     text: "\uBA54\uB274 \uD654\uBA74"
   - id: 101004
     text: "\uD50C\uB808\uC774"
+  - id: 101005
+    text: "\uD0C0\uC774\uD2C0"
   - id: 102000
     text: "\uC5B8\uC5B4"
   - id: 102001

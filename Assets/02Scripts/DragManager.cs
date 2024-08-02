@@ -29,9 +29,9 @@ public class DragManager : MonoBehaviour
     public Vector2 Aim => aim;
     public float PowerPercent => powerPercent;
 
-    public event Action MouseClickEvent = () => { }; // 이벤트에 빈 람다식을 기본적으로 넣어 둠으로써 NullReferenceException 에러 방지
-    public event Action<Vector2, float> MouseDragEvent = (_, _) => { };
-    public event Action<Vector2, float> MouseUpEvent = (_, _) => { };
+    public static event Action MouseClickEvent = () => { }; // 이벤트에 빈 람다식을 기본적으로 넣어 둠으로써 NullReferenceException 에러 방지
+    public static event Action<Vector2, float> MouseDragEvent = (_, _) => { };
+    public static event Action<Vector2, float> MouseUpEvent = (_, _) => { };
 
     private void OnMouseDown() // 물체를 눌렀을 경우
     {

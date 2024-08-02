@@ -1196,7 +1196,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2299400852697775870}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -6061,6 +6061,10 @@ PrefabInstance:
     - target: {fileID: 2450850803037771097, guid: 36ca992894f22c044a8df485017c1dfd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2827301138327326353, guid: 36ca992894f22c044a8df485017c1dfd, type: 3}
+      propertyPath: textID
+      value: 101005
       objectReference: {fileID: 0}
     - target: {fileID: 2959169237027537219, guid: 36ca992894f22c044a8df485017c1dfd, type: 3}
       propertyPath: m_Name

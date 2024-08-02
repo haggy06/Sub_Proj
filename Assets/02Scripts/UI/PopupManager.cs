@@ -251,7 +251,7 @@ public class PopupManager : MonoSingleton<PopupManager>
     public void SetPause(bool isOn)
     {
         retryButton.SetActive(isOn);
-        menuButton.SetActive(isOn);
+        menuButton.SetActive(isOn && GameManager.Inst.GetTutorialClear());
     }
 }
 

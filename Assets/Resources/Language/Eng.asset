@@ -23,6 +23,8 @@ MonoBehaviour:
     text: Menu
   - id: 101004
     text: Play
+  - id: 101005
+    text: Title
   - id: 102000
     text: Language
   - id: 102001
