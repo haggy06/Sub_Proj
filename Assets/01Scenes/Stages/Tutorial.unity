@@ -103848,7 +103848,7 @@ GameObject:
   - component: {fileID: 642087642}
   - component: {fileID: 642087641}
   - component: {fileID: 642087640}
-  - component: {fileID: 642087639}
+  - component: {fileID: 642087643}
   m_Layer: 9
   m_Name: Tutorial Text (1)
   m_TagString: Untagged
@@ -103856,19 +103856,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &642087639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 642087638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bfd19babdb71c5479de5144e9323a52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textID: 201002
 --- !u!114 &642087640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104022,6 +104009,21 @@ RectTransform:
   m_AnchoredPosition: {x: -11, y: 14}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &642087643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 642087638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef2febc8ca3dc0f418271c9210c5b8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textID: 201002
+  clickONTextID: 201003
+  clickOFFTextID: 201002
 --- !u!1001 &691743647
 PrefabInstance:
   m_ObjectHideFlags: 0

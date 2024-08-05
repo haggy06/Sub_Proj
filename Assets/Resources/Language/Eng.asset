@@ -55,6 +55,8 @@ MonoBehaviour:
     text: Mouse Off For Jump
   - id: 201002
     text: Stand At The Door To Clear
+  - id: 201003
+    text: Don't Aim For Open Door
   causeOfDeath:
   - id: 1000
     name: Fall

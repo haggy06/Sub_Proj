@@ -16,8 +16,6 @@ public class GameManager : MonoSingleton<GameManager>
         instance = this;
     }
 
-    [SerializeField]
-    private Vector2 stageSelectPosition = Vector2.zero;
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
         StopCoroutine("TimerStart");
@@ -44,7 +42,7 @@ public class GameManager : MonoSingleton<GameManager>
                 PopupManager.Inst.SetPause(false);
                 PopupManager.Inst.SetForStageSelect();
 
-                PlayerController.Inst.transform.position = stageSelectPosition;
+                PlayerController.Inst.transform.position = stageInfo.doorPosition;
             }
         }
         else // 이외의 씬의 경우
@@ -310,8 +308,9 @@ public class GameManager : MonoSingleton<GameManager>
     #endregion
 
     #region _About Ingame UI_
-    private int goalTime = 0;
-    public int GoalTime => goalTime;
+    private StageInfo stageInfo;
+    public StageInfo StageInfo => stageInfo;
+
     private int time = 0;
     public int Time
     {
@@ -326,8 +325,6 @@ public class GameManager : MonoSingleton<GameManager>
             }
         }
     }
-    private int goalJumpCount = 0;
-    public int GoalJumpCount => goalJumpCount;
     private int jumpCount = 0;
     public int JumpCount
     {
@@ -365,10 +362,8 @@ public class GameManager : MonoSingleton<GameManager>
     }
     public void SetStageInfo(StageInfo info)
     {
-        goalTime = info.goalTime;
-        goalJumpCount = info.goalJumpCount;
+        stageInfo = info;
 
-        stageSelectPosition = info.doorPosition;
         PlayerController.Inst.transform.position = info.startPosition;
     }
     private IEnumerator TimerStart()
@@ -435,7 +430,7 @@ public class GameManager : MonoSingleton<GameManager>
                 GameOverEvent.Invoke(obstacle);
                 break;
             case GameStatus.GameClear:
-                GameClearEvent.Invoke(isJewelryGet, time <= goalTime, jumpCount <= goalJumpCount);
+                GameClearEvent.Invoke(isJewelryGet, time <= stageInfo.goalTime, jumpCount <= stageInfo.goalJumpCount);
                 break;
             default:
                 break;

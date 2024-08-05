@@ -57,6 +57,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     [Space(5)]
     [SerializeField]
     private bool aiming = false;
+    public bool Aiming => aiming;
     [SerializeField]
     private bool controllable = true;
     [SerializeField]
@@ -86,7 +87,7 @@ public class PlayerController : MonoSingleton<PlayerController>
         GameManager.Inst.GameOverEvent += Dead;
         GameManager.Inst.GameClearEvent += Clear;
 
-        DragManager.MouseDragEvent += Aiming;
+        DragManager.MouseDragEvent += Aim;
         DragManager.MouseUpEvent += Jump;
 
         AngleRefresh();
@@ -108,7 +109,6 @@ public class PlayerController : MonoSingleton<PlayerController>
 
     private int damageTweenID = 0;
     private bool damageInsteract = true;
-    ParticleObject particle;
     public void DamageInteract(Attack obstacle)
     {
         if (!damageInsteract) // 대미지 상호작용이 꺼졌을 경우 메소드 종료
@@ -130,7 +130,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         rigid2D.gravityScale = obstacle.GravityScale;
 
-        particle = ParticleManager.Inst.PlayParticle(obstacle.Obstacletype, transform);
+        ParticleObject particle = ParticleManager.Inst.PlayParticle(obstacle.Obstacletype, transform);
 
         switch (obstacle.Obstacletype) // 장애물 타입 비교
         {
@@ -145,8 +145,8 @@ public class PlayerController : MonoSingleton<PlayerController>
             case ParticleType.Fire: // 불에 탈 경우. 불에 타거나 용암에 빠졌을 때 사용됨.
                 LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.fireDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
-                StopCoroutine("FireStop");
-                StartCoroutine("FireStop");
+                StopCoroutine(FireStop(particle));
+                StartCoroutine(FireStop(particle));
                 break;
 
             case ParticleType.Blood: // 피가 튈 경우. 찔리거나 베일 때 사용됨.
@@ -168,17 +168,18 @@ public class PlayerController : MonoSingleton<PlayerController>
                 break;
         }
     }
-    private IEnumerator FireStop()
+    private IEnumerator FireStop(ParticleObject fireParticle)
     {
         yield return YieldReturn.WaitForSeconds(2f);
 
-        particle.FollowOFF();
+        fireParticle.FollowOFF();
     }
 
     public void DoorInteract(Transform doorPosition)
     {
         LeanTween.moveX(gameObject, doorPosition.position.x, 0.5f);
         controllable = false;
+        rigid2D.velocity = Vector2.zero;
     }
     private void Dead(Attack obstacle)
     {
@@ -264,10 +265,12 @@ public class PlayerController : MonoSingleton<PlayerController>
         }
     }
 
-    public void Aiming(Vector2 aim, float powerPercent)
+    public void Aim(Vector2 aim, float powerPercent)
     {
         if ((controllable && Time.timeScale > 0.5f) && isGround) // 조종 가능한 상태(+ 일시정지가 아닐 떄)고 착지해 있을 경우
         {
+            aiming = true;
+
             float g = Physics2D.gravity.y * rigid2D.gravityScale; // 중력 = 공통 중력 세기 * 대상의 중력 세기
             Vector2 startSpeed = (AngleLock(aim) * powerPercent * jumpPower) + rigid2D.velocity; // 초기 속도 = (조준 각도(AngleLock 처리) * 세기 퍼센트 * 최대 점프 파워) + 현재 오브젝트 속도
             Color dotColor = new Color(1f, 1f - powerPercent, 1f - powerPercent, 0.75f); // 점의 컬러 저장. 셀수록 점들이 빨개진다.
@@ -280,6 +283,7 @@ public class PlayerController : MonoSingleton<PlayerController>
             if (line.Visible) // 보조선이 보일 경우
             {
                 line.HideAimingLine(); // 보조선 숨김
+                aiming = false;
             }
             return;
         }
@@ -307,6 +311,8 @@ public class PlayerController : MonoSingleton<PlayerController>
     }
     public void Jump(Vector2 aim, float powerPercent)
     {
+        aiming = false;
+
         if (!isGround || !(controllable && Time.timeScale > 0.5f)) // 착지해 있지 않거나 컨트롤이 안 될 땐 점프를 무효화함
         {
             Debug.Log("점프할 수 없는 상태");

@@ -90013,6 +90013,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2689647712341186995, guid: d5f5a069c0b63e64ca4d06c82bf1884f, type: 3}
+      propertyPath: stageInfo.doorPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2689647712341186995, guid: d5f5a069c0b63e64ca4d06c82bf1884f, type: 3}
+      propertyPath: stageInfo.doorPosition.y
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6028840618875224670, guid: d5f5a069c0b63e64ca4d06c82bf1884f, type: 3}
       propertyPath: m_Name
       value: Stage Essential Elements

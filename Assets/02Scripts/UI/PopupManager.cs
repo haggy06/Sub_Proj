@@ -110,7 +110,7 @@ public class PopupManager : MonoSingleton<PopupManager>
         GameManager.Inst.GameClearEvent += (jewelyClear, timeClear, jumpClear) =>
         {
             StartCoroutine(GameClear(jewelyClear, timeClear, jumpClear));
-            SetClearPopup(GameManager.Inst.GoalTime, GameManager.Inst.GoalJumpCount);
+            SetClearPopup(GameManager.Inst.StageInfo.goalTime, GameManager.Inst.StageInfo.goalJumpCount);
         };
         #endregion
         #region _Setting Event Setting_

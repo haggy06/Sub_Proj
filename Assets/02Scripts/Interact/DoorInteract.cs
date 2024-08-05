@@ -48,7 +48,7 @@ public abstract class DoorInteract : DetectionBase
     {
         while (detection) // 감지되고 있는 동안 반복
         {
-            if (GameManager.Inst.GameStatus == GameStatus.Play && PlayerController.Inst.IsGround) // 플레이 중이고 플레이어가 착지해 있을 경우
+            if (GameManager.Inst.GameStatus == GameStatus.Play && PlayerController.Inst.IsGround && !PlayerController.Inst.Aiming) // 플레이 중이고 플레이어가 착지해 있으며 조준하고 있지 않을 경우
             {
                 progress += Time.fixedDeltaTime / openRequireTime; // 진척도 상승
                 DoorOpening();
