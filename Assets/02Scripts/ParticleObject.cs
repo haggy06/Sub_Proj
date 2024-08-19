@@ -33,7 +33,7 @@ public class ParticleObject : PoolObject
     }
     private void ClearParticle()
     {
-        if (parentPool)
+        if (parentPool && !isReturned)
         {
             ReturnToPool();
         }

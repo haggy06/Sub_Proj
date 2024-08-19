@@ -80,7 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
   obstacleType: 1
   obstacleID: 2012
@@ -264,7 +263,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useAutoReturn: 1
   lifeTime: 3
-  isReturned: 0
+  isIndependent: 1
+  initialVelocity: 25
+  detectionTime: 0
   connectedDetection: {fileID: 4481740390818785760}
   SpreadTerm: 0
   burningTime: 3600
@@ -281,7 +282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
   obstacleType: 2
   obstacleID: 1004
@@ -301,5 +301,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05dd9ff3222af1c418d690bae8b1941d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 8

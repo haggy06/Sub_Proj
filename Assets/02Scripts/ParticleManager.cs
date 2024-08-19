@@ -46,9 +46,9 @@ public class ParticleManager : MonoSingleton<ParticleManager>
 
         Transform particle = particles.GetChild((int)particleType);
 
-        particle.transform.position = position;
-        particle.transform.localScale = scale;
-        particle.transform.eulerAngles = Vector3.forward * rotation;
+        particle.position = position;
+        particle.localScale = scale;
+        particle.eulerAngles = Vector3.forward * rotation;
 
         particle.GetComponent<ParticleSystem>().Play();
     }

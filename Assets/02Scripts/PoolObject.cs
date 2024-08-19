@@ -12,10 +12,10 @@ public class PoolObject : MonoBehaviour
     [Space(10)]
     [SerializeField]
     protected bool isIndependent = true;
+
+    [Space(10)]
     [SerializeField, Tooltip("Rigidbody2D가 있을 떄만 작동")]
     protected float initialVelocity;
-    [SerializeField, Range(0f, 1f), Tooltip("dectionBase가 있을 떄만 작동")]
-    protected float detectionTime = 0f;
 
     protected bool isReturned = false;
     public bool IsReturned => isReturned;
@@ -23,6 +23,8 @@ public class PoolObject : MonoBehaviour
     [Space(10)]
     [SerializeField]
     protected DetectionBase connectedDetection;
+    [SerializeField, Tooltip("dectionBase가 있을 떄만 작동")]
+    protected float detectionTime = 0f;
     protected virtual void Awake()
     {
         if (connectedDetection != null)

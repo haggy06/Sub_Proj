@@ -27,23 +27,21 @@ public class ObjectPool : MonoBehaviour
         if (!containers.TryGetValue(member.name, out container))
         { // 컨테이너가 없을 경우
             container = new GameObject(member.name + " Pool").transform;
+            container.parent = transform;
             containers.Add(member.name, container);
         }
         return container;
     }
     public void MakePool(PoolObject member)
     {
-        Transform memberPool = new GameObject().transform;
-        memberPool.transform.parent = transform;
-        memberPool.name = member.gameObject.name + " Pool";
-
         Stack<PoolObject> pool;
-        if (!objectPool.TryGetValue(member.gameObject.name, out pool)) // 딕셔너리에 알맞는 스택이 있었을 경우 pool에 저장하고, 없었다면 새로 만들어 저장함
+        if (!objectPool.TryGetValue(member.name, out pool)) // 딕셔너리에 알맞는 스택이 있었을 경우 pool에 저장하고, 없었다면 새로 만들어 저장함
         {
             pool = new Stack<PoolObject>();
-            objectPool.Add(member.gameObject.name, pool);
+            objectPool.Add(member.name, pool);
         }
 
+        Transform memberPool = GetContainer(member);
         for (int i = 0; i < countPerObj; i++)
         {
             PoolObject newObject = Instantiate(member, memberPool);
@@ -56,7 +54,7 @@ public class ObjectPool : MonoBehaviour
     public PoolObject GetObject(PoolObject member)
     {
         PoolObject outObject;
-        if (objectPool.TryGetValue(member.gameObject.name, out Stack<PoolObject> pool))
+        if (objectPool.TryGetValue(member.name, out Stack<PoolObject> pool))
         {
             POP_AGAIN:
 
@@ -71,7 +69,7 @@ public class ObjectPool : MonoBehaviour
             }
             else
             {
-                //Debug.LogError(member.gameObject.name + "의 재고가 다 떨어졌습니다.");
+                Debug.Log(member.name + "의 재고가 다 떨어짐");
                 Transform memberPool = GetContainer(member);
 
                 outObject = Instantiate(member, memberPool);
@@ -82,25 +80,29 @@ public class ObjectPool : MonoBehaviour
         }
         else
         {
-            Debug.Log(member.gameObject.name + "이라는 오브젝트가 이 오브젝트풀에 없습니다.");
+            Debug.Log(member.name + "이라는 오브젝트가 이 오브젝트풀에 없습니다.");
 
             MakePool(member);
-            objectPool.TryGetValue(member.gameObject.name, out pool);
+            objectPool.TryGetValue(member.name, out pool);
             
             outObject = pool.Pop();
         }
         return outObject;
     }
+
     public bool ReturnObject(PoolObject member)
     {
-        if (objectPool.TryGetValue(member.gameObject.name, out Stack<PoolObject> pool))
+        if (objectPool.TryGetValue(member.name, out Stack<PoolObject> pool))
         {
             pool.Push(member);
+
+            member.transform.parent = GetContainer(member);
+            //Debug.Log(member.name + " 오브젝트 반납)" + pool.TryPeek(out _));
             return true;
         }
         else
         {
-            Debug.LogError(member.gameObject.name + " 오브젝트용 전용 풀이 없습니다.");
+            Debug.LogError(member.name + " 오브젝트용 전용 풀이 없습니다.");
             return false;
         }
     }
