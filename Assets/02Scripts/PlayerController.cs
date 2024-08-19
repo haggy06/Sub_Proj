@@ -11,10 +11,6 @@ using Cinemachine;
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
 public class PlayerController : MonoSingleton<PlayerController>
 {
-    protected override void SetInstanceToThis()
-    {
-        instance = this;
-    }
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
         line.HideAimingLine();

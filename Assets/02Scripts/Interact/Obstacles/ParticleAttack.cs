@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(ParticleSystem), typeof(Attack))]
-public class ParticleAttack : PoolObject
+public class ParticleAttack : PoolObject // ¾µ¸ð¾ø¾îÁü
 {
     ParticleSystem particle;
     Collider2D col;
@@ -25,9 +25,9 @@ public class ParticleAttack : PoolObject
         lifeTime = particle.main.duration + particle.main.startLifetime.constantMax;
     }
 
-    public override void ExitFromPool(Transform newParent = null)
+    public override void Init(Transform owner, float rotation)
     {
-        base.ExitFromPool(newParent);
+        base.Init(owner, rotation);
 
         StopCoroutine("ParticleDetectionCor");
         StartCoroutine("ParticleDetectionCor");

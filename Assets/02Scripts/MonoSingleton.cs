@@ -32,20 +32,16 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
             return instance;
         }
     }
+
+    protected virtual void OnDestroy()
+    {
+        SceneManager.activeSceneChanged -= SceneChanged;
+    }
     protected virtual void Awake()
     {
-        if (instance == null || instance == this) // 아직 인스턴스가 할당이 안 되었거나 이 오브젝트가 인스턴스일 경우
+        if (Inst == this) // 이 오브젝트가 싱글톤 인스턴스일 경우
         {
-            SetInstanceToThis();
-
-            if (transform.parent != null && transform.root != null) // 이 오브젝트가 자식으로 지정되어 있을 경우
-            {
-                DontDestroyOnLoad(transform.root.gameObject); // 최상위 부모를 불멸 처리한다.
-            }
-            else
-            {
-                DontDestroyOnLoad(gameObject); // 이 오브젝트를 불멸 처리한다.
-            }
+            DontDestroyOnLoad(transform.root.gameObject); // 최상위 오브젝트를 불멸 처리한다.
 
             SceneManager.activeSceneChanged += SceneChanged; // 씬이 변경될 때마다 SceneChanged가 실행되도록 한다.
         }
@@ -57,6 +53,5 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
     }
 
     // todo : 메서드용 툴팁 넣기
-    protected abstract void SetInstanceToThis(); // instance = this;
     protected abstract void SceneChanged(Scene replacedScene, Scene newScene);
 }

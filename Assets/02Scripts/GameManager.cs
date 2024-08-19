@@ -11,11 +11,6 @@ public class GameManager : MonoSingleton<GameManager>
 {
     [SerializeField]
     private AudioMixer audioMixer;
-    protected override void SetInstanceToThis()
-    {
-        instance = this;
-    }
-
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
         StopCoroutine("TimerStart");

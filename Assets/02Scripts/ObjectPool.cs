@@ -9,22 +9,30 @@ public class ObjectPool : MonoBehaviour
 
     [Space(10)]
     [SerializeField]
-    private List<PoolObject> poolMembers = new List<PoolObject>();
+    private PoolObject[] initialMembers;
+    public PoolObject[] InitialMembers => initialMembers;
     private void Awake()
     {
-        foreach(PoolObject member in poolMembers)
+        foreach(PoolObject member in initialMembers)
         {
-            MakePool(member, false);
+            MakePool(member);
         }
     }
 
-    [SerializeField]
     private Dictionary<string, Stack<PoolObject>> objectPool = new Dictionary<string, Stack<PoolObject>>();
-    public void MakePool(PoolObject member, bool newMember = true)
+    private Dictionary<string, Transform> containers = new();
+    private Transform GetContainer(PoolObject member)
     {
-        if (newMember)
-            poolMembers.Add(member);
-
+        Transform container;
+        if (!containers.TryGetValue(member.name, out container))
+        { // 컨테이너가 없을 경우
+            container = new GameObject(member.name + " Pool").transform;
+            containers.Add(member.name, container);
+        }
+        return container;
+    }
+    public void MakePool(PoolObject member)
+    {
         Transform memberPool = new GameObject().transform;
         memberPool.transform.parent = transform;
         memberPool.name = member.gameObject.name + " Pool";
@@ -39,8 +47,9 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < countPerObj; i++)
         {
             PoolObject newObject = Instantiate(member, memberPool);
+            newObject.name = member.name;
 
-            newObject.RememberPool(pool, memberPool);
+            newObject.RememberPool(this);
             newObject.ReturnToPool();
         }
     }
@@ -63,14 +72,13 @@ public class ObjectPool : MonoBehaviour
             else
             {
                 //Debug.LogError(member.gameObject.name + "의 재고가 다 떨어졌습니다.");
-                Transform memberPool = transform.Find(member.gameObject.name + " Pool").transform;
+                Transform memberPool = GetContainer(member);
 
                 outObject = Instantiate(member, memberPool);
+                outObject.name = member.name;
 
-                outObject.RememberPool(pool, memberPool);
+                outObject.RememberPool(this);
             }
-
-            outObject.ExitFromPool();
         }
         else
         {

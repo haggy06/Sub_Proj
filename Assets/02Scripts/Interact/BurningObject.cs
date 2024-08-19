@@ -21,9 +21,9 @@ public class BurningObject : PoolObject
 
         burningAttack.SetActive(false);
     }
-    public override void ExitFromPool(Transform newParent = null)
+    public override void Init(Transform owner, float rotation)
     {
-        base.ExitFromPool(newParent);
+        base.Init(owner, rotation);
 
         burningAttack.SetActive(false);
         burnTweenID = 0;

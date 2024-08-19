@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(ObjectPool))]
 public class ParticleManager : MonoSingleton<ParticleManager>
 {
-    protected override void SetInstanceToThis()
-    {
-        instance = this;
-    }
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
         /*
@@ -30,18 +27,13 @@ public class ParticleManager : MonoSingleton<ParticleManager>
     }
 
     [SerializeField]
-    private GameObject[] particleArray;
-    [SerializeField]
-    private Transform trackingParticles;
-    private Stack<PoolObject>[] trackingParticleStack;
+    private Transform particles;
+
+    private ObjectPool pool;
     protected override void Awake()
     {
         base.Awake();
-        trackingParticleStack = new Stack<PoolObject>[particleArray.Length]; // trackingParticleStack 초기화
-        for (int i = 0; i < particleArray.Length; i++)
-        {
-            trackingParticleStack[i] = new Stack<PoolObject>();
-        }
+        pool = GetComponent<ObjectPool>();
     }
 
     public void PlayParticle(ParticleType particleType, Vector2 position, Vector2 scale, float rotation = 0f)
@@ -52,7 +44,7 @@ public class ParticleManager : MonoSingleton<ParticleManager>
             return;
         }
 
-        GameObject particle = particleArray[(int)particleType];
+        Transform particle = particles.GetChild((int)particleType);
 
         particle.transform.position = position;
         particle.transform.localScale = scale;
@@ -74,21 +66,15 @@ public class ParticleManager : MonoSingleton<ParticleManager>
         }
 
         // 출장 가 있는 파티클이 없을 경우
-        if (!trackingParticleStack[(int)particleType].TryPop(out PoolObject particle)) // 스택에서 하나 빼옴
-        { // 스택에 빼올 파티클이 없을 경우
-            particle = Instantiate(particleArray[(int)particleType].gameObject).GetComponent<PoolObject>();
-            particle.RememberPool(trackingParticleStack[(int)particleType], trackingParticles); // 하나 새로 만들고 풀 등록
-        }
+        ParticleObject particle = (ParticleObject)pool.GetObject(pool.InitialMembers[(int)particleType]);
 
         // 파티클 위치 초기화
-        particle.ExitFromPool();
+        particle.Init(target, target.eulerAngles.z);
 
         particle.GetComponent<ParticleObject>().Follow(target);
-        particle.transform.position = target.position;
-        particle.transform.eulerAngles = target.eulerAngles;
         particle.transform.localScale = target.localScale;
 
-        return particle.GetComponent<ParticleObject>();
+        return particle;
     }
 }
 

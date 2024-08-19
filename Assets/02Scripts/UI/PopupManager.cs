@@ -10,10 +10,6 @@ using System.Runtime.CompilerServices;
 
 public class PopupManager : MonoSingleton<PopupManager>
 {
-    protected override void SetInstanceToThis()
-    {
-        instance = this;
-    }
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
@@ -180,11 +176,11 @@ public class PopupManager : MonoSingleton<PopupManager>
 
         yield return YieldReturn.WaitForSeconds(0.75f);
 
-        timeCheck.enabled = GameManager.Inst.Time <= GameManager.Inst.GoalTime; // 목표시간 내로 들어왔을 경우 체크 ON
+        timeCheck.enabled = GameManager.Inst.Time <= GameManager.Inst.StageInfo.goalTime; // 목표시간 내로 들어왔을 경우 체크 ON
 
         yield return YieldReturn.WaitForSeconds(0.75f);
 
-        jumpCheck.enabled = GameManager.Inst.JumpCount <= GameManager.Inst.GoalJumpCount; // 목표 점프 횟수 내로 클리어했을 경우 체크 ON
+        jumpCheck.enabled = GameManager.Inst.JumpCount <= GameManager.Inst.StageInfo.goalJumpCount; // 목표 점프 횟수 내로 클리어했을 경우 체크 ON
 
         yield return YieldReturn.WaitForSeconds(1.25f);
 

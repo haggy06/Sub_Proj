@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class ParticleObject : PoolObject
 {
+    /*
     [SerializeField]
     private bool autoReturn;
+    */
     [SerializeField]
     private ParticleType particleType;
     public ParticleType ParticleType => particleType;
@@ -19,16 +21,27 @@ public class ParticleObject : PoolObject
 
         particle = GetComponent<ParticleSystem>();
 
-        SceneManager.activeSceneChanged += ClearParticle;
+        SceneManager.activeSceneChanged += SceneChanged;
     }
     private void OnDestroy()
     {
-        SceneManager.activeSceneChanged -= ClearParticle;
+        SceneManager.activeSceneChanged -= SceneChanged;
     }
-    private void ClearParticle(Scene replacedScene, Scene newScene)
+    private void SceneChanged(Scene replacedScene, Scene newScene)
     {
-        particle.Stop();
-        particle.Clear();
+        ClearParticle();
+    }
+    private void ClearParticle()
+    {
+        if (parentPool)
+        {
+            ReturnToPool();
+        }
+        else
+        {
+            particle.Stop();
+            particle.Clear();
+        }
     }
 
     private Transform target;
@@ -47,9 +60,16 @@ public class ParticleObject : PoolObject
         target = null;
         particle.Stop();
     }
-
     public void PlayParticle()
     {
+        particle.Play();
+
+        if (useAutoReturn)
+        {
+            StopCoroutine("AutoReturn");
+            StartCoroutine("AutoReturn");
+        }
+        /*
         if (gameObject.activeInHierarchy)
         {
             particle.Play();
@@ -64,7 +84,9 @@ public class ParticleObject : PoolObject
         {
             Debug.Log("비활성화된 상태에선 파티클 실행 불가능함");
         }
+        */
     }
+    /*
     private IEnumerator ParticleReturn()
     {
         yield return YieldReturn.WaitForSeconds(particle.main.duration + particle.main.startLifetime.constantMax);
@@ -73,7 +95,7 @@ public class ParticleObject : PoolObject
         {
             if (gameObject.activeInHierarchy)
             {
-                ReturnToPool();
+                ClearParticle();
             }
             else
             {
@@ -82,18 +104,19 @@ public class ParticleObject : PoolObject
         }
     }
 
+    
+    */
+    public override void Init(Transform owner, float rotation)
+    {
+        base.Init(owner, rotation);
+
+        PlayParticle();
+    }
     public override void ReturnToPool()
     {
         base.ReturnToPool();
 
         target = null;
-        StopCoroutine("ParticleReturn");
-    }
-
-    public override void ExitFromPool(Transform newParent = null)
-    {
-        base.ExitFromPool(newParent);
-
-        PlayParticle();
+        //StopCoroutine("ParticleReturn");
     }
 }
