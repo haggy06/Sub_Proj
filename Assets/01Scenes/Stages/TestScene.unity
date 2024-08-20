@@ -3433,13 +3433,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a52653a466e244c947a3e396c9fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAutoReturn: 1
-  lifeTime: 3
-  isIndependent: 1
-  initialVelocity: 0
-  detectionTime: 0
-  connectedDetection: {fileID: 345629883}
+  targetTag: 5
   SpreadTerm: 0.1
+  isBurnOut: 1
   burningTime: 2
   burningAttack: {fileID: 860042438}
 --- !u!70 &345629879
@@ -3733,6 +3729,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2151052210055524031, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151052210055524031, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151052210055524031, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151052210055524031, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2151052210055524031, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2815509561114892792, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
       propertyPath: countPerObj
       value: 5
@@ -3776,6 +3792,34 @@ PrefabInstance:
     - target: {fileID: 3386937745900720449, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483124046389675232, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483124046389675232, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: ShapeModule.type
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483124046389675232, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: ShapeModule.arc.value
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483124046389675232, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: ShapeModule.m_Position.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483124046389675232, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: ShapeModule.m_Rotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483124046389675232, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: ShapeModule.m_Rotation.z
+      value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3483124046389675232, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5948065285422090839, guid: c31335139250a504d9a18d2a310d80d2, type: 3}
       propertyPath: m_Name
@@ -46884,13 +46928,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a52653a466e244c947a3e396c9fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAutoReturn: 1
-  lifeTime: 3
-  isIndependent: 1
-  initialVelocity: 0
-  detectionTime: 0
-  connectedDetection: {fileID: 1428902373}
+  targetTag: 5
   SpreadTerm: 0.1
+  isBurnOut: 1
   burningTime: 300
   burningAttack: {fileID: 1288418803}
 --- !u!58 &1428902370

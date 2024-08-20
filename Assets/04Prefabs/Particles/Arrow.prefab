@@ -665,14 +665,14 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 5
+    type: 10
     angle: 25
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0.5, z: 0}
-    m_Rotation: {x: -90, y: 0, z: 0}
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Rotation: {x: 0, y: 0, z: 150}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -809,7 +809,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     arc:
-      value: 360
+      value: 60
       mode: 0
       spread: 0
       speed:
@@ -4910,11 +4910,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29405e9524dbc434c90d7d21bdd524c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialColor: {r: 1, g: 1, b: 1, a: 1}
   useAutoReturn: 1
   lifeTime: 0.4
   isIndependent: 1
   initialVelocity: 0
-  detectionTime: 0
   connectedDetection: {fileID: 0}
-  autoReturn: 1
+  detectionTime: 0
   particleType: 4

@@ -141,8 +141,8 @@ public class PlayerController : MonoSingleton<PlayerController>
             case ParticleType.Fire: // 불에 탈 경우. 불에 타거나 용암에 빠졌을 때 사용됨.
                 LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.fireDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
-                StopCoroutine(FireStop(particle));
-                StartCoroutine(FireStop(particle));
+                //StopCoroutine(FireStop(particle));
+                //StartCoroutine(FireStop(particle));
                 break;
 
             case ParticleType.Blood: // 피가 튈 경우. 찔리거나 베일 때 사용됨.
@@ -168,7 +168,7 @@ public class PlayerController : MonoSingleton<PlayerController>
     {
         yield return YieldReturn.WaitForSeconds(2f);
 
-        fireParticle.FollowOFF();
+        fireParticle.ReturnToPool();
     }
 
     public void DoorInteract(Transform doorPosition)

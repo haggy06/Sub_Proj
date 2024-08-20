@@ -5,6 +5,10 @@ public class PoolObject : MonoBehaviour
     protected ObjectPool parentPool;
 
     [SerializeField]
+    protected Color initialColor = Color.white;
+
+    [Space(10)]
+    [SerializeField]
     protected bool useAutoReturn = true;
     [SerializeField]
     protected float lifeTime = 3f;
@@ -78,6 +82,8 @@ public class PoolObject : MonoBehaviour
     public virtual void Init(Transform owner, float rotation)
     {
         StopCoroutine("AutoReturn"); // 자동 리턴 취소
+        if (TryGetComponent<SpriteRenderer>(out SpriteRenderer sRenderer))
+            sRenderer.color = initialColor;
 
         gameObject.SetActive(true);
         isReturned = false;
@@ -108,7 +114,7 @@ public class PoolObject : MonoBehaviour
     {
         yield return YieldReturn.WaitForSeconds(lifeTime);
 
-        if (isReturned)
+        if (!isReturned)
             ReturnToPool();
     }
 }

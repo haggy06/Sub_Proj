@@ -15,6 +15,7 @@ public class ParticleObject : PoolObject
     public ParticleType ParticleType => particleType;
 
     private ParticleSystem particle;
+    public ParticleSystem Particle => particle;
     protected override void Awake()
     {
         base.Awake();
@@ -31,16 +32,14 @@ public class ParticleObject : PoolObject
     {
         ClearParticle();
     }
-    private void ClearParticle()
+    public void ClearParticle()
     {
+        particle.Stop();
+        particle.Clear();
+
         if (parentPool && !isReturned)
         {
             ReturnToPool();
-        }
-        else
-        {
-            particle.Stop();
-            particle.Clear();
         }
     }
 
@@ -54,12 +53,13 @@ public class ParticleObject : PoolObject
         if (target != null)
             transform.position = target.position;
     }
-
+    /*
     public void FollowOFF()
     {
         target = null;
         particle.Stop();
     }
+    */
     public void PlayParticle()
     {
         particle.Play();
@@ -114,9 +114,26 @@ public class ParticleObject : PoolObject
     }
     public override void ReturnToPool()
     {
-        base.ReturnToPool();
+        if (parentPool == null)
+        {
+            Debug.Log(name + "은 부모가 없음");
+            Destroy(gameObject);
+            return;
+        }
 
+        if (isReturned)
+        {
+            Debug.Log("얜 이미 반납된 오브젝트임");
+            return;
+        }
+
+        StopCoroutine("AutoReturn"); // 자동 리턴 취소
+
+        particle.Stop(); // gameObject.SetActive(false) 대신 particle.Stop()을 넣었다.
         target = null;
-        //StopCoroutine("ParticleReturn");
+
+        isReturned = true;
+
+        parentPool.ReturnObject(this);
     }
 }

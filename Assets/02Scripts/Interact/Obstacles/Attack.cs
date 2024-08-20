@@ -31,6 +31,11 @@ public class Attack : DetectionBase
     public float GravityScale => gravityScale;
 
     public float CameraShakeAmplitude => cameraShakeAmplitude;
+
+    private void Awake()
+    {
+        targetTag = Tag.Player;
+    }
     protected override void DetectionStart()
     {
         base.DetectionStart();

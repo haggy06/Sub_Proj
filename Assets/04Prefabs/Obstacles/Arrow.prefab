@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 5785515940894426377}
   - component: {fileID: 3908581988630560351}
   - component: {fileID: 4711369108027021590}
-  - component: {fileID: 4481740390818785760}
+  - component: {fileID: 6261934879809155742}
   m_Layer: 7
   m_Name: Arrow
   m_TagString: Untagged
@@ -261,15 +261,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca61c5afcbdcb0e4eba9e7b09fab0ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialColor: {r: 1, g: 1, b: 1, a: 1}
   useAutoReturn: 1
   lifeTime: 3
   isIndependent: 1
   initialVelocity: 25
-  detectionTime: 0
-  connectedDetection: {fileID: 4481740390818785760}
-  SpreadTerm: 0
-  burningTime: 3600
-  burningAttack: {fileID: 2598445747297293576}
+  connectedDetection: {fileID: 4711369108027021590}
+  detectionTime: 3
 --- !u!114 &4711369108027021590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +287,7 @@ MonoBehaviour:
   hitKnockback: {x: 8, y: 3}
   gravityScale: 3
   cameraShakeAmplitude: 10
---- !u!114 &4481740390818785760
+--- !u!114 &6261934879809155742
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -298,7 +296,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3154562019823299120}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05dd9ff3222af1c418d690bae8b1941d, type: 3}
+  m_Script: {fileID: 11500000, guid: c2a52653a466e244c947a3e396c9fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: 8
+  SpreadTerm: 0.1
+  isBurnOut: 0
+  burningTime: 2
+  burningAttack: {fileID: 2598445747297293576}

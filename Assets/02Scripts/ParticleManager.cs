@@ -35,7 +35,7 @@ public class ParticleManager : MonoSingleton<ParticleManager>
         base.Awake();
         pool = GetComponent<ObjectPool>();
     }
-
+    /*
     public void PlayParticle(ParticleType particleType, Vector2 position, Vector2 scale, float rotation = 0f)
     {
         if (particleType == ParticleType.None)
@@ -52,8 +52,10 @@ public class ParticleManager : MonoSingleton<ParticleManager>
 
         particle.GetComponent<ParticleSystem>().Play();
     }
+    */
     public ParticleObject PlayParticle(ParticleType particleType, Transform target)
     {
+        /* // 변경된 구조상 파티클 재활용이 불가함
         foreach (ParticleObject businessTripParticle in target.GetComponentsInChildren<ParticleObject>())
         {
             if (businessTripParticle.ParticleType == particleType) // 이미 보내 놓은 파티클 중 알맞는 파티클이 있었을 경우
@@ -64,8 +66,8 @@ public class ParticleManager : MonoSingleton<ParticleManager>
                 return businessTripParticle;
             }
         }
-
         // 출장 가 있는 파티클이 없을 경우
+        */
         ParticleObject particle = (ParticleObject)pool.GetObject(pool.InitialMembers[(int)particleType]);
 
         // 파티클 위치 초기화

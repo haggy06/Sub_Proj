@@ -90,7 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
   obstacleType: 1
   obstacleID: 2012
@@ -111,7 +110,6 @@ GameObject:
   - component: {fileID: 6273645565264418205}
   - component: {fileID: 1402576059116847359}
   - component: {fileID: 5359133005567698296}
-  - component: {fileID: 3954294690468742702}
   m_Layer: 3
   m_Name: Plant
   m_TagString: Untagged
@@ -271,24 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a52653a466e244c947a3e396c9fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAutoReturn: 0
-  lifeTime: 3
-  isReturned: 0
-  connectedDetection: {fileID: 3954294690468742702}
+  targetTag: 8
   SpreadTerm: 0.25
+  isBurnOut: 1
   burningTime: 2
   burningAttack: {fileID: 4082170667990745099}
---- !u!114 &3954294690468742702
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6451376379299981181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05dd9ff3222af1c418d690bae8b1941d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detecting: 1
-  targetTag: 8
