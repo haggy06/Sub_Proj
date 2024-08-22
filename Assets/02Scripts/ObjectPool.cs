@@ -97,7 +97,6 @@ public class ObjectPool : MonoBehaviour
             pool.Push(member);
 
             member.transform.parent = GetContainer(member);
-            //Debug.Log(member.name + " 오브젝트 반납)" + pool.TryPeek(out _));
             return true;
         }
         else

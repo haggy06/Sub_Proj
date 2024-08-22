@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: 8
-  SpreadTerm: 0.1
+  SpreadTerm: 0
   isBurnOut: 0
   burningTime: 2
   burningAttack: {fileID: 2598445747297293576}

@@ -8,7 +8,7 @@ using UnityEngine.Audio;
 using TMPro;
 using System.Runtime.CompilerServices;
 
-public class PopupManager : MonoSingleton<PopupManager>
+public class PopupManager : Singleton<PopupManager>
 {
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {

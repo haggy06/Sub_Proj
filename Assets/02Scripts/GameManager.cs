@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using System.IO;
 
-public class GameManager : MonoSingleton<GameManager>
+public class GameManager : Singleton<GameManager>
 {
     [SerializeField]
     private AudioMixer audioMixer;
@@ -148,32 +148,6 @@ public class GameManager : MonoSingleton<GameManager>
         SaveSetting();
 
         LanguageChangeEvent.Invoke();
-        /*
-        dynamic language; // 호환성 이슈로 다룰 수 없을 듯
-        switch (newLanguage)
-        {
-            case Language.Eng:
-                language = Resources.Load<Eng>(Path.Combine("Language", newLanguage.ToString()));
-                break;
-            case Language.Kor:
-                language = Resources.Load<Kor>(Path.Combine("Language", newLanguage.ToString()));
-                break;
-            default:
-                Debug.LogError("없는 언어를 가져옴");
-                language = Resources.Load<Eng>(Path.Combine("Language", newLanguage.ToString()));
-                break;
-        }
-
-        foreach (Interaction sheet in language.interaction) // Axcel 내의 Interaction 정보를 Dictionary로 바꿔 저장
-        {
-            interactionSheet.Add(sheet.id, sheet.text);
-        }
-        foreach (CauseOfDeath sheet in language.interaction) // Axcel 내의 CauseOfDeath 정보를 Dictionary로 바꿔 저장
-        {
-            string[] data = { sheet.name, sheet.explain };
-            causeOfDeathSheet.Add(sheet.id, data);
-        }
-        */
     }
 
     private Dictionary<int, string> interactionSheet = new Dictionary<int, string>(0);
@@ -292,7 +266,6 @@ public class GameManager : MonoSingleton<GameManager>
         PopupManager.Inst.PopupOpen(Popup.Fade);
 
         StartCoroutine("LoadScene");
-        //Invoke("LoadScene", PopupManager.Inst.PopupList[(int)Popup.Fade].FadeDuration);
     }
     private IEnumerator LoadScene()
     {
@@ -343,16 +316,6 @@ public class GameManager : MonoSingleton<GameManager>
         {
             isJewelryGet = value;
             PopupManager.Inst.SetJewelryMark(isJewelryGet);
-            /*
-            if (isJewelryGet)
-            {
-                JewelryGetMark.enabled = true;
-            }
-            else
-            {
-                JewelryGetMark.enabled = false;
-            }
-            */
         }
     }
     public void SetStageInfo(StageInfo info)

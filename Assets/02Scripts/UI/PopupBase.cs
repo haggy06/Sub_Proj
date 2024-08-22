@@ -36,7 +36,6 @@ public class PopupBase : MonoBehaviour
         }
 
         canvas.blocksRaycasts = true;
-        //openID = LeanTween.alphaCanvas(canvas, 1f, (1f - canvas.alpha) * fadeDuration).setEase(fadeEase).setOnComplete(OpenComplete).id;
     }
     protected virtual void OpenComplete()
     {
@@ -52,7 +51,6 @@ public class PopupBase : MonoBehaviour
         }
 
         canvas.blocksRaycasts = false;
-        //closeID = LeanTween.alphaCanvas(canvas, 0f, canvas.alpha * fadeDuration).setEase(fadeEase).setOnComplete(CloseComplete).id;
     }
     protected virtual void CloseComplete()
     {
@@ -65,13 +63,11 @@ public class PopupBase : MonoBehaviour
         FadeCancle();
 
         canvas.blocksRaycasts = true;
-        //canvas.alpha = 1f;
     }
     public virtual void PopupHide()
     {
         FadeCancle();
 
         canvas.blocksRaycasts = false;
-        //canvas.alpha = 0f;
     }
 }

@@ -11,21 +11,6 @@ public enum DataType
 }
 public static class FileSaveLoader<T> where T : class
 {
-    //private static string commonDataPath = Path.Combine(Application.persistentDataPath, "Data");
-    /*
-    private void Awake()
-    {
-        if (!File.Exists(commonDataPath))
-        {
-            Debug.LogWarning("Data 폴더 생성");
-
-            Directory.CreateDirectory(commonDataPath);
-        }
-
-        Debug.Log(commonDataPath);
-    }
-    */
-
     public static void SaveData(string fileName, T nData)
     {
         Debug.Log(fileName + " 파일을 저장합니다.");

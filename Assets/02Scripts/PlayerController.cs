@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using Cinemachine;
 
 [RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
-public class PlayerController : MonoSingleton<PlayerController>
+public class PlayerController : Singleton<PlayerController>
 {
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
@@ -116,7 +116,7 @@ public class PlayerController : MonoSingleton<PlayerController>
 
         Vector2 knockback;
         knockback.x = obstacle.transform.position.x < transform.position.x ? obstacle.HitKnockback.x : -obstacle.HitKnockback.x; // 내가 장애물보다 오른쪽에 있었으면 오른쪽으로, 반대면 왼쪽으로 튐
-        knockback.y = obstacle.HitKnockback.y;//obstacle.transform.position.y < transform.position.y ? obstacle.HitKnockback.y : -obstacle.HitKnockback.y; // 내가 장애물보다 위쪽에 있었으면 위쪽으로, 반대면 아래쪽으로 튐
+        knockback.y = obstacle.HitKnockback.y; // 내가 장애물보다 위쪽에 있었으면 위쪽으로, 반대면 아래쪽으로 튐
         if (!obstacle.VelocityImpulse) // 이동속도를 완전히 바꿔버리지 않을 경우
         {
             knockback.x += rigid2D.velocity.x; // 기존 이동 속도 더해주기
@@ -141,13 +141,10 @@ public class PlayerController : MonoSingleton<PlayerController>
             case ParticleType.Fire: // 불에 탈 경우. 불에 타거나 용암에 빠졌을 때 사용됨.
                 LeanTween.cancel(damageTweenID);
                 damageTweenID = LeanTween.color(gameObject, CustomColor.fireDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
-                //StopCoroutine(FireStop(particle));
-                //StartCoroutine(FireStop(particle));
                 break;
 
             case ParticleType.Blood: // 피가 튈 경우. 찔리거나 베일 때 사용됨.
                 LeanTween.cancel(damageTweenID);
-                //damageTweenID = LeanTween.color(gameObject, CustomColor.bloodDamageColor, 0.5f).setOnComplete(() => damageTweenID = 0).id;
                 break;
 
             case ParticleType.Steam: // 증기가 필 경우. 염산에 빠질 때 사용됨.
@@ -199,8 +196,6 @@ public class PlayerController : MonoSingleton<PlayerController>
     {
         // 콜라이더 밑부분에서 착지 체크
         isGround = Physics2D.OverlapBox(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2((col.bounds.extents.x * 2) - 0.02f, 0.02f), 0f, 1 << (int)LAYER.Ground);
-        //isGround = Physics2D.OverlapArea(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f), 1 << (int)LAYER.Ground);
-        //Debug.DrawLine(new Vector2(col.bounds.min.x + 0.05f, col.bounds.min.y - 0.05f), new Vector2(col.bounds.max.x - 0.05f, col.bounds.min.y - 0.05f));
 
         PushTempVelo(); // 계속해서 이동속도 저장
     }
@@ -223,21 +218,6 @@ public class PlayerController : MonoSingleton<PlayerController>
                 rigid2D.velocity = new Vector2(lastVelocity.x, rigid2D.velocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
                 Debug.Log("머리 박음. 반작용 : " + rigid2D.velocity);
             }
-
-            /*
-            Vector2 relativeVelocity = collision.contacts[0].relativeVelocity;
-
-            if (Mathf.Abs(collision.contacts[0].normal.x) > 0.72f) // 경사가 약 45도 초과, 135도 미만인 땅에 부딫혔을 경우
-            {
-                Debug.Log("공중에서 벽에 충돌함. 반작용 : " + relativeVelocity);
-                rigid2D.velocity = new Vector2(relativeVelocity.x * speedRetention, -relativeVelocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
-            }
-            else if (collision.contacts[0].normal.y < -0.71f) // 천장에 박았을 경우
-            {
-                Debug.Log("머리 박음. 반작용 : " + relativeVelocity);
-                rigid2D.velocity = new Vector2(-relativeVelocity.x, rigid2D.velocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
-            }
-            */
         }
     }
     private void OnCollisionStay2D(Collision2D collision) // 속도가 빠르거나 벽에 붙어 점프하는 등 특정 상황에서 벽에 튕기지 않는 상황을 방지하기 위함.

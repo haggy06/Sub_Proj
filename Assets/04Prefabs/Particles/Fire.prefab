@@ -49,7 +49,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -4843,10 +4843,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29405e9524dbc434c90d7d21bdd524c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialColor: {r: 1, g: 1, b: 1, a: 1}
   useAutoReturn: 1
   lifeTime: 4
   isIndependent: 1
   initialVelocity: 0
-  detectionTime: 0
   connectedDetection: {fileID: 0}
+  detectionTime: 0
   particleType: 1
+  target: {fileID: 0}

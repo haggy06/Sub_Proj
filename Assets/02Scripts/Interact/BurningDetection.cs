@@ -25,7 +25,8 @@ public class BurningDetection : DetectionBase
     private void OnEnable()
     {
         Clear();
-        burningAttack.SetActive(false);
+        if (burningAttack)
+            burningAttack.SetActive(false);
     }
     private void OnDisable()
     {
@@ -33,6 +34,7 @@ public class BurningDetection : DetectionBase
     }
     private void Clear()
     {
+        burning = false;
         if (fireParticle)
         {
             fireParticle.ReturnToPool();
@@ -43,30 +45,45 @@ public class BurningDetection : DetectionBase
         burnTweenID = 0;
     }
 
+    [SerializeField]
     ParticleObject fireParticle;
+
+    private bool burning = false;
     protected override void DetectionStart()
     {
-        if (burnTweenID != 0) // 이미 불이 붙었을 경우
+        if (burning || !gameObject.activeInHierarchy) // 이미 불이 붙었거나 비활성화된 오브젝트일 경우
         {
             return;
         }
+        burning = true;
 
-        Invoke("FireSpread", SpreadTerm);
+        StartCoroutine("FireSpread");
         fireParticle = ParticleManager.Inst.PlayParticle(ParticleType.Fire, transform);
 
         if (isBurnOut)
             burnTweenID = LeanTween.color(gameObject, Color.black, burningTime).setOnComplete(BurnOut).id;
         else
-            Invoke("FireAttackOFF", fireParticle.Particle.main.duration);
+        {
+            StopCoroutine("FireAttackOFF");
+            StartCoroutine("FireAttackOFF");
+        }
     }
-
-    private void FireSpread()
+    private IEnumerator FireAttackOFF()
     {
+        yield return YieldReturn.WaitForSeconds(fireParticle.Particle.main.duration);
+
+        if (burningAttack)
+            burningAttack.SetActive(false);
+        burning = false;
+    }
+    private IEnumerator FireSpread()
+    {
+        yield return YieldReturn.WaitForSeconds(SpreadTerm);
+
         if (burningAttack)
             burningAttack.SetActive(true);
-        else
-            Debug.LogError("burningAttack이 지정되어 있지 않음.");
     }
+
     private void BurnOut()
     {
         Clear();

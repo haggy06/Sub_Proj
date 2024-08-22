@@ -24,12 +24,7 @@ public class AimingLine : MonoBehaviour
         {
             dotArray[i].OFF();
         }
-        /*
-        foreach (SpriteRenderer sprite in transform.GetComponentsInChildren<SpriteRenderer>())
-        {
-            sprite.color = transparent;
-        }
-        */
+
         visible = (index != 0); // 첫 번째 점부터 껐을 경우 false, 아닐 경우 true
     }
     public void SetAuxiliaryLine(float g, Vector2 startSpeed, Color dotColor)
@@ -54,7 +49,6 @@ public class AimingLine : MonoBehaviour
                 // 이전 점과 이번 점 사이에 벽이 있을 경우
                 if (Physics2D.Raycast(dot.position, (previousDot.position - dot.position).normalized, MyCalculator.Distance(dot.position, previousDot.position), 1 << (int)LAYER.Ground))
                 {
-                    //Debug.Log((i + 1) + "번째 점이 벽에 가려짐");
                     Debug.DrawRay(dot.position, previousDot.position - dot.position); // 점 사이에 라인 그려줌
                     HideAimingLine(i); // 이번 점부터 끝 점까지 숨김
                     break;

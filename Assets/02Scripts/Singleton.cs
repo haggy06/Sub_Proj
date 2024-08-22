@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using UnityEngine.SceneManagement;
 
-public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
     protected static T instance;
     public static T Inst
@@ -52,6 +52,6 @@ public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         }
     }
 
-    // todo : 메서드용 툴팁 넣기
+    /// <summary>씬 변경 시 실행되는 메소드</summary>///
     protected abstract void SceneChanged(Scene replacedScene, Scene newScene);
 }
