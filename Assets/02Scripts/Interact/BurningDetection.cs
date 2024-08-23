@@ -45,7 +45,6 @@ public class BurningDetection : DetectionBase
         burnTweenID = 0;
     }
 
-    [SerializeField]
     ParticleObject fireParticle;
 
     private bool burning = false;

@@ -211,9 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a138343c9d0d63647bbe4e26ad216476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
-  targetEvent: {fileID: 1049940564823421010}
+  targetEvent: {fileID: 4683546856870202100}
   autoRunStop: 1
   delayTime: 0.5
   maintainTime: 0.5
@@ -272,9 +271,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2557599712016657772}
   - component: {fileID: 5553517827709173437}
-  - component: {fileID: 1049940564823421010}
   - component: {fileID: 6639877281463573146}
   - component: {fileID: 2757399146955541328}
+  - component: {fileID: 4683546856870202100}
   m_Layer: 7
   m_Name: Spear
   m_TagString: Untagged
@@ -349,23 +348,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 2
   m_SpriteSortPoint: 0
---- !u!114 &1049940564823421010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6716842448604513803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1d5ef2e15c2e44080c48f3e69a3172, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTrigger: 0
-  playOnAwake: 0
-  spearOutType: 30
-  spearSpeed: 0.5
-  outPosition: 2
 --- !u!114 &6639877281463573146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,7 +360,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
   obstacleType: 2
   obstacleID: 1004
@@ -431,6 +412,53 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &4683546856870202100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6716842448604513803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9263bd93bcf64ac4aa8362df2bfbd254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrigger: 0
+  runWhenAwake: 0
+  runEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4683546856870202100}
+        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
+        m_MethodName: LocalMove_Vertical
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 2
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  runStopEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4683546856870202100}
+        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
+        m_MethodName: LocalMove_Vertical
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  spawnPosition: {fileID: 0}
+  lTType: 30
+  lTRequiredTime: 0.25
 --- !u!1 &8398004995523063579
 GameObject:
   m_ObjectHideFlags: 0

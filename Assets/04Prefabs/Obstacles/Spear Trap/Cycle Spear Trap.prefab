@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9012935966319988916}
   - component: {fileID: 5300483466002588220}
   - component: {fileID: 9006698988514993671}
-  - component: {fileID: 5632888032346291539}
+  - component: {fileID: 9077877475169341500}
   - component: {fileID: 8037625783947836567}
   - component: {fileID: 3506130857300548588}
   m_Layer: 7
@@ -133,7 +133,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5632888032346291539
+--- !u!114 &9077877475169341500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,14 +142,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 2097946805236621026}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1d5ef2e15c2e44080c48f3e69a3172, type: 3}
+  m_Script: {fileID: 11500000, guid: 9263bd93bcf64ac4aa8362df2bfbd254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isTrigger: 0
-  playOnAwake: 0
-  spearOutType: 30
-  spearSpeed: 0.25
-  outPosition: 1
+  runWhenAwake: 0
+  runEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9077877475169341500}
+        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
+        m_MethodName: LocalMove_Vertical
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 2
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  runStopEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9077877475169341500}
+        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
+        m_MethodName: LocalMove_Vertical
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  spawnPosition: {fileID: 0}
+  lTType: 30
+  lTRequiredTime: 0.25
 --- !u!114 &8037625783947836567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
   obstacleType: 2
   obstacleID: 1004
@@ -182,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd9739940a84e74f9d12e9cf5369c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEvent: {fileID: 5632888032346291539}
+  targetEvent: {fileID: 9077877475169341500}
   playOnAwake: 1
   startDelay: 0
   cycle: 1

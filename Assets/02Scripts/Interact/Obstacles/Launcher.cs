@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;  
 
-public class Launcher : EntityEvent
+public class Launcher : EntityEvent // 너, UnityEvent 가능성 있어
 {
     [Header("Launcher Setting")]
-    [SerializeField]
-    private ObjectPool pool;
     [SerializeField]
     private Transform launchPosition;
 
     [Header("Projectile Setting")]
     [SerializeField]
     private PoolObject launchObject;
-
+    /*
     public override void Run()
     {
         PoolObject projectile = pool.GetObject(launchObject);
@@ -24,4 +22,5 @@ public class Launcher : EntityEvent
     {
 
     }
+    */
 }

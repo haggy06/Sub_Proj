@@ -177,8 +177,8 @@ GameObject:
   - component: {fileID: 1033755352807828418}
   - component: {fileID: 6960809284676239322}
   - component: {fileID: 5860870961569764357}
-  - component: {fileID: 8424700964361067852}
   - component: {fileID: 7057770505791141990}
+  - component: {fileID: 6923731671978933483}
   m_Layer: 7
   m_Name: Spear
   m_TagString: Untagged
@@ -298,23 +298,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.75, y: 2}
   m_EdgeRadius: 0
---- !u!114 &8424700964361067852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6265452992306101678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1d5ef2e15c2e44080c48f3e69a3172, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTrigger: 0
-  playOnAwake: 0
-  spearOutType: 30
-  spearSpeed: 0.25
-  outPosition: 1
 --- !u!114 &7057770505791141990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,7 +310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isParticle: 0
   targetTag: 5
   obstacleType: 2
   obstacleID: 1003
@@ -335,6 +317,53 @@ MonoBehaviour:
   hitKnockback: {x: 0, y: 0}
   gravityScale: 3
   cameraShakeAmplitude: 10
+--- !u!114 &6923731671978933483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6265452992306101678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9263bd93bcf64ac4aa8362df2bfbd254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrigger: 0
+  runWhenAwake: 0
+  runEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6923731671978933483}
+        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
+        m_MethodName: LocalMove_Vertical
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 2
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  runStopEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6923731671978933483}
+        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
+        m_MethodName: LocalMove_Vertical
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  spawnPosition: {fileID: 0}
+  lTType: 30
+  lTRequiredTime: 0.25
 --- !u!1 &8460298995245377243
 GameObject:
   m_ObjectHideFlags: 0

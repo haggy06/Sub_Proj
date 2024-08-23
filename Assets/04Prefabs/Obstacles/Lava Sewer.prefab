@@ -4844,7 +4844,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
   obstacleType: 1
   obstacleID: 2010
@@ -4862,8 +4861,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7957532468971176418}
   - component: {fileID: 5667777566249781503}
-  - component: {fileID: 5649191253736507580}
   - component: {fileID: 391286605971486061}
+  - component: {fileID: 2301365925128033438}
   m_Layer: 9
   m_Name: Lava Sewer
   m_TagString: Fire
@@ -4939,21 +4938,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5649191253736507580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7444897631599531133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 233024a365859374caf420c10bd612c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTrigger: 0
-  playOnAwake: 1
-  particle: {fileID: 3163307885507113885}
 --- !u!114 &391286605971486061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4966,8 +4950,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd9739940a84e74f9d12e9cf5369c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEvent: {fileID: 5649191253736507580}
+  targetEvent: {fileID: 2301365925128033438}
   playOnAwake: 1
   startDelay: 0
   cycle: 3
   maintainTime: 2
+--- !u!114 &2301365925128033438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7444897631599531133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9263bd93bcf64ac4aa8362df2bfbd254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrigger: 1
+  runWhenAwake: 0
+  runEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  runStopEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  spawnPosition: {fileID: 0}
+  lTType: 1
+  lTRequiredTime: 5

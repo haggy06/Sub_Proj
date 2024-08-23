@@ -34,7 +34,7 @@ public class DetectionEvent : DetectionBase
         {
             yield return YieldReturn.WaitForSeconds(maintainTime);
 
-            targetEvent.RunStop();
+            targetEvent.Stop();
         }
     }
 

@@ -80,7 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
   obstacleType: 1
   obstacleID: 2012
@@ -99,11 +98,11 @@ GameObject:
   - component: {fileID: 1454868365333346119}
   - component: {fileID: 239514676879909262}
   - component: {fileID: 8111746613594961995}
-  - component: {fileID: 2873942231629146456}
   - component: {fileID: 8681992649276805492}
   - component: {fileID: 1133902747048440652}
   - component: {fileID: 8275983114229773333}
   - component: {fileID: 3958393560704237434}
+  - component: {fileID: 2626168588822674157}
   m_Layer: 3
   m_Name: Spore Flower
   m_TagString: Untagged
@@ -191,29 +190,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd9739940a84e74f9d12e9cf5369c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEvent: {fileID: 2873942231629146456}
+  targetEvent: {fileID: 2626168588822674157}
   playOnAwake: 1
   startDelay: 0
   cycle: 5
   maintainTime: 0.5
---- !u!114 &2873942231629146456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6446495610293219303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8309e8ec5717574fa9c9f318eb7d160, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTrigger: 1
-  playOnAwake: 1
-  pool: {fileID: 0}
-  launchPosition: {fileID: 1454868365333346119}
-  launchObject: {fileID: 6935898785154740118, guid: ef908709df8761b4a92553d90fe4499d, type: 3}
-  launchPower: 0
 --- !u!50 &8681992649276805492
 Rigidbody2D:
   serializedVersion: 4
@@ -288,11 +269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a52653a466e244c947a3e396c9fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  useAutoReturn: 0
-  lifeTime: 3
-  isReturned: 0
-  connectedDetection: {fileID: 3958393560704237434}
+  targetTag: 5
   SpreadTerm: 0.1
+  isBurnOut: 1
   burningTime: 2
   burningAttack: {fileID: 3537308694766762735}
 --- !u!114 &3958393560704237434
@@ -307,5 +286,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05dd9ff3222af1c418d690bae8b1941d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 8
+--- !u!114 &2626168588822674157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6446495610293219303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9263bd93bcf64ac4aa8362df2bfbd254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrigger: 1
+  runWhenAwake: 0
+  runEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2626168588822674157}
+        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
+        m_MethodName: SpawnObject
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 6935898785154740118, guid: ef908709df8761b4a92553d90fe4499d, type: 3}
+          m_ObjectArgumentAssemblyTypeName: PoolObject, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  runStopEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  spawnPosition: {fileID: 1454868365333346119}
+  lTType: 1
+  lTRequiredTime: 5

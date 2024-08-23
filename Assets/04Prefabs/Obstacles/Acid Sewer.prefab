@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4664663595973052866}
   - component: {fileID: 6969253332283895178}
-  - component: {fileID: 384650365319377289}
   - component: {fileID: 7267333669802630549}
+  - component: {fileID: 4539545435256742713}
   m_Layer: 9
   m_Name: Acid Sewer
   m_TagString: Untagged
@@ -87,21 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &384650365319377289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2564573687930305802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 233024a365859374caf420c10bd612c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTrigger: 0
-  playOnAwake: 1
-  particle: {fileID: 3034009171009113067}
 --- !u!114 &7267333669802630549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,11 +99,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd9739940a84e74f9d12e9cf5369c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEvent: {fileID: 384650365319377289}
+  targetEvent: {fileID: 4539545435256742713}
   playOnAwake: 1
   startDelay: 0
   cycle: 3
   maintainTime: 2
+--- !u!114 &4539545435256742713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2564573687930305802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9263bd93bcf64ac4aa8362df2bfbd254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrigger: 1
+  runWhenAwake: 0
+  runEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3034009171009113067}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  runStopEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3034009171009113067}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  spawnPosition: {fileID: 0}
+  lTType: 1
+  lTRequiredTime: 5
 --- !u!1 &9073432848164666448
 GameObject:
   m_ObjectHideFlags: 0

@@ -39,7 +39,7 @@ public class EventInvoker : MonoBehaviour
                     StopCoroutine("LaunchCoroutine");
                     if (!targetEvent.IsTrigger && !cycleComplete)
                     {
-                        targetEvent.RunStop();
+                        targetEvent.Stop();
                     }
                 }
             }
@@ -48,6 +48,8 @@ public class EventInvoker : MonoBehaviour
     protected void Awake()
     {
         Repeat = playOnAwake;
+        if (!targetEvent)
+            targetEvent = GetComponent<EntityEvent>();
     }
 
     protected bool cycleComplete = false;
@@ -64,7 +66,7 @@ public class EventInvoker : MonoBehaviour
             {
                 yield return YieldReturn.WaitForSeconds(maintainTime);
 
-                targetEvent.RunStop();
+                targetEvent.Stop();
             }
             cycleComplete = true;
 

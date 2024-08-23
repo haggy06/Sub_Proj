@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1925440640255354078}
   - component: {fileID: 3166604584213761752}
-  - component: {fileID: 6095979851012335801}
   - component: {fileID: 2000190798576378347}
   - component: {fileID: 5616958248660323081}
+  - component: {fileID: 1287668184959963576}
   m_Layer: 3
   m_Name: Flame Thrower
   m_TagString: Untagged
@@ -88,21 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6095979851012335801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4881847772704169356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 233024a365859374caf420c10bd612c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTrigger: 0
-  playOnAwake: 1
-  particle: {fileID: 5700714046847979010}
 --- !u!114 &2000190798576378347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd9739940a84e74f9d12e9cf5369c43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetEvent: {fileID: 6095979851012335801}
+  targetEvent: {fileID: 0}
   playOnAwake: 1
   startDelay: 0
   cycle: 3
@@ -165,6 +150,53 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9375, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1287668184959963576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4881847772704169356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9263bd93bcf64ac4aa8362df2bfbd254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrigger: 0
+  runWhenAwake: 0
+  runEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5700714046847979010}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  runStopEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5700714046847979010}
+        m_TargetAssemblyTypeName: UnityEngine.ParticleSystem, UnityEngine
+        m_MethodName: Stop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  spawnPosition: {fileID: 0}
+  lTType: 1
+  lTRequiredTime: 5
 --- !u!1 &5953324589843462185
 GameObject:
   m_ObjectHideFlags: 0
@@ -5009,7 +5041,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
   obstacleType: 1
   obstacleID: 2010

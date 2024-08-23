@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spear : EntityEvent
+public class Spear : EntityEvent // 너, UnityEvent 가능성 있어
 {
     [SerializeField]
     private LeanTweenType spearOutType = LeanTweenType.linear;
@@ -14,6 +14,7 @@ public class Spear : EntityEvent
     private float outPosition = 1f;
 
     private int spearTweenID = 0;
+    /*
     public override void Run()
     {
         LeanTween.cancel(spearTweenID);
@@ -25,4 +26,5 @@ public class Spear : EntityEvent
         LeanTween.cancel(spearTweenID);
         spearTweenID = LeanTween.moveLocal(gameObject, Vector2.zero, spearSpeed).setEase(spearOutType).setOnComplete(() => spearTweenID = 0).id; // 창 집어넣음
     }
+    */
 }
