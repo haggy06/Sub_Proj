@@ -12,6 +12,9 @@ public class Arrow : PoolObject
 
     protected override void HitGround(string tag)
     {
+        if (isReturned)
+            return;
+
         base.HitGround(tag);
 
         GetComponent<SpriteRenderer>().color = CustomColor.zero;

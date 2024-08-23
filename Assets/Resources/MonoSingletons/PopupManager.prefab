@@ -2052,7 +2052,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3492346160236638818}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -2845,10 +2845,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1656881581820573833}
   m_HandleRect: {fileID: 7201002096212880590}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3730,10 +3730,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 355856944664324438}
   m_HandleRect: {fileID: 6401171589201455416}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.001
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.001
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
