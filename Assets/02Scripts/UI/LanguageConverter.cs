@@ -21,12 +21,12 @@ public class LanguageConverter : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Inst.LanguageChangeEvent += SetText;
+        GameManager.LanguageChangeEvent += SetText;
         SetText();
     }
     private void OnDestroy()
     {
-        GameManager.Inst.LanguageChangeEvent -= SetText;
+        GameManager.LanguageChangeEvent -= SetText;
     }
 
     private void SetText()

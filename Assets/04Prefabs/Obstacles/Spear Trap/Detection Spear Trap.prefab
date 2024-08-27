@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: 5
-  obstacleType: 2
+  obstacleType: 4
   obstacleID: 1004
   velocityImpulse: 1
   hitKnockback: {x: 1, y: 0}
@@ -441,21 +441,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  runStopEvent:
+  stopEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4683546856870202100}
-        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
-        m_MethodName: LocalMove_Vertical
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   spawnPosition: {fileID: 0}
   lTType: 30
   lTRequiredTime: 0.25

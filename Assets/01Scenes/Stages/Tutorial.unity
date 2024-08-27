@@ -104391,7 +104391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   countPerObj: 10
-  poolMembers: []
+  initialMembers: []
 --- !u!1001 &1696022952
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104594,7 +104594,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
   obstacleType: 0
   obstacleID: 1000
@@ -104696,7 +104695,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e59a16c396969e46a9923109bca9fb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detecting: 1
   targetTag: 5
   obstacleType: 1
   obstacleID: 2011

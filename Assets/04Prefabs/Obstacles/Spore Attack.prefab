@@ -159,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: 5
-  obstacleType: 0
+  obstacleType: 2
   obstacleID: 2020
   velocityImpulse: 0
   hitKnockback: {x: 0, y: 0}
@@ -177,12 +177,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3b876e11723e5849a998366a956c505, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialColor: {r: 1, g: 1, b: 1, a: 1}
   useAutoReturn: 1
   lifeTime: 3
   isIndependent: 1
   initialVelocity: 0
-  detectionTime: 2.5
   connectedDetection: {fileID: 1510673297939014416}
+  detectionTime: 2.5
   detectionStartDelay: 0.6
   detectionDuration: 1.8
 --- !u!198 &6091435366057333651

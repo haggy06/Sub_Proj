@@ -2490,7 +2490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: 5
-  obstacleType: 3
+  obstacleType: 5
   obstacleID: 2000
   velocityImpulse: 1
   hitKnockback: {x: 0, y: 0}
@@ -2621,7 +2621,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73330011}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -44779,7 +44779,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005407059}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -44847,7 +44847,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: 5
-  obstacleType: 1
+  obstacleType: 3
   obstacleID: 2011
   velocityImpulse: 1
   hitKnockback: {x: 0, y: -1}
@@ -46432,6 +46432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrigger: 0
   runWhenAwake: 0
+  runSound: {fileID: 0}
   runEvent:
     m_PersistentCalls:
       m_Calls:
@@ -46447,21 +46448,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  runStopEvent:
+  stopSound: {fileID: 0}
+  stopEvent:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1014195517}
-        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
-        m_MethodName: WorldMove_Vertical
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 5
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   spawnPosition: {fileID: 0}
   lTType: 1
   lTRequiredTime: 5
@@ -47037,11 +47027,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4979409682226538809, guid: 47c7529bbf15c784e923b520b7eeea62, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.9
+      value: 8.83
       objectReference: {fileID: 0}
     - target: {fileID: 4979409682226538809, guid: 47c7529bbf15c784e923b520b7eeea62, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.02
+      value: -5.95
       objectReference: {fileID: 0}
     - target: {fileID: 4979409682226538809, guid: 47c7529bbf15c784e923b520b7eeea62, type: 3}
       propertyPath: m_LocalPosition.z
@@ -48001,11 +47991,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1806562698}
   - component: {fileID: 1806562697}
+  - component: {fileID: 1806562700}
   - component: {fileID: 1806562699}
   m_Layer: 0
   m_Name: Audio Test
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -48019,7 +48010,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1900352435769069910, guid: 96d8a3885ff82774f9c4474bac38ddf0, type: 2}
-  m_audioClip: {fileID: 8300000, guid: dcd6327738d5dfd47ace5d31a926e48e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8aa0f67b372932d4ca56ebea0ee20af1, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -48030,7 +48021,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 25
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -48114,25 +48105,78 @@ Transform:
   m_GameObject: {fileID: 1806562696}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: -4.7, z: 9.60316}
+  m_LocalPosition: {x: 0.2, y: -4.7, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!168 &1806562699
-AudioEchoFilter:
+--- !u!114 &1806562699
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1806562696}
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Delay: 500
-  m_DecayRatio: 0.5
-  m_WetMix: 1
-  m_DryMix: 1
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd9739940a84e74f9d12e9cf5369c43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetEvent: {fileID: 0}
+  playOnAwake: 1
+  startDelay: 0
+  cycle: 6
+  maintainTime: 6
+--- !u!114 &1806562700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806562696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9263bd93bcf64ac4aa8362df2bfbd254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTrigger: 0
+  runWhenAwake: 0
+  runSound: {fileID: 0}
+  runEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1806562700}
+        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
+        m_MethodName: WorldMove_Horizontal
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: -20
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  stopSound: {fileID: 0}
+  stopEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1806562700}
+        m_TargetAssemblyTypeName: EntityEvent, Assembly-CSharp
+        m_MethodName: WorldMove_Horizontal
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 5
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  spawnPosition: {fileID: 0}
+  lTType: 1
+  lTRequiredTime: 5
 --- !u!1001 &1835602793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48147,11 +48191,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4979409682226538809, guid: 74d3135095366e84fb7f3e381ba6b17c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -17.04
+      value: -17.02
       objectReference: {fileID: 0}
     - target: {fileID: 4979409682226538809, guid: 74d3135095366e84fb7f3e381ba6b17c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -9
+      value: -8.96
       objectReference: {fileID: 0}
     - target: {fileID: 4979409682226538809, guid: 74d3135095366e84fb7f3e381ba6b17c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -89613,7 +89657,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spore Flower
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3958393560704237434, guid: 556f236ea0ff3f44b8a9feb0225d0c5b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -90051,10 +90096,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrigger: 0
   runWhenAwake: 0
+  runSound: {fileID: 0}
   runEvent:
     m_PersistentCalls:
       m_Calls: []
-  runStopEvent:
+  stopSound: {fileID: 0}
+  stopEvent:
     m_PersistentCalls:
       m_Calls: []
   spawnPosition: {fileID: 0}
@@ -90240,6 +90287,14 @@ PrefabInstance:
       objectReference: {fileID: 3908581988630560351, guid: ed70c2b6d6c78de49ae5225d9303608f, type: 3}
     - target: {fileID: 7191372015726019946, guid: 5cf11ed0d1fc78b439aa856e2ab7cf79, type: 3}
       propertyPath: cycle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7191372015726019946, guid: 5cf11ed0d1fc78b439aa856e2ab7cf79, type: 3}
+      propertyPath: startDelay
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7191372015726019946, guid: 5cf11ed0d1fc78b439aa856e2ab7cf79, type: 3}
+      propertyPath: playOnAwake
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -90435,6 +90490,10 @@ PrefabInstance:
     - target: {fileID: 6028840618875224670, guid: d5f5a069c0b63e64ca4d06c82bf1884f, type: 3}
       propertyPath: m_Name
       value: Stage Essential Elements
+      objectReference: {fileID: 0}
+    - target: {fileID: 8567217862805365349, guid: d5f5a069c0b63e64ca4d06c82bf1884f, type: 3}
+      propertyPath: m_AmplitudeGain
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -4,8 +4,10 @@ public class PoolObject : MonoBehaviour
 {
     protected ObjectPool parentPool;
 
-    [SerializeField]
+    [SerializeField, Tooltip("SpriteRenderer가 있을 떄만 작동")]
     protected Color initialColor = Color.white;
+    [SerializeField]
+    protected AudioClip initialSound;
 
     [Space(10)]
     [SerializeField]
@@ -82,8 +84,12 @@ public class PoolObject : MonoBehaviour
     public virtual void Init(Transform owner, float rotation)
     {
         StopCoroutine("AutoReturn"); // 자동 리턴 취소
+
         if (TryGetComponent<SpriteRenderer>(out SpriteRenderer sRenderer))
             sRenderer.color = initialColor;
+
+        if (initialSound)
+            EffectManager.PlaySFX(initialSound, transform);
 
         gameObject.SetActive(true);
         isReturned = false;

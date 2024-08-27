@@ -57,7 +57,7 @@ public class BurningDetection : DetectionBase
         burning = true;
 
         StartCoroutine("FireSpread");
-        fireParticle = ParticleManager.Inst.PlayParticle(ParticleType.Fire, transform);
+        fireParticle = EffectManager.PlayParticle(ParticleType.Fire, transform);
 
         if (isBurnOut)
             burnTweenID = LeanTween.color(gameObject, Color.black, burningTime).setOnComplete(BurnOut).id;
@@ -87,8 +87,8 @@ public class BurningDetection : DetectionBase
     {
         Clear();
 
-        ParticleManager.Inst.PlayParticle(ParticleType.Ash, transform);
-        ParticleManager.Inst.PlayParticle(ParticleType.Arrow, transform);
+        EffectManager.PlayParticle(ParticleType.Ash, transform);
+        EffectManager.PlayParticle(ParticleType.Arrow, transform);
 
         if (TryGetComponent<PoolObject>(out PoolObject pObj))
             pObj.ReturnToPool();

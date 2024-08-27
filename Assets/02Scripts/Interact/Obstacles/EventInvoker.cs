@@ -73,4 +73,14 @@ public class EventInvoker : MonoBehaviour
             yield return YieldReturn.WaitForSeconds(cycle);
         }
     }
+    [ContextMenu("Repeat_ON")]
+    private void Repeat_ON()
+    {
+        Repeat = true;
+    }
+    [ContextMenu("Repeat_OFF")]
+    private void Repeat_OFF()
+    {
+        Repeat = false;
+    }
 }

@@ -107,7 +107,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     #region _About Language_
-    public event Action LanguageChangeEvent = () => { Debug.Log("언어 바뀜"); };
+    public static event Action LanguageChangeEvent = () => { Debug.Log("언어 바뀜"); };
     public void SetLanguage(Language newLanguage)
     {
         // 딕셔너리들 초기화
@@ -262,6 +262,7 @@ public class GameManager : Singleton<GameManager>
     public void SceneMove(SCENE targetScene)
     {
         Debug.Log(targetScene.ToString() + "으로 이동 준비");
+
         this.targetScene = targetScene;
         PopupManager.Inst.PopupOpen(Popup.Fade);
 
@@ -344,9 +345,9 @@ public class GameManager : Singleton<GameManager>
     private GameStatus gameStatus = GameStatus.None;
     public GameStatus GameStatus => gameStatus;
 
-    public event Action GameStartEvent = () => Debug.Log("게임 스타트");
-    public event Action<Attack> GameOverEvent = (_) => Debug.Log("게임 오버");
-    public event Action<bool, bool, bool> GameClearEvent = (_, _, _) => Debug.Log("게임 오버");
+    public static event Action GameStartEvent = () => Debug.Log("게임 스타트");
+    public static event Action<Attack> GameOverEvent = (_) => Debug.Log("게임 오버");
+    public static event Action<bool, bool, bool> GameClearEvent = (_, _, _) => Debug.Log("게임 오버");
     private void GameClear(bool jewelyClear, bool timeClear, bool jumpClear)
     {
         StageClearInfo clearInfo = GetClearInfo(StageIndex);

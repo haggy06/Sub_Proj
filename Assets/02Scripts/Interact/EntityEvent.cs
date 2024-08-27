@@ -15,9 +15,16 @@ public class EntityEvent : MonoBehaviour
 
     [Header("Event Setting")]
     [SerializeField]
-    private UnityEvent runEvent;
+    private AudioClip runSound;
     [SerializeField]
-    private UnityEvent runStopEvent;
+    private UnityEvent runEvent;
+
+    [Space(5)]
+
+    [SerializeField]
+    private AudioClip stopSound;
+    [SerializeField]
+    private UnityEvent stopEvent;
 
     [Space(10)]
     [SerializeField]
@@ -42,7 +49,6 @@ public class EntityEvent : MonoBehaviour
     }
     protected virtual void Awake()
     {
-        print(transform.root.gameObject);
         if (runWhenAwake)
             Run();
 
@@ -51,7 +57,8 @@ public class EntityEvent : MonoBehaviour
             spawnPosition = transform;
     }
 
-    #region _Run & RunStop_
+    #region _Run & Stop_
+    [ContextMenu("RUN")]
     public void Run()
     {
         if (anim)
@@ -59,13 +66,17 @@ public class EntityEvent : MonoBehaviour
         else
             Invoke_Run();
     }
-    [ContextMenu("RUN")]
+    [ContextMenu("Invoke_Run")]
     public void Invoke_Run()
     {
+        if (runSound)
+            EffectManager.PlaySFX(runSound, spawnPosition);
+
         if (runEvent != null)
             runEvent.Invoke();
     }
 
+    [ContextMenu("STOP")]
     public void Stop()
     {
         if (anim)
@@ -74,11 +85,14 @@ public class EntityEvent : MonoBehaviour
             Invoke_Stop();
     }
 
-    [ContextMenu("STOP")]
+    [ContextMenu("Invoke_Stop")]
     public void Invoke_Stop()
     {
-        if (runStopEvent != null)
-            runStopEvent.Invoke();
+        if (stopSound)
+            EffectManager.PlaySFX(stopSound, spawnPosition);
+
+        if (stopEvent != null)
+            stopEvent.Invoke();
     }
     #endregion
 
@@ -88,22 +102,30 @@ public class EntityEvent : MonoBehaviour
         pool.GetObject(target).Init(spawnPosition, transform.eulerAngles.z);
     }
 
-
+    private int cTweenID = 0;
+    private void TweenIDReset()
+    {
+        cTweenID = 0;
+    }
     public void WorldMove_Horizontal(float displacement)
     {
-         LeanTween.moveX(gameObject, displacement, lTRequiredTime).setEase(lTType); // Ã¢ Æ¢¾î³ª¿È
+        LeanTween.cancel(cTweenID);
+        cTweenID = LeanTween.moveX(gameObject, displacement, lTRequiredTime).setEase(lTType).setOnComplete(TweenIDReset).id;
     }
     public void WorldMove_Vertical(float displacement)
     {
-        LeanTween.moveY(gameObject, displacement, lTRequiredTime).setEase(lTType); // Ã¢ Æ¢¾î³ª¿È
+        LeanTween.cancel(cTweenID);
+        cTweenID = LeanTween.moveY(gameObject, displacement, lTRequiredTime).setEase(lTType).setOnComplete(TweenIDReset).id;
     }
     public void LocalMove_Horizontal(float displacement)
     {
-        LeanTween.moveLocalX(gameObject, displacement, lTRequiredTime).setEase(lTType); // Ã¢ Æ¢¾î³ª¿È
+        LeanTween.cancel(cTweenID);
+        cTweenID = LeanTween.moveLocalX(gameObject, displacement, lTRequiredTime).setEase(lTType).setOnComplete(TweenIDReset).id;
     }
     public void LocalMove_Vertical(float displacement)
     {
-        LeanTween.moveLocalY(gameObject, displacement, lTRequiredTime).setEase(lTType); // Ã¢ Æ¢¾î³ª¿È
+        LeanTween.cancel(cTweenID);
+        cTweenID = LeanTween.moveLocalY(gameObject, displacement, lTRequiredTime).setEase(lTType).setOnComplete(TweenIDReset).id;
     }
     #endregion
 }

@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: 5
-  obstacleType: 1
+  obstacleType: 3
   obstacleID: 2012
   velocityImpulse: 0
   hitKnockback: {x: 0, y: 0}
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: 5
-  obstacleType: 2
+  obstacleType: 4
   obstacleID: 1004
   velocityImpulse: 1
   hitKnockback: {x: 8, y: 3}

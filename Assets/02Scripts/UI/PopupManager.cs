@@ -95,7 +95,7 @@ public class PopupManager : Singleton<PopupManager>
         GetComponent<Canvas>().worldCamera = Camera.main;
 
         #region _GameManager Event Setting_
-        GameManager.Inst.GameOverEvent += (obstacle) =>
+        GameManager.GameOverEvent += (obstacle) =>
         {
             string[] sheet = GameManager.Inst.GetCauseOfDeth(obstacle.ObstacleID);
             causeOfDeath.text = sheet[0];
@@ -103,7 +103,7 @@ public class PopupManager : Singleton<PopupManager>
 
             StartCoroutine("GameOver");
         };
-        GameManager.Inst.GameClearEvent += (jewelyClear, timeClear, jumpClear) =>
+        GameManager.GameClearEvent += (jewelyClear, timeClear, jumpClear) =>
         {
             StartCoroutine(GameClear(jewelyClear, timeClear, jumpClear));
             SetClearPopup(GameManager.Inst.StageInfo.goalTime, GameManager.Inst.StageInfo.goalJumpCount);

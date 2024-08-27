@@ -80,8 +80,8 @@ public class PlayerController : Singleton<PlayerController>
         line = GetComponentInChildren<AimingLine>();
         hitBox = transform.Find("Hit box").GetComponent<Collider2D>();
 
-        GameManager.Inst.GameOverEvent += Dead;
-        GameManager.Inst.GameClearEvent += Clear;
+        GameManager.GameOverEvent += Dead;
+        GameManager.GameClearEvent += Clear;
 
         DragManager.MouseDragEvent += Aim;
         DragManager.MouseUpEvent += Jump;
@@ -126,7 +126,7 @@ public class PlayerController : Singleton<PlayerController>
 
         rigid2D.gravityScale = obstacle.GravityScale;
 
-        ParticleObject particle = ParticleManager.Inst.PlayParticle(obstacle.Obstacletype, transform);
+        EffectObject particle = EffectManager.PlayParticle(obstacle.Obstacletype, transform);
 
         switch (obstacle.Obstacletype) // 장애물 타입 비교
         {
@@ -161,7 +161,7 @@ public class PlayerController : Singleton<PlayerController>
                 break;
         }
     }
-    private IEnumerator FireStop(ParticleObject fireParticle)
+    private IEnumerator FireStop(EffectObject fireParticle)
     {
         yield return YieldReturn.WaitForSeconds(2f);
 

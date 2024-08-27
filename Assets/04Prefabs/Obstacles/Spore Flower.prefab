@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: 5
-  obstacleType: 1
+  obstacleType: 3
   obstacleID: 2012
   velocityImpulse: 1
   hitKnockback: {x: 0, y: 0}
@@ -316,7 +316,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  runStopEvent:
+  stopEvent:
     m_PersistentCalls:
       m_Calls: []
   spawnPosition: {fileID: 1454868365333346119}

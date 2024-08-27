@@ -18,7 +18,7 @@ public class Arrow : PoolObject
         base.HitGround(tag);
 
         GetComponent<SpriteRenderer>().color = CustomColor.zero;
-        ParticleManager.Inst.PlayParticle(ParticleType.Arrow, transform);
+        EffectManager.PlayParticle(ParticleType.Arrow, transform);
 
         ReturnToPool();
     }
