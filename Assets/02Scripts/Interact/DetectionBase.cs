@@ -37,17 +37,34 @@ public class DetectionBase : MonoBehaviour
     }
     private void OnParticleCollision(GameObject other)
     {
-        if (other.CompareTag(targetTag.ToString())) // 타겟과 충돌했을 경우
+        EnterLogic(other, true);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        EnterLogic(collision.gameObject);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        EnterLogic(collision.gameObject);
+    }
+    private void EnterLogic(GameObject gameObject, bool isParticleCollision = false)
+    {
+        if (gameObject.layer == (int)LAYER.Ground) // 땅과 충돌했을 경우
         {
-            if (particleCoolDown)
+            HitGround(gameObject.tag);
+        }
+        else if (gameObject.CompareTag(targetTag.ToString())) // 타겟과 충돌했을 경우
+        {
+            if (isParticleCollision)
             {
-                DetectionStart();
-                StartCoroutine("ParticleDetectionCoolDown");
+                if (particleCoolDown)
+                {
+                    Detection = true;
+                    StartCoroutine("ParticleDetectionCoolDown");
+                }
             }
-        }        
-        else if (other.layer == (int)LAYER.Ground) // 땅과 충돌했을 경우
-        {
-            HitGround(other.tag);
+            else
+                Detection = true;
         }
     }
     private bool particleCoolDown = true; // 파티클을 통해 잠깐 동안 너무 많이 감지하는 걸 완화하기 위한 장치.
@@ -60,39 +77,17 @@ public class DetectionBase : MonoBehaviour
         particleCoolDown = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.layer == (int)LAYER.Ground) // 땅과 충돌했을 경우
-        {
-            HitGround(collision.gameObject.tag);
-        }
-        else if (collision.gameObject.CompareTag(targetTag.ToString())) // 타겟과 충돌했을 경우
-        {
-            Detection = true;
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == (int)LAYER.Ground) // 땅과 충돌했을 경우
-        {
-            HitGround(collision.gameObject.tag);
-        }
-        else if (collision.CompareTag(targetTag.ToString())) // 타겟과 충돌했을 경우
-        {
-            Detection = true;
-        }
-    }
-
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag(targetTag.ToString()))
-        {
-            Detection = false;
-        }
+        ExitLogic(collision.gameObject);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag(targetTag.ToString()))
+        ExitLogic(collision.gameObject);
+    }
+    private void ExitLogic(GameObject gameObject)
+    {
+        if (gameObject.CompareTag(targetTag.ToString()))
         {
             Detection = false;
         }

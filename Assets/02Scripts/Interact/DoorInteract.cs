@@ -19,7 +19,8 @@ public abstract class DoorInteract : DetectionBase
 
     protected override void DetectionStart()
     {
-        StartCoroutine("DoorOpenCoroutine");
+        if (progress < 1f)
+            StartCoroutine("DoorOpenCoroutine");
     }
     protected override void DetectionEnd()
     {
