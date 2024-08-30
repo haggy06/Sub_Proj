@@ -29,10 +29,9 @@ public class EffectManager : Singleton<EffectManager>
 
             foreach (PoolObject pObj in effectArray)
                 pool.MakePool(pObj);
-            Debug.Log("Awake");
         }
     }
-    public static ParticleObject PlayParticle(ParticleType particleType, Transform target)
+    public ParticleObject PlayParticle(ParticleType particleType, Transform target)
     {
         if (particleType < ParticleType.Dust)
             return null;
@@ -47,7 +46,7 @@ public class EffectManager : Singleton<EffectManager>
 
         return particle;
     }
-    public static SoundObject PlaySFX(AudioClip clip, Transform target)
+    public SoundObject PlaySFX(AudioClip clip, Transform target)
     {
         SoundObject speaker = (SoundObject)pool.GetObject(Inst.effectArray[0]);
 
@@ -58,7 +57,7 @@ public class EffectManager : Singleton<EffectManager>
 
         return speaker;
     }
-    public static SoundObject PlaySFX(AudioClip clip)
+    public SoundObject PlaySFX(AudioClip clip)
     {
         SoundObject speaker = (SoundObject)pool.GetObject(Inst.effectArray[1]);
 
@@ -68,7 +67,7 @@ public class EffectManager : Singleton<EffectManager>
 
         return speaker;
     }
-    public static void ChangeBGM(AudioClip bgm, bool useFade = true)
+    public void ChangeBGM(AudioClip bgm, bool useFade = true)
     {
         if (useFade)
         {

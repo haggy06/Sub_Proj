@@ -89,7 +89,7 @@ public class PoolObject : MonoBehaviour
             sRenderer.color = initialColor;
 
         if (initialSound)
-            EffectManager.PlaySFX(initialSound, transform);
+            EffectManager.Inst.PlaySFX(initialSound, transform);
 
         gameObject.SetActive(true);
         isReturned = false;

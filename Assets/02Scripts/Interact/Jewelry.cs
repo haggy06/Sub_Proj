@@ -14,7 +14,7 @@ public class Jewelry : DetectionBase
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
-        EffectManager.PlayParticle(ParticleType.Gem, transform);
+        EffectManager.Inst.PlayParticle(ParticleType.Gem, transform);
 
         transform.root.GetComponent<StageManager>().GetJewelry();
     }

@@ -32,8 +32,10 @@ public class StageDoor : DoorInteract
     private SpriteRenderer jumpStar;
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         StageClearInfo clearInfo = GameManager.Inst.GetClearInfo(stageIndex);
         
         if (clearInfo.clearAtOnce)

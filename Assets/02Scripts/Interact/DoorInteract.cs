@@ -11,6 +11,24 @@ public abstract class DoorInteract : DetectionBase
 
     [SerializeField, Range(0f, 1f)]
     private float progress = 0f;
+    private float Progress
+    {
+        get => progress;
+        set
+        {
+            progress = value;
+            lattice.localPosition = Vector2.up * value * 3f;
+        }
+    }
+
+    protected bool isComplete = false;
+    private Transform lattice;
+    protected virtual void Awake()
+    {
+        lattice = transform.GetChild(0).GetChild(0);
+
+        Progress = 0f;
+    }
 
     protected override void HitGround(string tag)
     {
@@ -24,7 +42,8 @@ public abstract class DoorInteract : DetectionBase
     }
     protected override void DetectionEnd()
     {
-        StartCoroutine("DoorCloseCoroutine");
+        if (!isComplete)
+            StartCoroutine("DoorCloseCoroutine");
     }
 
     protected IEnumerator DoorCloseCoroutine()
@@ -33,8 +52,7 @@ public abstract class DoorInteract : DetectionBase
         {
             if (progress > 0f) // 진척도가 올라 있었을 경우
             {
-                progress = Mathf.Clamp(progress - Time.fixedDeltaTime / closeRequireTime, 0f, 1f); // 진척도 하락(최소 0%)
-
+                Progress = Mathf.Clamp(progress - Time.fixedDeltaTime / closeRequireTime, 0f, 1f); // 진척도 하락(최소 0%)
                 DoorClosing();
             }
             else // 진척도가 0 이하가 되었을 경우
@@ -51,7 +69,7 @@ public abstract class DoorInteract : DetectionBase
         {
             if (GameManager.Inst.GameStatus == GameStatus.Play && PlayerController.Inst.IsGround && !PlayerController.Inst.Aiming) // 플레이 중이고 플레이어가 착지해 있으며 조준하고 있지 않을 경우
             {
-                progress += Time.fixedDeltaTime / openRequireTime; // 진척도 상승
+                Progress += Time.fixedDeltaTime / openRequireTime; // 진척도 상승
                 DoorOpening();
 
                 if (progress >= 1f) // 진척도가 100% 이상 찼을 경우
@@ -71,6 +89,7 @@ public abstract class DoorInteract : DetectionBase
     protected abstract void DoorClosing();
     protected virtual void DoorOpenComplete()
     {
+        isComplete = true;
         PlayerController.Inst.DoorInteract(transform);
     }
 }

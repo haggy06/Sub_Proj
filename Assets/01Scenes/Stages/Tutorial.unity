@@ -104696,7 +104696,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetTag: 5
-  obstacleType: 1
+  obstacleType: 3
   obstacleID: 2011
   velocityImpulse: 1
   hitKnockback: {x: 0, y: -1}

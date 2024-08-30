@@ -70,7 +70,7 @@ public class EntityEvent : MonoBehaviour
     public void Invoke_Run()
     {
         if (runSound)
-            EffectManager.PlaySFX(runSound, spawnPosition);
+            EffectManager.Inst.PlaySFX(runSound, spawnPosition);
 
         if (runEvent != null)
             runEvent.Invoke();
@@ -89,7 +89,7 @@ public class EntityEvent : MonoBehaviour
     public void Invoke_Stop()
     {
         if (stopSound)
-            EffectManager.PlaySFX(stopSound, spawnPosition);
+            EffectManager.Inst.PlaySFX(stopSound, spawnPosition);
 
         if (stopEvent != null)
             stopEvent.Invoke();

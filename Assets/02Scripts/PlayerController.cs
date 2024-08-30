@@ -8,7 +8,7 @@ using Unity.Burst.Intrinsics;
 using UnityEngine.SceneManagement;
 using Cinemachine;
 
-[RequireComponent(typeof(Collider2D), typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : Singleton<PlayerController>
 {
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
@@ -18,12 +18,13 @@ public class PlayerController : Singleton<PlayerController>
         col.enabled = true;
         LeanTween.cancel(damageTweenID);
 
-        sprite.color = Color.white;
+        sprite.color = CustomColor.zero;
 
         rigid2D.simulated = true;
         rigid2D.gravityScale = 3f;
         rigid2D.velocity = Vector2.zero;
 
+        hitBox.enabled = true;
         damageInsteract = true;
     }
 
@@ -65,6 +66,7 @@ public class PlayerController : Singleton<PlayerController>
     
     private AimingLine line;
     private Collider2D hitBox;
+    private Animator anim;
 
     public Collider2D Col => col;
     public  Rigidbody2D Rigid2D => rigid2D;
@@ -79,6 +81,7 @@ public class PlayerController : Singleton<PlayerController>
 
         line = GetComponentInChildren<AimingLine>();
         hitBox = transform.Find("Hit box").GetComponent<Collider2D>();
+        anim = GetComponentInChildren<Animator>();
 
         GameManager.GameOverEvent += Dead;
         GameManager.GameClearEvent += Clear;
@@ -126,7 +129,8 @@ public class PlayerController : Singleton<PlayerController>
 
         rigid2D.gravityScale = obstacle.GravityScale;
 
-        EffectObject particle = EffectManager.PlayParticle(obstacle.Obstacletype, transform);
+        EffectObject particle = EffectManager.Inst.PlayParticle(obstacle.Obstacletype, transform);
+        anim.SetTrigger(Hash_DIe);
 
         switch (obstacle.Obstacletype) // 장애물 타입 비교
         {
@@ -152,7 +156,7 @@ public class PlayerController : Singleton<PlayerController>
 
                 rigid2D.simulated = false;
                 col.enabled = false;
-                damageTweenID = LeanTween.color(gameObject, CustomColor.zero, 0.5f).setOnComplete(() => damageTweenID = 0).id;
+                damageTweenID = LeanTween.color(gameObject, Color.black, 0.5f).setOnComplete(() => damageTweenID = 0).id;
                 damageInsteract = false;
                 break;
 
@@ -196,6 +200,7 @@ public class PlayerController : Singleton<PlayerController>
     {
         // 콜라이더 밑부분에서 착지 체크
         isGround = Physics2D.OverlapBox(new Vector2(col.bounds.center.x, col.bounds.min.y), new Vector2((col.bounds.extents.x * 2) - 0.02f, 0.02f), 0f, 1 << (int)LAYER.Ground);
+        anim.SetBool(Hash_Landing, isGround);
 
         PushTempVelo(); // 계속해서 이동속도 저장
     }
@@ -211,6 +216,7 @@ public class PlayerController : Singleton<PlayerController>
                 {
                     rigid2D.velocity = new Vector2(-lastVelocity.x * speedRetention, lastVelocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
                     Debug.Log("공중에서 벽에 충돌함. 반작용 : " + rigid2D.velocity);
+                    anim.SetTrigger(Hash_Knockback);
                 }
             }
             else if (collision.contacts[0].normal.y < -0.71f) // 천장에 박았을 경우
@@ -231,6 +237,7 @@ public class PlayerController : Singleton<PlayerController>
                 {
                     rigid2D.velocity = new Vector2(-lastVelocity.x * speedRetention, lastVelocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
                     Debug.Log("벽에 빠르게 충돌함. 반작용 : " + rigid2D.velocity);
+                    anim.SetTrigger(Hash_Knockback);
                 }
             }
             else if (collision.contacts[0].normal.y < -0.71f) // 천장에 박았을 경우
@@ -246,13 +253,14 @@ public class PlayerController : Singleton<PlayerController>
         if ((controllable && Time.timeScale > 0.5f) && isGround) // 조종 가능한 상태(+ 일시정지가 아닐 떄)고 착지해 있을 경우
         {
             aiming = true;
+            anim.SetBool(Hash_Aim, true);
 
             float g = Physics2D.gravity.y * rigid2D.gravityScale; // 중력 = 공통 중력 세기 * 대상의 중력 세기
             Vector2 startSpeed = (AngleLock(aim) * powerPercent * jumpPower) + rigid2D.velocity; // 초기 속도 = (조준 각도(AngleLock 처리) * 세기 퍼센트 * 최대 점프 파워) + 현재 오브젝트 속도
             Color dotColor = new Color(1f, 1f - powerPercent, 1f - powerPercent, 0.75f); // 점의 컬러 저장. 셀수록 점들이 빨개진다.
             line.SetAuxiliaryLine(g, startSpeed, dotColor); // 보조선 세팅
 
-            sprite.flipX = (aim.x < 0f); // 왼쪽 조준했을 경우 스프라이트 뒤집기
+            transform.GetChild(0).eulerAngles = Vector2.up * (aim.x < 0f ? 0f : 180f); // 왼쪽 조준했을 경우 스프라이트 뒤집기
         }
         else // 공중에 있을 경우
         {
@@ -288,6 +296,7 @@ public class PlayerController : Singleton<PlayerController>
     public void Jump(Vector2 aim, float powerPercent)
     {
         aiming = false;
+        anim.SetBool(Hash_Aim, false);
 
         if (!isGround || !(controllable && Time.timeScale > 0.5f)) // 착지해 있지 않거나 컨트롤이 안 될 땐 점프를 무효화함
         {
@@ -313,6 +322,11 @@ public class PlayerController : Singleton<PlayerController>
 
         angleVec = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
     }
+
+    private readonly int Hash_Aim = Animator.StringToHash("Aim");
+    private readonly int Hash_Knockback = Animator.StringToHash("Knockback");
+    private readonly int Hash_Landing = Animator.StringToHash("Landing");
+    private readonly int Hash_DIe = Animator.StringToHash("DIe");
 }
 
 #if UNITY_EDITOR
@@ -337,6 +351,6 @@ public static class CustomColor
     public static readonly Color zero = new Color(0f, 0f, 0f, 0f);
 
     public static readonly Color bloodDamageColor = new Color(0.75f, 0f, 0f, 1f);
-    public static readonly Color fireDamageColor = new Color(0.25f, 0.25f, 0.25f, 1f);
+    public static readonly Color fireDamageColor = new Color(0.25f, 0.25f, 0.25f, 0.5f);
 
 }
