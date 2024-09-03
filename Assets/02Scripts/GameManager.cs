@@ -188,23 +188,23 @@ public class GameManager : Singleton<GameManager>
     #endregion
     #endregion
 
-    #region _About ClearData_
-    private GameData saveData;
-    private GameData gameData
+    #region _About SaveData_
+    private SaveData _saveData;
+    private SaveData saveData
     {
         get
         {
-            if (saveData == null) // 세이브 데이터가 비어 있었을 경우
+            if (_saveData == null) // 세이브 데이터가 비어 있었을 경우
             {
-                if (!FileSaveLoader<GameData>.TryLoadData("GameData", out saveData))
+                if (!FileSaveLoader<SaveData>.TryLoadData("GameData", out _saveData))
                 { // 세이브 데이터를 불러오는 데 실패했을 경우
-                    saveData = new GameData();
+                    _saveData = new SaveData();
 
-                    FileSaveLoader<GameData>.SaveData("GameData", saveData);
+                    FileSaveLoader<SaveData>.SaveData("GameData", _saveData);
                 }
             }
 
-            return saveData;
+            return _saveData;
         }
     }
 
@@ -212,35 +212,31 @@ public class GameManager : Singleton<GameManager>
     public StageClearInfo CurStageData { get; set; }
     public StageClearInfo GetClearInfo(int stageIndex)
     {
-        if (stageIndex > gameData.stageList.Count - 1)
+        if (stageIndex > saveData.stageList.Count - 1)
         {
             Debug.LogWarning("StageList를 벗어난 인덱스가 들어옴");
 
             do
             {
-                gameData.stageList.Add(new StageClearInfo());
+                saveData.stageList.Add(new StageClearInfo());
             }
-            while (stageIndex >= gameData.stageList.Count);
+            while (stageIndex >= saveData.stageList.Count - 1);
         }
 
-        return gameData.stageList[stageIndex];
-    }
-    public bool GetTutorialClear()
-    {
-        return gameData.tutorialClear;
+        return saveData.stageList[stageIndex];
     }
 
     public void ResetGameData()
     {
         Debug.Log("데이터 리셋");
 
-        saveData = new GameData();
+        _saveData = new SaveData();
         SaveGameData();
     }
     private void SaveGameData()
     {
         Debug.Log("게임 데이터 저장");
-        FileSaveLoader<GameData>.SaveData("GameData", saveData);
+        FileSaveLoader<SaveData>.SaveData("GameData", _saveData);
     }
     #endregion
 
@@ -355,7 +351,7 @@ public class GameManager : Singleton<GameManager>
         clearInfo.stageClear = true;
         if (StageIndex == 0) // 첫번째 스테이지, 즉 튜토리얼 스테이지를 깼을 경우
         {
-            gameData.tutorialClear = true;
+            GetClearInfo(0).stageClear = true;
         }
 
         if (jewelyClear)
@@ -425,10 +421,8 @@ public class Setting
 }
 
 [Serializable]
-public class GameData
+public class SaveData
 {
-    public bool tutorialClear = false;
-
     public List<StageClearInfo> stageList = new List<StageClearInfo>();
 
     public List<DeathInfo> deathRecord = new List<DeathInfo>();

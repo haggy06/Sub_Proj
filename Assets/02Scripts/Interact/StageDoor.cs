@@ -7,8 +7,6 @@ using TMPro;
 public class StageDoor : DoorInteract
 {
     [SerializeField]
-    private SCENE targetStage;
-    [SerializeField]
     private int stageIndex;
 
     [SerializeField]
@@ -80,7 +78,7 @@ public class StageDoor : DoorInteract
 
         GameManager.Inst.StageIndex = stageIndex;
 
-        GameManager.Inst.SceneMove(targetStage);
+        GameManager.Inst.SceneMove(SCENE.Tutorial + stageIndex);
     }
 
     protected override void DoorOpening()

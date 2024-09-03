@@ -376,6 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5072013084812426697}
   - component: {fileID: 1557150617527727978}
+  - component: {fileID: 1267918280406156176}
   m_Layer: 9
   m_Name: Base Spear Trap
   m_TagString: Untagged
@@ -453,3 +454,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &1267918280406156176
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8460298995245377243}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -1
+  m_SortAtRoot: 0

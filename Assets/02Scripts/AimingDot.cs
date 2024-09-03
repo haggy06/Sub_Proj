@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class AimingDot : MonoBehaviour
 {
-    [SerializeField]
     private SpriteRenderer stageSprite;
-    [SerializeField]
     private SpriteRenderer minimapSprite;
 
     private void Awake()
     {
+        stageSprite = GetComponent<SpriteRenderer>();
+        minimapSprite = GetComponentsInChildren<SpriteRenderer>()[1];
+
         OFF();
     }
 

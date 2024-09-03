@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spear : EntityEvent // 너, UnityEvent 가능성 있어
 {
+    /*
     [SerializeField]
     private LeanTweenType spearOutType = LeanTweenType.linear;
     [SerializeField, Range(0.01f, 2f)]
@@ -14,7 +15,6 @@ public class Spear : EntityEvent // 너, UnityEvent 가능성 있어
     private float outPosition = 1f;
 
     private int spearTweenID = 0;
-    /*
     public override void Run()
     {
         LeanTween.cancel(spearTweenID);

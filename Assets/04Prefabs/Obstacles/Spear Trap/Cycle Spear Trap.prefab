@@ -228,6 +228,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1234817907153358913}
   - component: {fileID: 8689047286624149439}
+  - component: {fileID: -2881792889852470877}
   m_Layer: 9
   m_Name: Cycle Spear Trap
   m_TagString: Untagged
@@ -305,6 +306,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!210 &-2881792889852470877
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4187107699107060204}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -1
+  m_SortAtRoot: 0
 --- !u!1 &4441745327575145618
 GameObject:
   m_ObjectHideFlags: 0

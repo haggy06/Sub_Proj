@@ -11,7 +11,7 @@ public class GameStartButton : SceneMoveButton
 
     public void SetTargetScene()
     {
-        if (GameManager.Inst.GetTutorialClear())
+        if (GameManager.Inst.GetClearInfo(0).stageClear)
         {
             targetScene = SCENE.StageSelect;
         }

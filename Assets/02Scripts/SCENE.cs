@@ -7,5 +7,5 @@ public enum SCENE
     Tutorial,
     TestScene,
 
-    Ending,
+    Ending
 }

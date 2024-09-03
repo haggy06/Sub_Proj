@@ -420,7 +420,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 1000
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -2493,7 +2493,7 @@ MonoBehaviour:
   obstacleType: 5
   obstacleID: 2000
   velocityImpulse: 1
-  hitKnockback: {x: 0, y: 0}
+  hitKnockback: {x: 0, y: -2.5}
   gravityScale: 0
   cameraShakeAmplitude: 10
 --- !u!66 &73330016
@@ -44904,7 +44904,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 1000
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -46422,7 +46422,7 @@ GameObject:
   - component: {fileID: 1014195519}
   - component: {fileID: 1014195518}
   - component: {fileID: 1014195517}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}

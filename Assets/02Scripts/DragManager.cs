@@ -4,7 +4,6 @@ using UnityEngine;
 
 using System;
 
-[RequireComponent(typeof(Collider2D))]
 public class DragManager : MonoBehaviour
 {
     [SerializeField]

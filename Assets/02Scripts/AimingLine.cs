@@ -8,7 +8,7 @@ public class AimingLine : MonoBehaviour
     [SerializeField, Range(0f, 1f), Tooltip("몇 초 후의 예상 위치마다 점을 둘 것인지 설정")]
     private float timeInterval = 0.1f;
 
-    private void Awake()
+    private void Start()
     {
         HideAimingLine();
     }
@@ -35,9 +35,9 @@ public class AimingLine : MonoBehaviour
         for (int i = 0; i < dotArray.Length; i++)
         {
             float t = i * timeInterval; // 현재 점 위치 계산에 필요한 시간. i로 시작하면 첫 점은 무조건 원점에 찍히지만 간단하게 조준선을 끊을 수 있게 된다.
-            Vector2 pos = Vector2.zero;
+            Vector2 pos;
             pos.x = startSpeed.x * t; // 등속 운동 : U = Vx * t
-            pos.y = (g / 2f * (t * t)) + (startSpeed.y * t); // 자유낙하 운동 : U = g/2 * t^2 + Vy * t
+            pos.y = t * (g / 2f * t + startSpeed.y); // 자유낙하 운동 : U = g/2 * t^2 + Vy * t
 
             dotArray[i].SetPosition(pos, dotColor);
 

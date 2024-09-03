@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: ab95376cda6a17f4c83f95f53e4d32b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -98,8 +98,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57ea527d1bbaf4e48a57698eedb16b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageSprite: {fileID: 2816239685187354641}
-  minimapSprite: {fileID: 5152023193400254724}
 --- !u!1 &8693475465403254695
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,8 +168,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1068526943
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ab95376cda6a17f4c83f95f53e4d32b8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

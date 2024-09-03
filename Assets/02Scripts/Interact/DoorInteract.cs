@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public abstract class DoorInteract : DetectionBase
 {
     [SerializeField]
@@ -23,9 +24,11 @@ public abstract class DoorInteract : DetectionBase
 
     protected bool isComplete = false;
     private Transform lattice;
+    private AudioSource openSound;
     protected virtual void Awake()
     {
         lattice = transform.GetChild(0).GetChild(0);
+        openSound = GetComponent<AudioSource>();
 
         Progress = 0f;
     }
@@ -48,6 +51,7 @@ public abstract class DoorInteract : DetectionBase
 
     protected IEnumerator DoorCloseCoroutine()
     {
+        openSound.Stop();
         while (!detection) // 감지되지 않고 있는 동안 반복
         {
             if (progress > 0f) // 진척도가 올라 있었을 경우
@@ -65,10 +69,12 @@ public abstract class DoorInteract : DetectionBase
     }
     protected IEnumerator DoorOpenCoroutine()
     {
+        openSound.Play();
         while (detection) // 감지되고 있는 동안 반복
         {
             if (GameManager.Inst.GameStatus == GameStatus.Play && PlayerController.Inst.IsGround && !PlayerController.Inst.Aiming) // 플레이 중이고 플레이어가 착지해 있으며 조준하고 있지 않을 경우
             {
+                openSound.UnPause();
                 Progress += Time.fixedDeltaTime / openRequireTime; // 진척도 상승
                 DoorOpening();
 
@@ -80,6 +86,8 @@ public abstract class DoorInteract : DetectionBase
                     StopCoroutine("DoorOpenCoroutine");
                 }
             }
+            else
+                openSound.Pause();
 
             yield return YieldReturn.waitForFixedUpdate;
         }
@@ -89,6 +97,7 @@ public abstract class DoorInteract : DetectionBase
     protected abstract void DoorClosing();
     protected virtual void DoorOpenComplete()
     {
+        openSound.Stop();
         isComplete = true;
         PlayerController.Inst.DoorInteract(transform);
     }
