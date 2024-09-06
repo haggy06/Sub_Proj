@@ -4799,7 +4799,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1000
+  m_SortingOrder: 990
   m_RenderMode: 1
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -4969,7 +4969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrigger: 0
   runWhenAwake: 0
-  runSound: {fileID: 0}
+  runSound: {fileID: 8300000, guid: 1542008fd5b937f4c8acde7ac1ca584d, type: 3}
   runEvent:
     m_PersistentCalls:
       m_Calls:

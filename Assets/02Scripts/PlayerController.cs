@@ -129,6 +129,7 @@ public class PlayerController : Singleton<PlayerController>
 
         EffectObject particle = EffectManager.Inst.PlayParticle(obstacle.Obstacletype, transform);
         anim.SetTrigger(Hash_Die);
+        EffectManager.Inst.PlaySFX(ResourceLoader.AudioLoad(FolderName.Death, obstacle.Obstacletype.ToString()));
 
         switch (obstacle.Obstacletype) // 장애물 타입 비교
         {
@@ -227,6 +228,8 @@ public class PlayerController : Singleton<PlayerController>
             {
                 if (!Mathf.Approximately(Mathf.Sign(lastVelocity.x), Mathf.Sign(collision.contacts[0].normal.x))) // 뒤집은 속도가 벽 충돌 방향의 반대일 경우
                 {
+                    EffectManager.Inst.PlaySFX(ResourceLoader.AudioLoad(FolderName.Player, "HitWall"));
+
                     rigid2D.velocity = new Vector2(-lastVelocity.x * speedRetention, lastVelocity.y); // 충돌 당시의 x 방향의 반작용 속도를 대입해줌
                     anim.SetTrigger(Hash_Knockback);
                     Invoke("ResetKnockback", 0.1f);
@@ -315,6 +318,7 @@ public class PlayerController : Singleton<PlayerController>
         }
 
         line.HideAimingLine(); // 보조선 숨김        
+        EffectManager.Inst.PlaySFX(ResourceLoader.AudioLoad(FolderName.Player, "Jump"));
 
         aim = AngleLock(aim); // 점프 각도 조정
         rigid2D.velocity = startSpeed; // 조정된 점프를 현재 이동속도에 더해준다. (아예 바꿔버리면 미끄러지고 있던 속도 등의 디테일이 사라짐)

@@ -14,39 +14,46 @@ public class StageDoor : DoorInteract
     [SerializeField]
     private float leanTweenTime = 0.5f;
 
-    #region _Stage Info UI_
     [Header("Stage Info UI")]
     [SerializeField]
     private Transform infoBackground;
     [SerializeField]
-    private TextMeshPro stageTitle;
+    private Transform Stars;
 
-    [Space(5)]
-    [SerializeField]
-    private SpriteRenderer jewelyStar;
-    [SerializeField]
-    private SpriteRenderer timeStar;
-    [SerializeField]
-    private SpriteRenderer jumpStar;
-    #endregion
-
+    private LanguageConverter text;
     protected override void Awake()
     {
         base.Awake();
 
         StageClearInfo clearInfo = GameManager.Inst.GetClearInfo(stageIndex);
+        text = GetComponentInChildren<LanguageConverter>();
+        
+        if (stageIndex == 0 || GameManager.Inst.GetClearInfo(stageIndex - 1).stageClear) // 첫 스테이지거나 전 스테이지를 클리어했을 경우
+        {
+            text.ChangeText(104100, (stageIndex + 1).ToString());
+            doorLocked = false;
+        }
+        else
+        {
+            text.ChangeText(104101, "");
+            doorLocked = true;
+
+            Stars.gameObject.SetActive(false);
+        }
         
         if (clearInfo.clearAtOnce)
         {
-            jewelyStar.color = timeStar.color = jumpStar.color = Color.red;
+            Stars.GetChild(0).GetComponent<SpriteRenderer>().color = 
+                Stars.GetChild(1).GetComponent<SpriteRenderer>().color = 
+                Stars.GetChild(2).GetComponent<SpriteRenderer>().color = Color.red;
         }
         else
         {
             Color transparent = new Color(0f, 0f, 0f, 0f);
 
-            jewelyStar.color = clearInfo.jewelryClear ? Color.yellow : transparent;
-            timeStar.color = clearInfo.timeClear ? Color.yellow : transparent;
-            jumpStar.color = clearInfo.jumpClear ? Color.yellow : transparent;
+            Stars.GetChild(0).GetComponent<SpriteRenderer>().color = clearInfo.jewelryClear ? Color.yellow : transparent;
+            Stars.GetChild(1).GetComponent<SpriteRenderer>().color = clearInfo.timeClear ? Color.yellow : transparent;
+            Stars.GetChild(2).GetComponent<SpriteRenderer>().color = clearInfo.jumpClear ? Color.yellow : transparent;
         }
 
         infoBackground.localScale = Vector2.zero;
@@ -57,19 +64,15 @@ public class StageDoor : DoorInteract
     {
         base.DetectionEnd();
 
-        leanTweenCancle();
+        LeanTween.cancel(infoOpenID);
         infoOpenID = LeanTween.scale(infoBackground.gameObject, Vector2.zero, infoBackground.localScale.x * leanTweenTime).setEase(leanTweenType).setOnComplete(() => infoOpenID = 0).id;
     }
     protected override void DetectionStart()
     {
         base.DetectionStart();
 
-        leanTweenCancle();
-        infoOpenID = LeanTween.scale(infoBackground.gameObject, Vector2.one, (1f - infoBackground.localScale.x) * leanTweenTime).setEase(leanTweenType).setOnComplete(() => infoOpenID = 0).id;
-    }
-    private void leanTweenCancle()
-    {
         LeanTween.cancel(infoOpenID);
+        infoOpenID = LeanTween.scale(infoBackground.gameObject, Vector2.one, (1f - infoBackground.localScale.x) * leanTweenTime).setEase(leanTweenType).setOnComplete(() => infoOpenID = 0).id;
     }
 
     protected override void DoorOpenComplete()

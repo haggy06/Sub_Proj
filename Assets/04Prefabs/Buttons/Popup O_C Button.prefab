@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textID: 101000
+  addText: 
 --- !u!1 &8963451178786209914
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +217,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 915477361, guid: 0ac74d94757d592499d425a6a6808bb8, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1

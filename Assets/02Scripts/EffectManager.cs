@@ -69,22 +69,17 @@ public class EffectManager : Singleton<EffectManager>
     }
     public void ChangeBGM(AudioClip bgm, bool useFade = true)
     {
-        if (useFade)
-        {
-            LeanTween.value(bgmSpeaker.volume, 0f, bgmSpeaker.volume * 0.5f).setOnUpdate(ChangeVolume).setOnComplete(
-                () => {
-                    BGM = bgm;
+        if (!bgm || BGM == bgm) // 곡이 없거나 같은 곡일 경우
+            return;
 
-                    LeanTween.value(bgmSpeaker.volume, 1f, (1f - bgmSpeaker.volume) * bgmFade).setOnUpdate(ChangeVolume);
-                } );
-        }
-        else
-        {
-            BGM = bgm;
-        }
+        BGM = bgm;
+
+        if (useFade)
+            LeanTween.value(0.5f, 1f, bgmFade).setOnUpdate(ChangeVolume);
     }
     private static AudioClip BGM
     {
+        get => bgmSpeaker.clip;
         set 
         { 
             bgmSpeaker.clip = value;

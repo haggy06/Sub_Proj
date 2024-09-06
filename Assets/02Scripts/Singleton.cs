@@ -19,7 +19,7 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 if (instance == null) // 씬 내에 아예 인스턴스가 없을 경우
                 try
                 {
-                    T inst = Instantiate(ResourceLoader.PrefabLoad<T>()); // Resources 폴더에서 개체 소환
+                    T inst = Instantiate(ResourceLoader.PrefabLoad(typeof(T).Name).GetComponent<T>()); // Resources 폴더에서 개체 소환
                     instance = inst;
                 }
                 catch (NullReferenceException) // 로드에 실패했을 경우

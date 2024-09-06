@@ -20,6 +20,7 @@ public class SoundObject : EffectObject
         base.Awake();
 
         audioSource = GetComponent<AudioSource>();
+        PopupManager.PauseEvent += (value) => audioSource.pitch = value ? 0f : 1f;
     }
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {

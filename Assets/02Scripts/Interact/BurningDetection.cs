@@ -9,9 +9,9 @@ public class BurningDetection : DetectionBase
     private float SpreadTerm = 0.1f;
 
     [Space(5)]
-    [SerializeField, Tooltip("완전히 타 사라질지 여부")]
+    [SerializeField, Tooltip("타 사라질지 여부")]
     private bool isBurnOut = true;
-    [SerializeField]
+    [SerializeField, Range(0f, 2f)]
     private float burningTime = 2f;
     [SerializeField]
     private GameObject burningAttack;
@@ -46,6 +46,7 @@ public class BurningDetection : DetectionBase
     }
 
     ParticleObject fireParticle;
+    SoundObject fireSound;
 
     private bool burning = false;
     protected override void DetectionStart()
@@ -58,6 +59,7 @@ public class BurningDetection : DetectionBase
 
         StartCoroutine("FireSpread");
         fireParticle = EffectManager.Inst.PlayParticle(ParticleType.Fire, transform);
+        fireSound = EffectManager.Inst.PlaySFX(ResourceLoader.AudioLoad(FolderName.Death, ParticleType.Fire.ToString()));
 
         if (isBurnOut)
             burnTweenID = LeanTween.color(gameObject, Color.black, burningTime).setOnComplete(BurnOut).id;
@@ -85,6 +87,9 @@ public class BurningDetection : DetectionBase
 
     private void BurnOut()
     {
+        fireParticle.ReturnToPool();
+        fireSound.ReturnToPool();
+
         Clear();
 
         EffectManager.Inst.PlayParticle(ParticleType.Ash, transform);

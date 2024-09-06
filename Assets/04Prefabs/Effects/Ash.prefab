@@ -4902,6 +4902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialColor: {r: 1, g: 1, b: 1, a: 1}
+  initialSound: {fileID: 8300000, guid: 7b7f9d3ac71443040a34387836f39700, type: 3}
   useAutoReturn: 1
   lifeTime: 3
   isIndependent: 1

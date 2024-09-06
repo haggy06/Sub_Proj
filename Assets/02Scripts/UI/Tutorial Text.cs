@@ -23,10 +23,10 @@ public class TutorialText : LanguageConverter
 
     private void MouseON()
     {
-        TextID = clickONTextID;
+        ChangeText(clickONTextID);
     }
     private void MouseOFF(Vector2 vec, float f)
     {
-        TextID = clickOFFTextID;
+        ChangeText(clickOFFTextID);
     }
 }

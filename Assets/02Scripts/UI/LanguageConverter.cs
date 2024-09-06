@@ -9,15 +9,23 @@ public class LanguageConverter : MonoBehaviour
 {
     [SerializeField]
     private int textID;
-    public int TextID
+    [SerializeField]
+    private string addText; 
+
+    public void ChangeText(int textID)
     {
-        get => textID;
-        set
-        {
-            textID = value;
-            SetText();
-        }
+        this.textID = textID;
+
+        SetText();
     }
+    public void ChangeText(int textID, string addText)
+    {
+        this.textID = textID;
+        this.addText = addText;
+
+        SetText();
+    }
+
 
     private void Awake()
     {
@@ -31,6 +39,6 @@ public class LanguageConverter : MonoBehaviour
 
     private void SetText()
     {
-        GetComponent<TMP_Text>().text = GameManager.Inst.GetInteractionText(textID);
+        GetComponent<TMP_Text>().text = GameManager.Inst.GetInteractionText(textID) + addText;
     }
 }

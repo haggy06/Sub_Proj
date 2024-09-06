@@ -22,13 +22,17 @@ public abstract class DoorInteract : DetectionBase
         }
     }
 
+    protected bool doorLocked = false;
     protected bool isComplete = false;
+
     private Transform lattice;
     private AudioSource openSound;
     protected virtual void Awake()
     {
         lattice = transform.GetChild(0).GetChild(0);
+
         openSound = GetComponent<AudioSource>();
+        PopupManager.PauseEvent += (value) => openSound.pitch = value ? 0f : 1f;
 
         Progress = 0f;
     }
@@ -40,12 +44,12 @@ public abstract class DoorInteract : DetectionBase
 
     protected override void DetectionStart()
     {
-        if (progress < 1f)
+        if (!doorLocked && progress < 1f)
             StartCoroutine("DoorOpenCoroutine");
     }
     protected override void DetectionEnd()
     {
-        if (!isComplete)
+        if (!doorLocked && !isComplete)
             StartCoroutine("DoorCloseCoroutine");
     }
 

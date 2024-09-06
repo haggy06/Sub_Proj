@@ -49,6 +49,10 @@ MonoBehaviour:
     text: Pause
   - id: 104003
     text: Setting
+  - id: 104100
+    text: 'Stage '
+  - id: 104101
+    text: Locked
   - id: 201000
     text: Drag Player For Aim
   - id: 201001

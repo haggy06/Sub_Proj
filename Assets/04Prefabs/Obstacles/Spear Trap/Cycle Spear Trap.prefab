@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrigger: 0
   runWhenAwake: 0
-  runSound: {fileID: 0}
+  runSound: {fileID: 8300000, guid: fbfccbfaeeb614c45a8e2e85f55367b8, type: 3}
   runEvent:
     m_PersistentCalls:
       m_Calls:
@@ -163,7 +163,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  stopSound: {fileID: 0}
+  stopSound: {fileID: 8300000, guid: a1d4d8f3f8f84c140a27e66a43217816, type: 3}
   stopEvent:
     m_PersistentCalls:
       m_Calls:

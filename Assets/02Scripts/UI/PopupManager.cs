@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
 using TMPro;
 using System.Runtime.CompilerServices;
+using System;
 
 public class PopupManager : Singleton<PopupManager>
 {
@@ -146,9 +147,11 @@ public class PopupManager : Singleton<PopupManager>
         });
         #endregion
     }
+
+    private const float MinimapMaxSize = 0.9f;
     private void SetMinimapSize(float size)
     {
-        popupList[(int)Popup.Minimap].transform.localScale = new Vector2(size, size);
+        popupList[(int)Popup.Minimap].transform.localScale = Vector2.one * (size * 0.9f);
     }
 
     private IEnumerator GameOver()
@@ -234,17 +237,22 @@ public class PopupManager : Singleton<PopupManager>
     }
     #endregion
 
-    #region _PopupOpen_
+    #region _PopupOpen/Close_
     public void PopupOpen(Popup targetPopup)
     {
         popupList[(int)targetPopup].PopupOpen();
+        if (targetPopup == Popup.Pause)
+            PauseEvent.Invoke(true);
     }
     public void PopupClose(Popup targetPopup)
     {
         popupList[(int)targetPopup].PopupClose();
+        PauseEvent.Invoke(false);
     }
+
+    public static event Action<bool> PauseEvent = (value) => Time.timeScale = value ? 0f : 1f;
     #endregion
-    public void SetPause(bool isOn)
+    public void SetPause(bool isOn) // 일시정지 창의 버튼 구조를 수정하는 메소드
     {
         retryButton.SetActive(isOn);
         menuButton.SetActive(isOn && GameManager.Inst.GetClearInfo(0).stageClear);

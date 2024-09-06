@@ -49,6 +49,10 @@ MonoBehaviour:
     text: "\uC77C\uC2DC \uC815\uC9C0"
   - id: 104003
     text: "\uC124\uC815"
+  - id: 104100
+    text: "\uC2A4\uD14C\uC774\uC9C0 "
+  - id: 104101
+    text: "\uC7A0\uAE40"
   - id: 201000
     text: "\uD50C\uB808\uC774\uC5B4\uB97C \uB4DC\uB798\uADF8\uD574 \uC870\uC900"
   - id: 201001
