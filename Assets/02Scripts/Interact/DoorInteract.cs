@@ -32,9 +32,17 @@ public abstract class DoorInteract : DetectionBase
         lattice = transform.GetChild(0).GetChild(0);
 
         openSound = GetComponent<AudioSource>();
-        PopupManager.PauseEvent += (value) => openSound.pitch = value ? 0f : 1f;
+        PopupManager.PauseEvent += AudioPause;                         
 
         Progress = 0f;
+    }
+    private void OnDestroy()
+    {
+        PopupManager.PauseEvent -= AudioPause;
+    }
+    private void AudioPause(bool isPaused)
+    {
+        openSound.pitch = isPaused ? 0f : 1f;
     }
 
     protected override void HitGround(string tag)

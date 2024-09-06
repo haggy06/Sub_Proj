@@ -31,10 +31,6 @@ public class DetectionBase : MonoBehaviour
         }
     }
 
-    protected virtual void OnDestroy()
-    {
-        StopCoroutine("ParticleDetectionCoolDown");
-    }
     private void OnParticleCollision(GameObject other)
     {
         EnterLogic(other, true);

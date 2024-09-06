@@ -360,7 +360,7 @@ public static class CustomColor
 {
     public static readonly Color zero = new Color(0f, 0f, 0f, 0f);
 
-    public static readonly Color acidDamageColor = new Color(0f, 0.1f, 0.05f, 1f);
-    public static readonly Color fireDamageColor = new Color(0.3f, 0.3f, 0.3f, 0.5f);
+    public static readonly Color acidDamageColor = new Color(0f, 0.15f, 0.05f, 1f);
+    public static readonly Color fireDamageColor = new Color(0.15f, 0f, 0f, 1f);
 
 }

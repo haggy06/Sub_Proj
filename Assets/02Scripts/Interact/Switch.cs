@@ -60,10 +60,12 @@ public class Switch : DetectionBase
             if (!on) // 꺼져 있었을 경우
             {
                 ON = true;
+                GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, "Switch_ON");
             }
             else // 켜져 있었을 경우
             {
                 ON = false;
+                GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, "Switch_OFF");
             }
 
             if (oneInteract) // 일회성 스위치일 경우

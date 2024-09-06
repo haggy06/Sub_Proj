@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialColor: {r: 1, g: 1, b: 1, a: 1}
+  initialSound: {fileID: 0}
   useAutoReturn: 1
   lifeTime: 3
   isIndependent: 1
@@ -375,8 +376,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.4438857, g: 0.5377358, b: 0.49176842, a: 1}
-      maxColor: {r: 0.41295835, g: 0.6037736, b: 0.4430871, a: 1}
+      minColor: {r: 0.28130656, g: 0.34117648, b: 0.086274505, a: 1}
+      maxColor: {r: 0.7294118, g: 0.58062416, b: 0.1254902, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -5184,8 +5185,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.19824672, g: 0.31132078, b: 0.25180814, a: 0.39215687}
-      maxColor: {r: 0.25307047, g: 0.4433962, b: 0.28542587, a: 0.39215687}
+      minColor: {r: 0.22423197, g: 0.30980393, b: 0.2, a: 0.39215687}
+      maxColor: {r: 0.39663598, g: 0.44313726, b: 0.25490198, a: 0.39215687}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
