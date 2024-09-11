@@ -36,8 +36,6 @@ public class GameManager : Singleton<GameManager>
             {
                 PopupManager.Inst.SetPause(false);
                 PopupManager.Inst.SetForStageSelect();
-
-                PlayerController.Inst.transform.position = stageInfo.doorPosition;
             }
         }
         else // 이외의 씬의 경우
@@ -319,7 +317,7 @@ public class GameManager : Singleton<GameManager>
     {
         stageInfo = info;
 
-        PlayerController.Inst.transform.position = info.startPosition;
+        PlayerController.Inst.transform.position = info.startPosition.position + Vector3.up * 0.6f;
     }
     private IEnumerator TimerStart()
     {

@@ -40,7 +40,7 @@ public class Attack : DetectionBase
     {
         base.DetectionStart();
 
-        if (targetTag == Tag.Player)
+        if (targetTag == Tag.Player && GameManager.Inst.GameStatus != GameStatus.GameClear)
         {
             GameManager.Inst.ChangeGameStatus(GameStatus.GameOver, this);
             PlayerController.Inst.DamageInteract(this);

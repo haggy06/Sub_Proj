@@ -18,6 +18,18 @@ EditorBuildSettings:
     path: Assets/01Scenes/Stages/Tutorial.unity
     guid: c477a80fc63104b499815682aa6ba7ed
   - enabled: 1
+    path: Assets/01Scenes/Stages/Stage2.unity
+    guid: 5d5de2e0fd1de7a41a81c5fb8420cd00
+  - enabled: 1
+    path: Assets/01Scenes/Stages/Stage3.unity
+    guid: 3deef47907fab6d449fdf593505a75b0
+  - enabled: 1
+    path: Assets/01Scenes/Stages/Stage4.unity
+    guid: 83f2e5f9c01fc954d98993ef4914d3e7
+  - enabled: 1
+    path: Assets/01Scenes/Stages/Stage5.unity
+    guid: 5ac62be957d202c4090127957bd337b4
+  - enabled: 1
     path: Assets/01Scenes/Stages/TestScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

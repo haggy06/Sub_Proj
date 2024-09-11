@@ -171,25 +171,45 @@ public class PopupManager : Singleton<PopupManager>
 
         yield return YieldReturn.WaitForSeconds(1f);
 
+        jewelryStar.enabled = jewelryCheck.enabled = timeStar.enabled = timeCheck.enabled = jumpStar.enabled = jumpCheck.enabled = false;
         popupList[(int)Popup.GameClear].PopupOpen();
 
-        yield return YieldReturn.WaitForSeconds(0.75f);
+        AudioClip clip = ResourceLoader.AudioLoad(FolderName.Ect, "Stamp");
 
-        jewelryCheck.enabled = GameManager.Inst.IsJewelryGet; // 보석을 얻었을 경우 체크 ON
+        if (GameManager.Inst.IsJewelryGet) // 보석을 얻었을 경우 
+        {
+            yield return YieldReturn.WaitForSeconds(0.75f);
 
-        yield return YieldReturn.WaitForSeconds(0.75f);
+            jewelryCheck.enabled = true;
+            EffectManager.Inst.PlaySFX(clip);
+        }
 
-        timeCheck.enabled = GameManager.Inst.Time <= GameManager.Inst.StageInfo.goalTime; // 목표시간 내로 들어왔을 경우 체크 ON
+        if (GameManager.Inst.Time <= GameManager.Inst.StageInfo.goalTime) // 목표시간 내로 들어왔을 경우
+        {
+            yield return YieldReturn.WaitForSeconds(0.75f);
 
-        yield return YieldReturn.WaitForSeconds(0.75f);
+            timeCheck.enabled = true;
+            EffectManager.Inst.PlaySFX(clip);
+        }
 
-        jumpCheck.enabled = GameManager.Inst.JumpCount <= GameManager.Inst.StageInfo.goalJumpCount; // 목표 점프 횟수 내로 클리어했을 경우 체크 ON
+        if (GameManager.Inst.JumpCount <= GameManager.Inst.StageInfo.goalJumpCount) // 목표 점프 횟수 내로 클리어했을 경우
+        {
+            yield return YieldReturn.WaitForSeconds(0.75f);
 
-        yield return YieldReturn.WaitForSeconds(1.25f);
+            jumpCheck.enabled = true;
+            EffectManager.Inst.PlaySFX(clip);
+        }
 
-        jewelryStar.enabled = jewelryCheck.enabled;
-        timeStar.enabled = timeCheck.enabled;
-        jumpStar.enabled = jumpCheck.enabled;
+        if (jewelryCheck.enabled || timeCheck.enabled || jumpCheck.enabled)
+        {
+            yield return YieldReturn.WaitForSeconds(1.25f);
+
+            jewelryStar.enabled = jewelryCheck.enabled;
+            timeStar.enabled = timeCheck.enabled;
+            jumpStar.enabled = jumpCheck.enabled;
+
+            EffectManager.Inst.PlaySFX(clip);
+        }
     }
 
     public void AllPopupClose()

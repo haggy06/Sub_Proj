@@ -34,15 +34,5 @@ public struct StageInfo
     public int goalTime;
     public int goalJumpCount;
 
-    public Vector2 doorPosition;
-    public Vector2 startPosition;
-
-    public StageInfo(int goalTime = 60, int goalJumpCount = 5, Vector2 doorPosition = new Vector2(), Vector2 startPosition = new Vector2())
-    {
-        this.goalTime = goalTime;
-        this.goalJumpCount = goalJumpCount;
-
-        this.doorPosition = doorPosition;
-        this.startPosition = startPosition;
-    }
+    public Transform startPosition;
 }

@@ -11,8 +11,7 @@ public class Jewelry : DetectionBase
 
     protected override void DetectionStart()
     {
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<Collider2D>().enabled = false;
+        gameObject.SetActive(false);
 
         EffectManager.Inst.PlayParticle(ParticleType.Gem, transform);
 

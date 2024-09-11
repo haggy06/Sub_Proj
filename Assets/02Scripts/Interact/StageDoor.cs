@@ -25,9 +25,13 @@ public class StageDoor : DoorInteract
     {
         base.Awake();
 
+        if (GameManager.Inst.StageIndex == stageIndex)
+            PlayerController.Inst.transform.position = transform.position + new Vector3(2f, 0.6f, 0f);
+
         StageClearInfo clearInfo = GameManager.Inst.GetClearInfo(stageIndex);
         text = GetComponentInChildren<LanguageConverter>();
-        
+
+        #region _Stage Popup Setting_
         if (stageIndex == 0 || GameManager.Inst.GetClearInfo(stageIndex - 1).stageClear) // 첫 스테이지거나 전 스테이지를 클리어했을 경우
         {
             text.ChangeText(104100, (stageIndex + 1).ToString());
@@ -55,6 +59,7 @@ public class StageDoor : DoorInteract
             Stars.GetChild(1).GetComponent<SpriteRenderer>().color = clearInfo.timeClear ? Color.yellow : transparent;
             Stars.GetChild(2).GetComponent<SpriteRenderer>().color = clearInfo.jumpClear ? Color.yellow : transparent;
         }
+        #endregion
 
         infoBackground.localScale = Vector2.zero;
     }
