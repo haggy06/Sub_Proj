@@ -6,6 +6,7 @@ public class GameStartButton : SceneMoveButton
 {
     private void Awake()
     {
+        GameManager.Inst.StageIndex = 0;
         SetTargetScene();
     }
 

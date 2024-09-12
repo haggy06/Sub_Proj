@@ -35514,7 +35514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: 5
   obstacleType: 3
-  obstacleID: 2010
+  obstacleID: 2011
   velocityImpulse: 1
   hitKnockback: {x: 0, y: -1}
   gravityScale: 0
@@ -35653,7 +35653,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrigger: 0
   runWhenAwake: 0
-  runSound: {fileID: 0}
+  runSound: {fileID: 8300000, guid: 805fa5088d13a2a4a9ae628463b92d94, type: 3}
   runEvent:
     m_PersistentCalls:
       m_Calls:
@@ -81925,7 +81925,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: 5
   obstacleType: 3
-  obstacleID: 2010
+  obstacleID: 2011
   velocityImpulse: 1
   hitKnockback: {x: 0, y: -1}
   gravityScale: 0
@@ -131771,7 +131771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isTrigger: 0
   runWhenAwake: 0
-  runSound: {fileID: 0}
+  runSound: {fileID: 8300000, guid: 805fa5088d13a2a4a9ae628463b92d94, type: 3}
   runEvent:
     m_PersistentCalls:
       m_Calls:

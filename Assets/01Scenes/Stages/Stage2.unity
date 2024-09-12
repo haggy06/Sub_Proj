@@ -19730,7 +19730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2689647712341186995, guid: d5f5a069c0b63e64ca4d06c82bf1884f, type: 3}
       propertyPath: stageInfo.goalJumpCount
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2933203095102784879, guid: d5f5a069c0b63e64ca4d06c82bf1884f, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x

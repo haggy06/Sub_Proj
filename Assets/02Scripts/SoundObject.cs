@@ -34,7 +34,7 @@ public class SoundObject : EffectObject
     public override void Init(Transform owner, float rotation)
     {
         base.Init(owner, rotation);
-        
+        audioSource.pitch = 1f;
     }
 
     public override void Clear()

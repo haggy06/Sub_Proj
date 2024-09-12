@@ -121,7 +121,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4263251387949056565}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8039552980784265741, guid: f31540dc0d8b47b4883e78895285eb43, type: 3}
+        m_TargetAssemblyTypeName: PopupManager, Assembly-CSharp
+        m_MethodName: ButtonClickSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &232300588152750560
 MonoBehaviour:
   m_ObjectHideFlags: 0

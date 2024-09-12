@@ -34,20 +34,17 @@ public class Switch : DetectionBase
 
     private void Awake()
     {
-        string fileName = null;
         if (on) // 시작 이벤트 실행
         {
             interactON.Invoke();
 
-            fileName = "Switch_ON";
-            GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, fileName);
+            GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, "Switch_ON");
         }
         else
         {
             interactOFF.Invoke();
 
-            fileName = "Switch_OFF";
-            GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, fileName);
+            GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, "Switch_OFF");
         }
     }
     protected override void DetectionEnd()
@@ -64,27 +61,20 @@ public class Switch : DetectionBase
     {
         if (interactable)
         {
-            string fileName = null;
-            AudioClip clip = null;
-
             if (!on) // 꺼져 있었을 경우
             {
                 ON = true;
 
-                fileName = "Switch_ON";
-                GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, fileName);
-                clip = ResourceLoader.AudioLoad(FolderName.Ect, fileName);
+                GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, "Switch_ON");
             }
             else // 켜져 있었을 경우
             {
                 ON = false;
 
-                fileName = "Switch_OFF";
-                GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, fileName);
-                clip = ResourceLoader.AudioLoad(FolderName.Ect, fileName);
+                GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, "Switch_OFF");
             }
 
-            EffectManager.Inst.PlaySFX(clip, transform);
+            EffectManager.Inst.PlaySFX(ResourceLoader.AudioLoad(FolderName.Ect, "Switch"), transform);
 
             if (oneInteract) // 일회성 스위치일 경우
             {

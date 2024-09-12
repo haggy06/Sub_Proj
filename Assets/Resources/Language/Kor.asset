@@ -25,6 +25,10 @@ MonoBehaviour:
     text: "\uD50C\uB808\uC774"
   - id: 101005
     text: "\uD0C0\uC774\uD2C0"
+  - id: 101006
+    text: "\uC608"
+  - id: 101007
+    text: "\uC544\uB2C8\uC624"
   - id: 102000
     text: "\uC5B8\uC5B4"
   - id: 102001
@@ -53,6 +57,12 @@ MonoBehaviour:
     text: "\uC2A4\uD14C\uC774\uC9C0 "
   - id: 104101
     text: "\uC7A0\uAE40"
+  - id: 104200
+    text: "\uCD08\uAE30\uD654"
+  - id: 104201
+    text: "\uC885\uB8CC"
+  - id: 104202
+    text: "\uAC8C\uC784\uC744 \uCD08\uAE30\uD654\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
   - id: 201000
     text: "\uD50C\uB808\uC774\uC5B4\uB97C \uB4DC\uB798\uADF8\uD574 \uC870\uC900"
   - id: 201001
@@ -78,6 +88,9 @@ MonoBehaviour:
   - id: 1004
     name: "\uAFF0\uB6AB\uB9BC"
     explain: "\uD1B5\uD48D\uC774 \uC798 \uB418\uB294 \uAE30\uBD84\uC774\uB2E4."
+  - id: 1005
+    name: "\uCC14\uB9BC"
+    explain: "\uC628\uBAB8\uC5D0 \uAC00\uC2DC\uAC00 \uBC15\uD614\uB2E4."
   - id: 2000
     name: "\uB179\uC544\uB0B4\uB9BC"
     explain: "\uC5FC\uC0B0\uC740\u2026 \uC2E0\uB9DB\uC774 \uB09C\uB2E4."

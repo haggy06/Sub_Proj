@@ -13,6 +13,8 @@ public class GameManager : Singleton<GameManager>
     private AudioMixer audioMixer;
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
+        Time.timeScale = 1f;
+
         StopCoroutine("TimerStart");
         PopupManager.Inst.AllPopupClose();
 
@@ -23,19 +25,16 @@ public class GameManager : Singleton<GameManager>
 
             gameStatus = GameStatus.Play;
             IsJewelryGet = false; // 보석 체크 숨김
-            PopupManager.Inst.PopupOpen(Popup.Ingame); // 인게임 UI 오픈
 
             if (newScene.buildIndex > (int)SCENE.StageSelect) // 스테이지 내부일 경우
             {
-                PopupManager.Inst.SetPause(true);
-                PopupManager.Inst.PopupOpen(Popup.Minimap); // 미니맵 오픈
-
                 StartCoroutine("TimerStart");
+
+                EffectManager.Inst.ChangeBGM((ResourceLoader.AudioLoad(FolderName.BGM, "Stage")));
             }
             else // 스테이지 선택창일 경우
             {
-                PopupManager.Inst.SetPause(false);
-                PopupManager.Inst.SetForStageSelect();
+                EffectManager.Inst.ChangeBGM((ResourceLoader.AudioLoad(FolderName.BGM, "Lobby")));
             }
         }
         else // 이외의 씬의 경우
@@ -43,6 +42,9 @@ public class GameManager : Singleton<GameManager>
             PlayerController.Inst.gameObject.SetActive(false);
 
             gameStatus = GameStatus.None;
+
+            if (newScene.buildIndex == (int)SCENE.Title)
+                EffectManager.Inst.ChangeBGM((ResourceLoader.AudioLoad(FolderName.BGM, "Title")));
         }
     }
 
@@ -274,15 +276,15 @@ public class GameManager : Singleton<GameManager>
     private StageInfo stageInfo;
     public StageInfo StageInfo => stageInfo;
 
-    private int time = 0;
-    public int Time
+    private int _time = 0;
+    public int time
     {
-        get => time;
+        get => _time;
         private set
         {
-            time = value;
-            PopupManager.Inst.SetTimer(time);
-            if (time >= 5999) // 시간이 99분 59초 이상 흘렀을 경우
+            _time = value;
+            PopupManager.Inst.SetTimer(_time);
+            if (_time >= 5999) // 시간이 99분 59초 이상 흘렀을 경우
             {
 
             }
@@ -321,12 +323,12 @@ public class GameManager : Singleton<GameManager>
     }
     private IEnumerator TimerStart()
     {
-        JumpCount = Time = 0;
+        JumpCount = time = 0;
 
         yield return YieldReturn.WaitForSeconds(1f); // 시작하자마자 1초가 느는 걸 막기 위함
         do
         {
-            Time++;
+            time++;
 
             yield return YieldReturn.WaitForSeconds(1f);
         }
@@ -380,10 +382,11 @@ public class GameManager : Singleton<GameManager>
                 GameStartEvent.Invoke();
                 break;
             case GameStatus.GameOver:
+                EffectManager.Inst.ChangeBGM(null);
                 GameOverEvent.Invoke(obstacle);
                 break;
             case GameStatus.GameClear:
-                GameClearEvent.Invoke(isJewelryGet, time <= stageInfo.goalTime, jumpCount <= stageInfo.goalJumpCount);
+                GameClearEvent.Invoke(isJewelryGet, _time <= stageInfo.goalTime, jumpCount <= stageInfo.goalJumpCount);
                 break;
             default:
                 break;

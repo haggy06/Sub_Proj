@@ -18,6 +18,22 @@ public class PopupManager : Singleton<PopupManager>
         StopCoroutine("GameClear");
         jewelryCheck.enabled = timeCheck.enabled = jumpCheck.enabled = false;
         jewelryStar.enabled = timeStar.enabled = jumpStar.enabled = false;
+
+        if (newScene.buildIndex >= (int)SCENE.StageSelect) // 플레이어가 존재하는 씬일 경우
+        {
+            PopupOpen(Popup.Ingame); // 인게임 UI 오픈
+
+            if (newScene.buildIndex > (int)SCENE.StageSelect) // 스테이지 내부일 경우
+            {
+                SetPause(true);
+                PopupOpen(Popup.Minimap); // 미니맵 오픈
+            }
+            else // 스테이지 선택창일 경우
+            {
+                SetPause(false);
+                SetForStageSelect();
+            }
+        }
     }
 
     [SerializeField, Tooltip("enum.Popup에 맞춰 PopupBase 삽입")]
@@ -95,6 +111,8 @@ public class PopupManager : Singleton<PopupManager>
     {
         GetComponent<Canvas>().worldCamera = Camera.main;
 
+        SceneChanged(new Scene(), SceneManager.GetActiveScene());
+
         #region _GameManager Event Setting_
         GameManager.GameOverEvent += (obstacle) =>
         {
@@ -147,6 +165,10 @@ public class PopupManager : Singleton<PopupManager>
         });
         #endregion
     }
+    public void ButtonClickSound()
+    {
+        EffectManager.Inst.PlaySFX(ResourceLoader.AudioLoad(FolderName.Ect, "Button"));
+    }
 
     private const float MinimapMaxSize = 0.9f;
     private void SetMinimapSize(float size)
@@ -184,7 +206,7 @@ public class PopupManager : Singleton<PopupManager>
             EffectManager.Inst.PlaySFX(clip);
         }
 
-        if (GameManager.Inst.Time <= GameManager.Inst.StageInfo.goalTime) // 목표시간 내로 들어왔을 경우
+        if (GameManager.Inst.time <= GameManager.Inst.StageInfo.goalTime) // 목표시간 내로 들어왔을 경우
         {
             yield return YieldReturn.WaitForSeconds(0.75f);
 
@@ -242,7 +264,7 @@ public class PopupManager : Singleton<PopupManager>
         jewelryGetMark.enabled = isjewelryGet;
     }
 
-    public void SetForStageSelect()
+    private void SetForStageSelect()
     {
         jewelryGetMark.enabled = false;
 
@@ -262,17 +284,21 @@ public class PopupManager : Singleton<PopupManager>
     {
         popupList[(int)targetPopup].PopupOpen();
         if (targetPopup == Popup.Pause)
+        {
             PauseEvent.Invoke(true);
+            ButtonClickSound(); // 이떄는 일시정지 떄문에 버튼 클릴음이 한 번 씹히기 때문에일시정지 후 한번 더 재생
+        }
     }
     public void PopupClose(Popup targetPopup)
     {
         popupList[(int)targetPopup].PopupClose();
-        PauseEvent.Invoke(false);
+        if (targetPopup == Popup.Pause)
+            PauseEvent.Invoke(false);
     }
 
     public static event Action<bool> PauseEvent = (value) => Time.timeScale = value ? 0f : 1f;
     #endregion
-    public void SetPause(bool isOn) // 일시정지 창의 버튼 구조를 수정하는 메소드
+    private void SetPause(bool isOn) // 일시정지 창의 버튼 구조를 수정하는 메소드
     {
         retryButton.SetActive(isOn);
         menuButton.SetActive(isOn && GameManager.Inst.GetClearInfo(0).stageClear);

@@ -69,7 +69,18 @@ public class EffectManager : Singleton<EffectManager>
     }
     public void ChangeBGM(AudioClip bgm, bool useFade = true)
     {
-        if (!bgm || BGM == bgm) // 곡이 없거나 같은 곡일 경우
+        if (!bgm) // 곡이 없을 경우
+        {
+            if (useFade)
+                LeanTween.value(1f, 0.5f, bgmFade).setOnUpdate(ChangeVolume).setOnComplete(()=>
+                {
+                    bgmSpeaker.clip = null;
+                    bgmSpeaker.Stop();
+                });
+
+            return;
+        }
+        else if (BGM == bgm) // 같은 곡일 경우
             return;
 
         BGM = bgm;

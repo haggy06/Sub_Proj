@@ -25,6 +25,10 @@ MonoBehaviour:
     text: Play
   - id: 101005
     text: Title
+  - id: 101006
+    text: Yes
+  - id: 101007
+    text: No
   - id: 102000
     text: Language
   - id: 102001
@@ -53,6 +57,12 @@ MonoBehaviour:
     text: 'Stage '
   - id: 104101
     text: Locked
+  - id: 104200
+    text: Reset
+  - id: 104201
+    text: Quit
+  - id: 104202
+    text: Do you want to reset the game?
   - id: 201000
     text: Drag Player For Aim
   - id: 201001
@@ -77,6 +87,9 @@ MonoBehaviour:
   - id: 1004
     name: Penetration
     explain: I feel very airy.
+  - id: 1005
+    name: Pricked
+    explain: Stuck thorns all over my body.
   - id: 2000
     name: Melt
     explain: "acid\u2026 taste sour."

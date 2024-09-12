@@ -374,7 +374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTag: 5
   obstacleType: 4
-  obstacleID: 1004
+  obstacleID: 1005
   velocityImpulse: 1
   hitKnockback: {x: 8, y: 8}
   gravityScale: 3
