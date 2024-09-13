@@ -213,13 +213,13 @@ public class PlayerController : Singleton<PlayerController>
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        GeoundCollision(collision);
+        GroundCollision(collision);
     }
     private void OnCollisionStay2D(Collision2D collision) // 속도가 빠르거나 벽에 붙어 점프하는 등 특정 상황에서 벽에 튕기지 않는 상황을 방지하기 위함.
     {
-        GeoundCollision(collision);
+        GroundCollision(collision);
     }
-    private void GeoundCollision(Collision2D collision)
+    private void GroundCollision(Collision2D collision)
     {
         if (collision.gameObject.layer == (int)LAYER.Ground) // 지형 충돌일 경우
         {
