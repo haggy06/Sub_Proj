@@ -19,12 +19,12 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                 if (instance == null) // 씬 내에 아예 인스턴스가 없을 경우
                 try
                 {
-                    T inst = Instantiate(ResourceLoader.PrefabLoad(typeof(T).Name).GetComponent<T>()); // Resources 폴더에서 개체 소환
+                    T inst = Instantiate(ResourceLoader<GameObject>.ResourceLoad(FolderName.Singleton, typeof(T).Name).GetComponent<T>()); // Resources 폴더에서 개체 소환
                     instance = inst;
                 }
                 catch (NullReferenceException) // 로드에 실패했을 경우
                 {
-                    Debug.LogError(typeof(T).Name + " 로드에 실패함. Resources/MonoSingletons 폴더에 " + typeof(T).Name + "이라는 프리팹이 있는지 확인해주세요.");
+                    Debug.LogError(typeof(T).Name + " 로드에 실패함. Resources/GameObject/Singleton 폴더에 " + typeof(T).Name + "이라는 프리팹이 있는지 확인해주세요.");
                     return null;
                 }
             }

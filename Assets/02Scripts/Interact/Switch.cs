@@ -38,13 +38,13 @@ public class Switch : DetectionBase
         {
             interactON.Invoke();
 
-            GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, "Switch_ON");
+            GetComponent<SpriteRenderer>().sprite = ResourceLoader<Sprite>.ResourceLoad(FolderName.Ect, "Switch_ON");
         }
         else
         {
             interactOFF.Invoke();
 
-            GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, "Switch_OFF");
+            GetComponent<SpriteRenderer>().sprite = ResourceLoader<Sprite>.ResourceLoad(FolderName.Ect, "Switch_OFF");
         }
     }
     protected override void DetectionEnd()
@@ -65,16 +65,16 @@ public class Switch : DetectionBase
             {
                 ON = true;
 
-                GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, "Switch_ON");
+                GetComponent<SpriteRenderer>().sprite = ResourceLoader<Sprite>.ResourceLoad(FolderName.Ect, "Switch_ON");
             }
             else // 켜져 있었을 경우
             {
                 ON = false;
 
-                GetComponent<SpriteRenderer>().sprite = ResourceLoader.SpriteLoad(FolderName.Ect, "Switch_OFF");
+                GetComponent<SpriteRenderer>().sprite = ResourceLoader<Sprite>.ResourceLoad(FolderName.Ect, "Switch_OFF");
             }
 
-            EffectManager.Inst.PlaySFX(ResourceLoader.AudioLoad(FolderName.Ect, "Switch"), transform);
+            EffectManager.Inst.PlaySFX(ResourceLoader<AudioClip>.ResourceLoad(FolderName.Ect, "Switch"), transform);
 
             if (oneInteract) // 일회성 스위치일 경우
             {

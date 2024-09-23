@@ -30,11 +30,11 @@ public class GameManager : Singleton<GameManager>
             {
                 StartCoroutine("TimerStart");
 
-                EffectManager.Inst.ChangeBGM((ResourceLoader.AudioLoad(FolderName.BGM, "Stage")));
+                EffectManager.Inst.ChangeBGM((ResourceLoader<AudioClip>.ResourceLoad(FolderName.BGM, "Stage")));
             }
             else // 스테이지 선택창일 경우
             {
-                EffectManager.Inst.ChangeBGM((ResourceLoader.AudioLoad(FolderName.BGM, "Lobby")));
+                EffectManager.Inst.ChangeBGM((ResourceLoader<AudioClip>.ResourceLoad(FolderName.BGM, "Lobby")));
             }
         }
         else // 이외의 씬의 경우
@@ -44,7 +44,7 @@ public class GameManager : Singleton<GameManager>
             gameStatus = GameStatus.None;
 
             if (newScene.buildIndex == (int)SCENE.Title)
-                EffectManager.Inst.ChangeBGM((ResourceLoader.AudioLoad(FolderName.BGM, "Title")));
+                EffectManager.Inst.ChangeBGM((ResourceLoader<AudioClip>.ResourceLoad(FolderName.BGM, "Title")));
         }
     }
 

@@ -167,7 +167,7 @@ public class PopupManager : Singleton<PopupManager>
     }
     public void ButtonClickSound()
     {
-        EffectManager.Inst.PlaySFX(ResourceLoader.AudioLoad(FolderName.Ect, "Button"));
+        EffectManager.Inst.PlaySFX(ResourceLoader<AudioClip>.ResourceLoad(FolderName.Ect, "Button"));
     }
 
     private const float MinimapMaxSize = 0.9f;
@@ -196,7 +196,7 @@ public class PopupManager : Singleton<PopupManager>
         jewelryStar.enabled = jewelryCheck.enabled = timeStar.enabled = timeCheck.enabled = jumpStar.enabled = jumpCheck.enabled = false;
         popupList[(int)Popup.GameClear].PopupOpen();
 
-        AudioClip clip = ResourceLoader.AudioLoad(FolderName.Ect, "Stamp");
+        AudioClip clip = ResourceLoader<AudioClip>.ResourceLoad(FolderName.Ect, "Stamp");
 
         if (GameManager.Inst.IsJewelryGet) // 보석을 얻었을 경우 
         {

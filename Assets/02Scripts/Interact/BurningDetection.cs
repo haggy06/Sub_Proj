@@ -59,7 +59,7 @@ public class BurningDetection : DetectionBase
 
         StartCoroutine("FireSpread");
         fireParticle = EffectManager.Inst.PlayParticle(ParticleType.Fire, transform);
-        fireSound = EffectManager.Inst.PlaySFX(ResourceLoader.AudioLoad(FolderName.Death, ParticleType.Fire.ToString()));
+        fireSound = EffectManager.Inst.PlaySFX(ResourceLoader<AudioClip>.ResourceLoad(FolderName.Death, ParticleType.Fire.ToString()));
 
         if (isBurnOut)
             burnTweenID = LeanTween.color(gameObject, Color.black, burningTime).setOnComplete(BurnOut).id;
