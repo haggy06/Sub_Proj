@@ -13,6 +13,7 @@ public class PopupManager : Singleton<PopupManager>
 {
     protected override void SceneChanged(Scene replacedScene, Scene newScene)
     {
+        AllPopupClose();
         GetComponent<Canvas>().worldCamera = Camera.main;
 
         StopCoroutine("GameClear");
@@ -33,6 +34,10 @@ public class PopupManager : Singleton<PopupManager>
                 SetPause(false);
                 SetForStageSelect();
             }
+        }
+        else if (newScene.buildIndex >= (int)SCENE.Title)
+        {
+            popupList[(int)Popup.Title].PopupShow();
         }
     }
 
@@ -236,6 +241,7 @@ public class PopupManager : Singleton<PopupManager>
 
     public void AllPopupClose()
     {
+        popupList[(int)Popup.Title].PopupHide();
         popupList[(int)Popup.Screen].PopupShow(); // 스크린 팝업은 예외적으로 켬.
         popupList[(int)Popup.Minimap].PopupHide();
 
@@ -314,6 +320,7 @@ public enum Popup
     GameClear,
     Pause,
     Setting,
-    Fade,
+    Title,
 
+    Fade
 }

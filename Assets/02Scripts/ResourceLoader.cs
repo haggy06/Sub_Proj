@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using System;
 using System.IO;
 using UnityEngine.WSA;
 using Unity.VisualScripting;
 
-public static class ResourceLoader<T> where T : Object
+public static class ResourceLoader<T> where T : UnityEngine.Object
 {
-    private static Dictionary<KeyValuePair<FolderName, string>, T> resourceCache = new Dictionary<KeyValuePair<FolderName, string>, T>(); // 불러온 리소스  
+    private static Dictionary<Tuple<FolderName, string>, T> resourceCache = new Dictionary<Tuple<FolderName, string>, T>(); // 불러온 리소스  
     public static T ResourceLoad(FolderName folder, string resourceName)
     {
         T value;
-        KeyValuePair<FolderName, string> key = new KeyValuePair<FolderName, string>(folder, resourceName);
+        Tuple<FolderName, string> key = new Tuple<FolderName, string>(folder, resourceName);
 
         if (!resourceCache.TryGetValue(key, out value)) // 캐싱된 리소스가 있을 경우 불러옴
         { // 캐싱된 리소스가 없을 경우

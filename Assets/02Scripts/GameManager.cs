@@ -16,7 +16,6 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 1f;
 
         StopCoroutine("TimerStart");
-        PopupManager.Inst.AllPopupClose();
 
         if (newScene.buildIndex >= (int)SCENE.StageSelect) // 플레이어가 존재하는 씬일 경우
         {
